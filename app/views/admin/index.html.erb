@@ -1,0 +1,117 @@
+<div id="preloader"> <i class="fa fa-spinner fa-spin"></i></div>
+
+<div class="container-fluid" id="admin-panel" >
+	<h2>Product Lists</h2>
+	<table id="product-table">
+		<thead>
+			<tr>
+				<th><input type="checkbox" class="checkbox select-all" ></th>
+				<th>Name</th>
+				<th width="25%">Image</th>
+				<th>Weight</th>
+				<th>Count of Sales</th>
+			</tr>
+		</thead>
+		<tfoot>
+			<tr>
+				<th><input type="checkbox" class="checkbox select-all" ></th>
+				<th>Name</th>
+				<th>Image</th>
+				<th>Weight</th>
+				<th>Count of Sales</th>
+			</tr>
+			<tr>
+				<th colspan="7" class="ts-pager form-inline">
+					<div class="btn-group btn-group-sm" role="group">
+						<button type="button" class="btn btn-default first"><span class="glyphicon glyphicon-step-backward"></span></button>
+						<button type="button" class="btn btn-default prev"><span class="glyphicon glyphicon-backward"></span></button>
+					</div>
+					<span class="pagedisplay"></span>
+					<div class="btn-group btn-group-sm" role="group">
+						<button type="button" class="btn btn-default next"><span class="glyphicon glyphicon-forward"></span></button>
+						<button type="button" class="btn btn-default last"><span class="glyphicon glyphicon-step-forward"></span></button>
+					</div>
+					<select class="form-control input-sm pagesize" title="Select page size">
+						<option selected="selected" value="10">10</option>
+						<option value="20">20</option>
+						<option value="30">30</option>
+						<option value="all">All Rows</option>
+					</select>
+					<select class="form-control input-sm pagenum" title="Select page number"></select>
+				</th>
+			</tr>
+		</tfoot>
+		<tbody>
+			<% @products.each do |product| %>
+			<tr>
+				<td><input type="checkbox" class="checkbox product-checkbox" data-value="<%= product.to_json %>" ></td>
+				<td><h4 class="text-info"><%= product.title  %> <b><small>( #<%= product.id %> )</small></b></h4></td>
+				<td>
+					<a href="javascript:;" data-toggle="collapse" data-target="#<%= product.id %>" >Show Image</a>
+					<br>
+					<div id="<%= product.id %>" class="collapse">
+						<div id="carousel-<%= product.id %>" class="carousel slide" data-ride="carousel">
+						  <!-- Wrapper for slides -->
+						  <div class="carousel-inner">
+						  	<% product.images.each do |image| %>						  		
+					  			<div class="item <%= "active" if image == product.images.first %>">
+							    	<img src="<%= image.src %>" class="img-responsive product-img" >
+							    </div>				    
+						    <% end %>
+						  </div>
+						  <!-- Left and right controls -->
+						  <a class="left carousel-control" href="#carousel-<%= product.id %>" data-slide="prev">
+						  </a>
+						  <a class="right carousel-control" href="#carousel-<%= product.id %>" data-slide="next">
+						  </a>
+						</div>						
+					</div>					
+				</td>				
+				<td><b><%= product.variants.first.weight %></b> <%= product.variants.first.weight_unit %></td>
+				<td>12</td>
+			</tr>
+			<% end %>						
+		</tbody>
+	</table>
+
+	<hr>
+	<div>
+		<button class="btn btn-primary" id="add-products"><i class="glyphicon glyphicon-download-alt"></i> Add products</button>	
+	</div>	
+	<br><br><br>
+
+	<h2>Products to send to 3PL partners</h2>
+	<hr>
+
+	<table class="table" id="products">
+		<thead>
+			<tr>
+				<th width="15%">Product Image</th>
+				<th>Product ID</th>
+				<th>Product Name</th>
+				<th>Product Weight</th>
+			</tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+
+	<hr>
+	<button class="btn btn-primary" id="send-email"><i class="glyphicon glyphicon-send"></i> Send Emails</button>
+	<hr>
+</div>
+
+<div class="modal fade" id="alertModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="text-info"><span class="glyphicon glyphicon-info-sign"></span> Information</h4>
+        </div>
+        <div class="modal-body">
+          <div class="alert alert-info">There is no selected products. Please select at least one product.</div>
+        </div>
+      </div>
+    </div>
+  </div> 
