@@ -1,0 +1,18 @@
+<nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">3PL - Admin</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="<%= "active" if current_page?(admin_path) %>">
+        <%= link_to 'Dashboard', admin_path %>
+      </li>
+      <li class="<%= "active" unless current_page?(admin_path) %>">
+        <%= link_to 'Setting', partners_path %>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#">Log Out</a></li>
+    </ul>
+  </div>
+</nav>
