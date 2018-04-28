@@ -5,3 +5,6 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+# (1..10).each do |index|
+# 	email = Email.create([{shop_id: 3, products: "product#{index}"}])
+# end

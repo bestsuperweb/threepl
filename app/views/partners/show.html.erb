@@ -1,0 +1,15 @@
+<div class="container">
+	<p>
+	  <strong>Email:</strong>
+	  <%= @partner.email %>
+	</p>
+
+	<p>
+	  <strong>Name:</strong>
+	  <%= @partner.name %>
+	</p>
+
+	<%= link_to 'Edit', edit_partner_path(@partner) %> |
+	<%= link_to 'Back', partners_path %>
+	
+</div>

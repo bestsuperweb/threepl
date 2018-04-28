@@ -1,0 +1,37 @@
+<div class="container dashboard" >
+	<h3 class="text-info">Requests by Shop</h3>
+	<hr>
+	<% @shops.each_with_index do |shop, index| %> 
+		<%= "#{shop.id} - <b>#{shop.shopify_domain}</b> , ".html_safe %> 
+	<% end %>
+	<%= pie_chart @emails.group(:shop_id).count %>
+	<h3 class="text-info">Requests by Time</h3>
+	<hr>
+	<%= area_chart @emails.group_by_day(:created_at).count %>
+	<br><br>
+	<h3 class="text-info">Requests</h3>
+	<hr>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>No</th>
+				<th>User domain</th>
+				<th>Products</th>
+				<th>Partners</th>
+				<th>Date</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @emails.each_with_index do |email, index| %>
+			<tr>
+				<td><%= index+1 %></td>
+				<td><b><%= email.shop.shopify_domain %></b></td>
+				<td><%= email.products %></td>
+				<td><%= email.partners %></td>
+				<td><%= email.created_at.strftime("%b %d, %Y %H:%M")%></td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+	
+</div>

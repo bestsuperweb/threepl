@@ -11,7 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161129202736) do
+ActiveRecord::Schema.define(version: 20180428155941) do
+
+  create_table "emails", force: :cascade do |t|
+    t.text     "products"
+    t.string   "partners"
+    t.integer  "shop_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "emails", ["shop_id"], name: "index_emails_on_shop_id"
+
+  create_table "partners", force: :cascade do |t|
+    t.string   "email"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "shops", force: :cascade do |t|
     t.string   "shopify_domain", null: false

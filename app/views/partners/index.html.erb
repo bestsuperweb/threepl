@@ -1,0 +1,48 @@
+<div class="container dashboard">
+  <h3 class="text-info"><b>3PL Partners</b></h3>
+  <hr>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Email</th>
+        <th>Name</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @partners.each_with_index do |partner, index| %>
+      <tr>
+        <td><%= index+1 %></td>
+        <td><%= partner.email %></td>
+        <td><%= partner.name %></td>
+        <td>
+          <%= link_to '<i class="glyphicon glyphicon-pencil"></i>'.html_safe, edit_partner_path(partner) %>&nbsp;&nbsp;&nbsp;
+          <%= link_to '<i class="glyphicon glyphicon-remove text-danger"></i>'.html_safe, partner, method: :delete, data: { confirm: 'Are you sure?' } %>            
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <hr>
+
+  <%= link_to '<i class="glyphicon glyphicon-plus" ></i> New Partner'.html_safe, new_partner_path, class: 'btn btn-primary btn-sm' %>
+  <br><br>
+
+  <h3 class="text-info">Select Madrill Template</h3>
+  <hr>
+  <select class="form-control">
+    <option>Template 1</option>
+    <option>Template 2</option>
+    <option>Template 3</option>
+    <option>Template 4</option>
+  </select>
+
+  <hr>
+  <button class="btn btn-primary">Save</button>
+  
+</div>
+
