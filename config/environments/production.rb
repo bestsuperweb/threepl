@@ -1,9 +1,9 @@
 Rails.application.configure do
 
-  config.app_path = 'https://ccheckout.herokuapp.com/'
-  config.assets.cdn_path = 'https://ccheckout.herokuapp.com/'
+  config.app_path = 'https://threepartner.herokuapp.com/'
+  config.assets.cdn_path = 'https://threepartner.herokuapp.com/'
   config.assets.api_prefix = '/api/'
-  config.action_controller.asset_host = 'https://ccheckout.herokuapp.com'
+  config.action_controller.asset_host = 'https://threepartner.herokuapp.com'
 
   # config.app_path = 'http://localhost:3000'
   # config.assets.cdn_path = 'http://localhost:8082/dist/'
