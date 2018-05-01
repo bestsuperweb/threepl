@@ -24,6 +24,8 @@ Rails.application.configure do
 
   # DEV
 
+  config.log_level = :info
+
   config.cache_classes = false
   config.eager_load = false
   config.consider_all_requests_local       = true
