@@ -6,7 +6,14 @@ class AdminController < ShopifyApp::AuthenticatedController
   end
 
   def send_eamils
-    
+    products = params[:products]
+    respond_to do |format|
+      if JSON.parse(products).first.nil?
+        format.json { render json: {  status: 'success', message: JSON.parse(products).first } }
+      else
+        format.json { render json: {  status: 'error', message: products.to_s } }
+      end
+    end
   end
 
 end

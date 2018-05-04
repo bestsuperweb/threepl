@@ -116,4 +116,6 @@ div.dashboard{
   display: inline-block;
   color: #3f487f;
 }
-
+table#products i.edit-specs{
+	cursor: pointer;
+}
