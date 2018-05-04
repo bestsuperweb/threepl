@@ -6,12 +6,15 @@ class AdminController < ShopifyApp::AuthenticatedController
   end
 
   def send_eamils
+  	shop = ShopifyAPI::Shop
     products = params[:products]
     respond_to do |format|
     	begin
-    		Partner.all.each do |partner|
-
-    		end
+    		merge_vars = {
+		      "products" => products.to_json,
+		      "shop"	 => shop.domain
+		    }
+    		SendMailer.send_products(merge_vars, shop)
     		format.json { render json: {  status: 'success' } }
     	rescue Exception => e
     		format.json { render json: {  status: 'error' } }
