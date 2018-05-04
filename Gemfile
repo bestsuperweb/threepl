@@ -29,6 +29,7 @@ gem 'jquery-turbolinks'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'chartkick'
 gem 'groupdate'
+gem 'mandrill-api'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
