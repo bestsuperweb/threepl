@@ -14,10 +14,10 @@ class AdminController < ShopifyApp::AuthenticatedController
 		      "products" => products.to_json,
 		      "shop"	 => shop.domain
 		    }
-    		SendMailer.send_products(merge_vars, shop)
+    		SendMailer.send_products(merge_vars, shop.email)
     		format.json { render json: {  status: 'success' } }
     	rescue Exception => e
-    		format.json { render json: {  status: 'error' } }
+    		format.json { render json: {  status: "Error, #{e.to_s}" } }
     	end
     end
   end
