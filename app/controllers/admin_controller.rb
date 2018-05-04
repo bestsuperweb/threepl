@@ -6,7 +6,7 @@ class AdminController < ShopifyApp::AuthenticatedController
   end
 
   def send_eamils
-  	shop = ShopifyAPI::Shop
+  	shop = ShopifyAPI::Shop.current
     products = params[:products]
     respond_to do |format|
     	begin
