@@ -52,19 +52,19 @@
 					<br>
 					<div id="<%= product.id %>" class="collapse">
 						<div id="carousel-<%= product.id %>" class="carousel slide" data-ride="carousel">
-						  <!-- Wrapper for slides -->
-						  <div class="carousel-inner">
-						  	<% product.images.each do |image| %>						  		
-					  			<div class="item <%= "active" if image == product.images.first %>">
-							    	<img src="<%= image.src %>" class="img-responsive product-img" >
-							    </div>				    
-						    <% end %>
-						  </div>
-						  <!-- Left and right controls -->
-						  <a class="left carousel-control" href="#carousel-<%= product.id %>" data-slide="prev">
-						  </a>
-						  <a class="right carousel-control" href="#carousel-<%= product.id %>" data-slide="next">
-						  </a>
+							<!-- Wrapper for slides -->
+							<div class="carousel-inner">
+								<% product.images.each do |image| %>						  		
+								<div class="item <%= "active" if image == product.images.first %>">
+									<img src="<%= image.src %>" class="img-responsive product-img" >
+								</div>				    
+								<% end %>
+							</div>
+							<!-- Left and right controls -->
+							<a class="left carousel-control" href="#carousel-<%= product.id %>" data-slide="prev">
+							</a>
+							<a class="right carousel-control" href="#carousel-<%= product.id %>" data-slide="next">
+							</a>
 						</div>						
 					</div>					
 				</td>				
@@ -89,8 +89,12 @@
 			<tr>
 				<th width="15%">Product Image</th>
 				<th>Product ID</th>
-				<th>Product Name</th>
-				<th>Product Weight</th>
+				<th>Name</th>
+				<th>Weight</th>
+				<th>W x L x H <span class="text-muted">(mm x mm x mm)</span></th>
+				<th>Has Batter?</th>
+				<th>Special Notes</th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody></tbody>
@@ -102,17 +106,61 @@
 </div>
 
 <div class="modal fade" id="alertModal" role="dialog">
-    <div class="modal-dialog modal-sm">
+	<div class="modal-dialog modal-sm">
 
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="text-info"><i class="glyphicon glyphicon-info-sign"></i> Information</h4>
-        </div>
-        <div class="modal-body">
-          <div class="alert">There is no selected products. Please select at least one product.</div>
-        </div>
-      </div>
-    </div>
-  </div> 
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="text-info"><i class="glyphicon glyphicon-info-sign"></i> Information</h4>
+			</div>
+			<div class="modal-body">
+				<div class="alert">There is no selected products. Please select at least one product.</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="specModal" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="text-info">Product Specifications</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label>Weight</label>
+					<input type="number" step=".01" class="form-control" id="weight-input"  >
+				</div>
+				<div class="form-group">
+					<label>Width <span>( mm )</span></label>
+					<input type="number" step=".01" class="form-control" id="width-input" >
+				</div>
+				<div class="form-group">
+					<label>Height <span>( mm )</span></label>
+					<input type="number" step=".01" class="form-control" id="height-input" >
+				</div>
+				<div class="form-group">
+					<label>Length <span>( mm )</span></label>
+					<input type="number" step=".01" class="form-control" id="length-input" >
+				</div>
+				<div class="form-group">
+					<label>Has Battery?</label>
+					<select class="form-control" id="battery-input">
+						<option>No</option>
+						<option>Yes</option>						
+						<option>Not Specified</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label>Special Notes</label>
+					<textarea class="form-control" id="notes-input"></textarea>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary" data-dismiss="modal" id="save-specs">Save</button>
+			</div>
+		</div>
+	</div>
+</div> 

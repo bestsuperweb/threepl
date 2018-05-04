@@ -3,6 +3,10 @@ class AdminController < ShopifyApp::AuthenticatedController
 
   def index
     @products = ShopifyAPI::Product.all
-  end  
+  end
+
+  def send_eamils
+    
+  end
 
 end
