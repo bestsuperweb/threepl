@@ -14,7 +14,7 @@ class AdminController < ShopifyApp::AuthenticatedController
 		      "products" => products.to_json,
 		      "shop"	 => shop.domain
 		    }
-    		SendMailer.send_products(merge_vars, shop.email)
+    		SendMailer.send_products(merge_vars, shop.email).deliver_now
     		format.json { render json: {  status: 'success' } }
     	rescue Exception => e
     		format.json { render json: {  status: "Error, #{e.to_s}" } }
