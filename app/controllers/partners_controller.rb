@@ -1,5 +1,6 @@
 class PartnersController < ApplicationController
   before_action :set_partner, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /partners
   def index
@@ -48,6 +49,16 @@ class PartnersController < ApplicationController
   def dashboard
     @emails = Email.all
     @shops  = Shop.all
+  end
+
+  def save_template
+    template = params[:template]
+    current_user.template = template
+    if current_user.save
+      redirect_to partners_url, notice: 'Template was successfully updated.'
+    else
+      redirect_to partners_url, error: 'There is error to save template.'
+    end
   end
 
   private
