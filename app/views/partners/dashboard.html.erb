@@ -1,5 +1,6 @@
 <%= render 'header' %>
 <div class="container dashboard" >
+	<%= render 'layouts/message' %>
 	<h3 class="text-info">Requests by Shop</h3>
 	<hr>
 	<% @shops.each_with_index do |shop, index| %> 
