@@ -30,6 +30,10 @@ gem 'jquery-turbolinks'
 gem 'chartkick'
 gem 'groupdate'
 gem 'mandrill-api'
+gem 'devise'
+gem 'better_errors'
+gem 'rails_layout'
+gem 'bootstrap-sass'
 # Use Unicorn as the app server
 # gem 'unicorn'
 

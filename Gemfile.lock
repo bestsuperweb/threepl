@@ -41,11 +41,22 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     arel (6.0.4)
+    autoprefixer-rails (8.4.1)
+      execjs
+    bcrypt (3.1.11)
+    better_errors (2.4.0)
+      coderay (>= 1.0.0)
+      erubi (>= 1.0.0)
+      rack (>= 0.9.0)
     binding_of_caller (0.7.3)
       debug_inspector (>= 0.0.1)
+    bootstrap-sass (3.3.7)
+      autoprefixer-rails (>= 5.2.1)
+      sass (>= 3.3.4)
     builder (3.2.3)
     byebug (9.1.0)
     chartkick (2.2.5)
+    coderay (1.1.2)
     coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.1.x)
@@ -56,6 +67,13 @@ GEM
     concurrent-ruby (1.0.5)
     crass (1.0.3)
     debug_inspector (0.0.3)
+    devise (4.4.3)
+      bcrypt (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 4.1.0, < 6.0)
+      responders
+      warden (~> 1.2.3)
+    erubi (1.7.1)
     erubis (2.7.0)
     excon (0.62.0)
     execjs (2.7.0)
@@ -109,6 +127,7 @@ GEM
     omniauth-shopify-oauth2 (1.1.17)
       oauth2 (~> 1.1.0)
       omniauth-oauth2 (~> 1.2)
+    orm_adapter (0.5.0)
     pg (0.21.0)
     rack (1.6.8)
     rack-cors (1.0.2)
@@ -135,6 +154,7 @@ GEM
       loofah (~> 2.0)
     rails-observers (0.1.5)
       activemodel (>= 4.0)
+    rails_layout (1.0.42)
     railties (4.2.5.1)
       actionpack (= 4.2.5.1)
       activesupport (= 4.2.5.1)
@@ -144,6 +164,9 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
+    responders (2.4.0)
+      actionpack (>= 4.2.0, < 5.3)
+      railties (>= 4.2.0, < 5.3)
     sass (3.5.6)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -180,6 +203,8 @@ GEM
     turbolinks-source (5.1.0)
     tzinfo (1.2.4)
       thread_safe (~> 0.1)
+    warden (1.2.7)
+      rack (>= 1.0)
     web-console (2.3.0)
       activemodel (>= 4.0)
       binding_of_caller (>= 0.7.2)
@@ -190,9 +215,12 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  better_errors
+  bootstrap-sass
   byebug
   chartkick
   coffee-rails (~> 4.1.0)
+  devise
   groupdate
   jquery-rails
   jquery-turbolinks
@@ -200,6 +228,7 @@ DEPENDENCIES
   pg
   rack-cors
   rails (= 4.2.5.1)
+  rails_layout
   sass-rails (~> 5.0)
   shopify_app
   spring
