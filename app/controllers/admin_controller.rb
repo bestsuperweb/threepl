@@ -11,7 +11,7 @@ class AdminController < ShopifyApp::AuthenticatedController
     respond_to do |format|
     	begin
     		merge_vars = {
-		      "products" => products.to_json,
+		      "products" => products.collect{|p| p }.to_json,
 		      "shop"	 => shop.domain
 		    }
 		    Partner.all.each do |partner|
