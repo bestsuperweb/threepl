@@ -1,9 +1,7 @@
 require "mandrill"
 
 class BaseMandrillMailer < ActionMailer::Base
-  default(
-    from: ENV["FROM_EMAIL"]
-  )
+  default from: ENV["FROM_EMAIL"]
 
   private
 

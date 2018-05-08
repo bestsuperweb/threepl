@@ -15,8 +15,6 @@ Rails.application.configure do
   config.assets.digest = true
   config.assets.raise_runtime_errors = true
 
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-
   config.action_mailer.smtp_settings = {
     address: ENV.fetch("SMTP_ADDRESS"),
     authentication: :plain,
@@ -26,6 +24,7 @@ Rails.application.configure do
     port: "587",
     user_name: ENV.fetch("SMTP_USERNAME")
   }
+  config.action_mailer.delivery_method = :smtp
   config.action_mailer.default_url_options = { host: ENV["SMTP_DOMAIN"] }
   
 end

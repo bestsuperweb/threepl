@@ -15,7 +15,7 @@ class AdminController < ShopifyApp::AuthenticatedController
 		      "shop"	 => shop.domain
 		    }
 		    Partner.all.each do |partner|
-	    		SendMailer.send_products(merge_vars, partner.email).deliver_now
+	    		SendMailer.send_products(merge_vars, partner.email).deliver
 	    	end
 	    	products = products.to_json
 	    	partners = Partner.all.collect{|partner| partner.email }
