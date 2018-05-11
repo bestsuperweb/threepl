@@ -49,6 +49,6 @@ test:
 #
 production:
   <<: *default
-  database: tpb_production
-  username: root
-  password: <%= ENV['CONTACTBOOK_DATABASE_PASSWORD'] %>
+  database: shopify_test
+  username: dbapi
+  password: xrhN6ZNZ
