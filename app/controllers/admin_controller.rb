@@ -15,11 +15,11 @@ class AdminController < ShopifyApp::AuthenticatedController
 		      "shop"	 => shop.domain
 		    }
 		    Partner.all.each do |partner|
-	    		SendMailer.send_products(merge_vars, partner.email).deliver
+	    		SendMailer.send_products(merge_vars, partner.email).deliver_now
 	    	end
 	    	products = products.to_json
 	    	partners = Partner.all.collect{|partner| partner.email }
-	    	# Shop.where(:shopify_domain => shop.domain).first.emails.create!(products, partners.to_s )
+	    	# shop.emails.create!(products, partners.to_s )
     		format.json { render json: {  status: 'success' } }
     	rescue Exception => e
     		format.json { render json: {  status: "Error, #{e.to_s}" } }

@@ -34,6 +34,8 @@ gem 'devise'
 gem 'better_errors'
 gem 'rails_layout'
 gem 'bootstrap-sass'
+
+gem 'mysql2', '>= 0.3.18', '< 0.5'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
@@ -42,7 +44,7 @@ gem 'bootstrap-sass'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'sqlite3'
+  # gem 'sqlite3'
   gem 'byebug'
 end
 
@@ -55,9 +57,9 @@ group :development do
   # gem 'ruby-debug-ide', '0.6.0'
 end
 
-group :production do
-  gem 'pg'
-end
+# group :production do
+#   gem 'pg'
+# end
 
 gem 'shopify_app'
 gem 'rack-cors'
