@@ -1,0 +1,7 @@
+Hi <%= @partner.name %>,
+Here are products from <%= @shop %>.
+<% @products.each do |product| %>
+
+- <%= product[:image] %>, <%= product[:title] %>, <%= product[:weight] %>, <%= product[:whl] %>, <%= product[:battery] %>, <%= product[:notes] %>
+
+<% end %>
