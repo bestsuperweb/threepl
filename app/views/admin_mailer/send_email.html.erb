@@ -1,0 +1,31 @@
+
+<div>
+	<h3>Hi <%= @partner.name %>, </h3>
+	<h4>Here are products from <%= @shop %></h4>
+	<hr>
+	<table>
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Image</th>
+				<th>Title</th>
+				<th>Weight</th>
+				<th>W x H x L</th>
+				<th>Has Battery?</th>
+				<th>Special Notes</th>
+			</tr>
+		</thead>
+		<% @products.each_with_index do |product| %>
+		<tr>
+			<td><%= index + 1 %></td>
+			<td><%= product[:image] %></td>
+			<td><%= product[:title] %></td>
+			<td><%= product[:weight] %></td>
+			<td><%= product[:whl] %></td>
+			<td><%= product[:battery] %></td>
+			<td><%= product[:notes] %></td>
+		</tr>
+		<% end %>
+	</table>
+
+</div>
