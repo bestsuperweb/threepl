@@ -18,12 +18,12 @@
 		<% @products.each_with_index do |product, index| %>
 		<tr>
 			<td><%= index + 1 %></td>
-			<td><%= product[:image] %></td>
-			<td><%= product[:title] %></td>
-			<td><%= product[:weight] %></td>
-			<td><%= product[:whl] %></td>
-			<td><%= product[:battery] %></td>
-			<td><%= product[:notes] %></td>
+			<td><img src="<%= product[1][:image] %>" width="50" ></td>
+			<td><%= product[1][:title] %></td>
+			<td><%= product[1][:weight].html_safe %></td>
+			<td><%= product[1][:whl] %></td>
+			<td><%= product[1][:battery] %></td>
+			<td><%= product[1][:notes] %></td>
 		</tr>
 		<% end %>
 	</table>

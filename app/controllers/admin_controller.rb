@@ -6,20 +6,15 @@ class AdminController < ShopifyApp::AuthenticatedController
   end
 
   def send_eamils
-  	shop = ShopifyAPI::Shop.current
+  	shop = Shop.where( shopify_domain: ShopifyAPI::Shop.current.domain ).first
     products = params[:products]
     respond_to do |format|
-    	begin
-    		merge_vars = {
-		      "products" => products.collect{|p| p }.to_json,
-		      "shop"	 => shop.domain
-		    }
+    	begin    	
 		    Partner.all.each do |partner|
-	    		AdminMailer.send_email(partner: partner, shop: shop.domain, products: products ).deliver_now
+	    		AdminMailer.send_email(partner: partner, shop: shop.shopify_domain, products: products ).deliver_now
 	    	end
-	    	products = products.to_json
 	    	partners = Partner.all.collect{|partner| partner.email }
-	    	shop.emails.create!({products: products, partners: partners.to_s })
+	    	shop.emails.create!({products: products.collect{|p| p[1][:title]}.to_s, partners: partners.to_s })
     		format.json { render json: {  status: 'success' } }
     	rescue Exception => e
     		format.json { render json: {  status: "Error, #{e.to_s}" } }
