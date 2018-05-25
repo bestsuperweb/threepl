@@ -4,10 +4,10 @@ class AdminController < ShopifyApp::AuthenticatedController
   def index
     @products = ShopifyAPI::Product.all
     begin
-    	template = client.get_template({
+    	template = SES.get_template({
 		  template_name: "3pl_quote_request", # required
 		})
-		if template.template_name
+		if template.template
 			SES.update_template({
 			  template: { # required
 			    template_name: "3pl_quote_request", # required
