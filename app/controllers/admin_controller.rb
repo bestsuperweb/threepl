@@ -4,10 +4,10 @@ class AdminController < ShopifyApp::AuthenticatedController
   def index
     @products = ShopifyAPI::Product.all
     begin
-    	template_data = { products: [{ image: 'https://cdn.shopify.com/s/files/1/2193/6543/products/product-image-375612158_42e298e9-fa63-4c06-83f2-ae062f8340de.jpg?v=1504059907', title: 'Blackbody', weight: '45lb', whl: '123 x 123 x 23', battery: 'No', notes: 'Special notes'}]}
+    	template_data = { products: [{ image: 'https://cdn.shopify.com/s/files/1/2193/6543/products/product-image-375612158_42e298e9-fa63-4c06-83f2-ae062f8340de.jpg?v=1504059907', title: 'Blackbody', weight: '45lb', whl: '123 x 123 x 23', battery: 'No', notes: 'Special notes'}]}.to_json
     	resp = SES.test_render_template({
     		template_name: "3pl_quote_request", # required
-    		template_data: template_data, # required
+    		template_data: template_data.to_s # required
     		})
     	@response = resp.rendered_template
     rescue Exception => e
@@ -20,7 +20,7 @@ class AdminController < ShopifyApp::AuthenticatedController
     products = params[:products]
     respond_to do |format|
     	begin
-    		template_data = { products: products.collect{|p| p[1].to_json } }    	
+    		template_data = { products: products.collect{|p| p[1].to_json } }.to_json    	
 		    SES.send_templated_email({
 			  source: ENV['FROM_EMAIL'], # required
 			  destination: { # required
@@ -34,7 +34,7 @@ class AdminController < ShopifyApp::AuthenticatedController
 			    },
 			  ],
 			  template: "3pl_quote_request", # required
-			  template_data: template_data, # required
+			  template_data: template_data.to_s # required
 			})
 
 	    	partners = Partner.all.collect{|partner| partner.email }
