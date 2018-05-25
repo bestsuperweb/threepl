@@ -86,7 +86,7 @@ class AdminController < ShopifyApp::AuthenticatedController
   #   rescue Exception => e
   #   	@response = e
   #   end
-  @response = SES.get_send_statistics()
+  # @response = SES.get_send_statistics({})
 
   end
 
