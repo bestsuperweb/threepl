@@ -86,6 +86,8 @@ class AdminController < ShopifyApp::AuthenticatedController
   #   rescue Exception => e
   #   	@response = e
   #   end
+  @response = SES.get_send_statistics()
+
   end
 
   def send_eamils
@@ -94,7 +96,7 @@ class AdminController < ShopifyApp::AuthenticatedController
     respond_to do |format|
     	begin
     		template_data = { products: products.collect{|p| p[1].to_json } }.to_json    	
-		    SES.send_templated_email({
+		    email = SES.send_templated_email({
 			  source: ENV['FROM_EMAIL'], # required
 			  destination: { # required
 			    to_addresses: Partner.all.collect{|partner| partner.email },
@@ -111,7 +113,7 @@ class AdminController < ShopifyApp::AuthenticatedController
 			})
 
 	    	partners = Partner.all.collect{|partner| partner.email }
-	    	shop.emails.create!({products: products.collect{|p| p[1][:title]}.to_s, partners: partners.to_s })
+	    	shop.emails.create!({products: products.collect{|p| p[1][:title]}.to_s, partners: "#{email.message_id} - #{partners.to_s}" })
     		format.json { render json: {  status: 'success' } }
     	rescue Exception => e
     		format.json { render json: {  status: "Error, #{e.to_s}" } }
