@@ -5,7 +5,7 @@ class AdminController < ShopifyApp::AuthenticatedController
     @products = ShopifyAPI::Product.all
     begin
     	template_data = { products: [{ image: 'https://cdn.shopify.com/s/files/1/2193/6543/products/product-image-375612158_42e298e9-fa63-4c06-83f2-ae062f8340de.jpg?v=1504059907', title: 'Blackbody', weight: '45lb', whl: '123 x 123 x 23', battery: 'No', notes: 'Special notes'}]}
-    	resp = client.test_render_template({
+    	resp = SES.test_render_template({
     		template_name: "3pl_quote_request", # required
     		template_data: template_data, # required
     		})
