@@ -4,18 +4,43 @@ class AdminController < ShopifyApp::AuthenticatedController
   def index
     @products = ShopifyAPI::Product.all
     begin
-  #   	SES.create_template({
-		#   template: { # required
-		#     template_name: "3pl_quote_request", # required
-		#     subject_part: "Products",
-		#     text_part: "TextPart",
-		#     html_part: "HtmlPart",
-		#   },
-		# })
+    	SES.create_template({
+		  template: { # required
+		    template_name: "3pl_quote_request", # required
+		    subject_part: "Products",
+		    text_part: 'Here are products: /n {{#each products}} {{title}}, {{weight}}, {{whl}}, {{battery}}, {{notes}} /n {{/each}}',
+		    html_part: 'Here are products: /n <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\">
+                			{{#each products}}
+                            <tr >
+                                <td valign=\"top\" >
+                                <img src={{image}} width=\"50\"  alt={{title}}>
+                                </td>
+                                <td valign=\"top\"> {{id}}
+                                </td>
+                                <td valign=\"top\" >
+                                {{title}}
+                                </td>
+                                <td valign=\"top\" >
+                                {{weight}}
+                                </td>
+                                <td valign=\"top\" >
+                                {{whl}}
+                                </td>
+                                <td valign=\"top\" >
+                                {{battery}}
+                                </td>
+                                <td valign=\"top\" >
+                                {{notes}}
+                                </td>
+                            </tr>
+                            {{/each}}
+                            </table>',
+		  },
+		})
 
     	template_data = { products: [{ image: 'https://cdn.shopify.com/s/files/1/2193/6543/products/product-image-375612158_42e298e9-fa63-4c06-83f2-ae062f8340de.jpg?v=1504059907', title: 'Blackbody', weight: '45lb', whl: '123 x 123 x 23', battery: 'No', notes: 'Special notes'}]}.to_json
     	resp = SES.test_render_template({
-    		template_name: "products", # required
+    		template_name: "3pl_quote_request", # required
     		template_data: template_data.to_s # required
     		})
     	@response = resp.rendered_template
@@ -42,7 +67,7 @@ class AdminController < ShopifyApp::AuthenticatedController
 			      value: shop.shopify_domain, # required
 			    },
 			  ],
-			  template: "products", # required
+			  template: "3pl_quote_request", # required
 			  template_data: template_data.to_s # required
 			})
 
