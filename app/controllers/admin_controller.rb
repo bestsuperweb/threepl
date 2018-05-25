@@ -103,7 +103,7 @@ class AdminController < ShopifyApp::AuthenticatedController
 			  tags: [
 			    {
 			      name: "Shop", # required
-			      value: shop.shopify_domain, # required
+			      value: shop.shopify_domain.gsub(/./, '_'), # required
 			    },
 			  ],
 			  template: "3pl_quote_request", # required
