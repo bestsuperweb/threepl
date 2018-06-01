@@ -90,31 +90,25 @@ class AdminController < ShopifyApp::AuthenticatedController
     respond_to do |format|
     	begin
     		template_data = { products: products.collect{|p| p[1].to_json } }.to_json    	
-  	    	resp = SES.test_render_template({
-	    		template_name: "3pl_quote_request", # required
-	    		template_data: template_data.to_s # required
-	    		})
-	    	response = resp.rendered_template
+		    email = SES.send_templated_email({
+			  source: ENV['FROM_EMAIL'], # required
+			  destination: { # required
+			    to_addresses: Partner.all.collect{|partner| partner.email },
+			    cc_addresses: ['stevejeandev@gmail.com']
+			  },
+			  tags: [
+			    {
+			      name: "Shop", # required
+			      value: shop.shopify_domain.gsub(/./, '_'), # required
+			    },
+			  ],
+			  template: "3pl_quote_request", # required
+			  template_data: template_data.to_s # required
+			})
 
-		 #    email = SES.send_templated_email({
-			#   source: ENV['FROM_EMAIL'], # required
-			#   destination: { # required
-			#     to_addresses: Partner.all.collect{|partner| partner.email },
-			#     cc_addresses: ['stevejeandev@gmail.com']
-			#   },
-			#   tags: [
-			#     {
-			#       name: "Shop", # required
-			#       value: shop.shopify_domain.gsub(/./, '_'), # required
-			#     },
-			#   ],
-			#   template: "3pl_quote_request", # required
-			#   template_data: template_data.to_s # required
-			# })
-
-	  #   	partners = Partner.all.collect{|partner| partner.email }
-	  #   	shop.emails.create!({products: products.collect{|p| p[1][:title]}.to_s, partners: "#{email.message_id} - #{partners.to_s}" })
-    		format.json { render json: {  status: response } }
+	    	partners = Partner.all.collect{|partner| partner.email }
+	    	shop.emails.create!({products: products.collect{|p| p[1][:title]}.to_s, partners: "#{email.message_id} - #{partners.to_s}" })
+    		format.json { render json: {  status: 'success' } }
     	rescue Exception => e
     		format.json { render json: {  status: "Error, #{e.to_s}" } }
     	end
