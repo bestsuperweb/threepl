@@ -43,6 +43,14 @@ GEM
     arel (6.0.4)
     autoprefixer-rails (8.5.0)
       execjs
+    aws-sdk (2.11.63)
+      aws-sdk-resources (= 2.11.63)
+    aws-sdk-core (2.11.63)
+      aws-sigv4 (~> 1.0)
+      jmespath (~> 1.0)
+    aws-sdk-resources (2.11.63)
+      aws-sdk-core (= 2.11.63)
+    aws-sigv4 (1.0.2)
     bcrypt (3.1.11)
     better_errors (2.4.0)
       coderay (>= 1.0.0)
@@ -87,6 +95,7 @@ GEM
     hashie (3.5.7)
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
+    jmespath (1.4.0)
     jquery-rails (4.3.3)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
@@ -214,6 +223,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aws-sdk (~> 2)
   better_errors
   bootstrap-sass
   byebug
