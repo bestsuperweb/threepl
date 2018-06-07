@@ -40,10 +40,9 @@
   <hr>
   <%= form_tag(save_template_path, {:method => :post}) do %>
   <select class="form-control" name="template">
-    <option>Template 1</option>
-    <option>Template 2</option>
-    <option>Template 3</option>
-    <option>Template 4</option>
+    <% Template.all.each do |template| %>
+    <option><%= template.template_name %></option>
+    <% end %>
   </select>
 
   <hr>
