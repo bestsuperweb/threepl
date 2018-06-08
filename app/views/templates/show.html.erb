@@ -1,14 +1,18 @@
-<p id="notice"><%= notice %></p>
+<%= render 'partners/header' %>
+<div class="container dashboard">
+	<%= render 'layouts/message' %>
 
-<p>
-  <strong>Template:</strong>
-  <%= @template.template_id %>
-</p>
+	<p>
+		<strong>Template:</strong>
+		<%= @template.template_id %>
+	</p>
 
-<p>
-  <strong>Template name:</strong>
-  <%= @template.template_name %>
-</p>
+	<p>
+		<strong>Template name:</strong>
+		<%= @template.template_name %>
+	</p>
 
-<%= link_to 'Edit', edit_template_path(@template) %> |
-<%= link_to 'Back', templates_path %>
+	<%= link_to 'Edit', edit_template_path(@template) %> |
+	<%= link_to 'Back', templates_path %>
+</div>
+<%= render 'partners/footer' %>
