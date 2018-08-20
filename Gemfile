@@ -29,7 +29,7 @@ gem 'jquery-turbolinks'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'chartkick'
 gem 'groupdate'
-gem 'mandrill-api'
+# gem 'mandrill-api'
 gem 'devise'
 gem 'better_errors'
 gem 'rails_layout'
@@ -59,7 +59,7 @@ group :development do
 end
 
 group :production do
-  gem 'pg'
+  gem 'pg', '0.15.1'
 end
 
 gem 'shopify_app'
