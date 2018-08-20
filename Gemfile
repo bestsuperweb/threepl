@@ -36,7 +36,7 @@ gem 'rails_layout'
 gem 'bootstrap-sass'
 
 gem 'mysql2', '>= 0.3.18', '< 0.5'
-gem 'aws-sdk', '~> 2'
+# gem 'aws-sdk', '~> 2'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
