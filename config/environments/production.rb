@@ -4,6 +4,7 @@ Rails.application.configure do
   config.assets.cdn_path = "#{ENV.fetch("HOST_URL")}/"
   config.assets.api_prefix = '/api/'
   config.action_controller.asset_host = ENV.fetch("HOST_URL")
+  config.assets.compile = false # Disables security vulnerability
 
 
   config.log_level = :info
