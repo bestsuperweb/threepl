@@ -34,6 +34,7 @@ gem 'devise'
 gem 'better_errors'
 gem 'rails_layout'
 gem 'bootstrap-sass'
+gem 'smtpapi'
 
 # gem 'mysql2', '>= 0.3.18', '< 0.5'
 # gem 'aws-sdk', '~> 2'
