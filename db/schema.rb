@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180507034517) do
+ActiveRecord::Schema.define(version: 20180606110057) do
 
   create_table "emails", force: :cascade do |t|
     t.text     "products",   limit: 65535
@@ -38,6 +38,13 @@ ActiveRecord::Schema.define(version: 20180507034517) do
   end
 
   add_index "shops", ["shopify_domain"], name: "index_shops_on_shopify_domain", unique: true, using: :btree
+
+  create_table "templates", force: :cascade do |t|
+    t.string   "template_id",   limit: 255
+    t.string   "template_name", limit: 255
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
