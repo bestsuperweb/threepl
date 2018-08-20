@@ -35,7 +35,7 @@ gem 'better_errors'
 gem 'rails_layout'
 gem 'bootstrap-sass'
 
-gem 'mysql2', '>= 0.3.18', '< 0.5'
+# gem 'mysql2', '>= 0.3.18', '< 0.5'
 # gem 'aws-sdk', '~> 2'
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -58,9 +58,9 @@ group :development do
   # gem 'ruby-debug-ide', '0.6.0'
 end
 
-# group :production do
-#   gem 'pg'
-# end
+group :production do
+  gem 'pg'
+end
 
 gem 'shopify_app'
 gem 'rack-cors'

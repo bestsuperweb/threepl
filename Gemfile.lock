@@ -110,7 +110,6 @@ GEM
     multi_json (1.13.1)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
-    mysql2 (0.4.10)
     nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
     oauth2 (1.1.0)
@@ -129,6 +128,7 @@ GEM
       oauth2 (~> 1.1.0)
       omniauth-oauth2 (~> 1.2)
     orm_adapter (0.5.0)
+    pg (1.0.0)
     rack (1.6.10)
     rack-cors (1.0.2)
     rack-test (0.6.3)
@@ -224,7 +224,7 @@ DEPENDENCIES
   jquery-rails
   jquery-turbolinks
   mandrill-api
-  mysql2 (>= 0.3.18, < 0.5)
+  pg
   rack-cors
   rails (= 4.2.5.1)
   rails_layout
