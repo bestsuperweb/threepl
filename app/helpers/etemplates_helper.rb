@@ -1,2 +1,2 @@
-module TemplatesHelper
+module EtemplatesHelper
 end
