@@ -35,55 +35,38 @@ class AdminController < ShopifyApp::AuthenticatedController
     shop           = options[:shop]
     products       = options[:products]
 
-    data = JSON.parse("{
-      'personalizations': [
+    data = JSON.parse('{
+      "personalizations": [
         {
-          'to': [
+          "to": [
             {
-              'email': '#{partner.email}'
+              "email": "' + partner.email + '"
             }
           ],
-          'dynamic_template_data': {
-            'shop': '#{shop}',
-            'products': [
-                          { 
-                            'img': 'https://cdn.shopify.com/s/files/1/2193/6543/products/product-image-375612158_42e298e9-fa63-4c06-83f2-ae062f8340de.jpg',
-                            'title': 'Sample Product', 
-                            'weight': '2.0kg',
-                            'whl': '123 x 132 x 123',
-                            'battery': 'Yes',
-                            'notes': 'Special notes'
-                          },
-                          { 
-                            'img': 'https://cdn.shopify.com/s/files/1/2193/6543/products/product-image-375612158_42e298e9-fa63-4c06-83f2-ae062f8340de.jpg',
-                            'title': 'Sample Product', 
-                            'weight': '2.0kg',
-                            'whl': '123 x 132 x 123',
-                            'battery': 'Yes',
-                            'notes': 'Special notes'
-                          }
-                        ]
+          "dynamic_template_data": {
+            "shop": "' + shop + '",
+            "products": ' + products.collect{|p| p[1].to_json }.to_s} + '
           },
-          'subject': 'subject'
+          "subject": "subject"
         }
       ],
-      'from': {
-        'email': '#{ENV['FROM_EMAIL']}'
+      "from": {
+        "email": "' + ENV['FROM_EMAIL']} + '"
       },
-      'categories': 'category1',
-      'reply_to': {
-        'email': '#{ENV['FROM_EMAIL']}'
+      "categories": "category1",
+      "reply_to": {
+        "email": "' + ENV['FROM_EMAIL']} + '"
       },
-      'subject': 'Products from #{shop}',
-      'headers': {},
-      'content': [
+      "subject": "Products from ' + shop + '",
+      "headers": {},
+      "content": [
         {
-          'type': 'text/html',
-          'value': 'body'
+          "type": "text/html",
+          "value": "body"
         }
       ],
-      'template_id': '#{User.all.first.template}'
-    }")
+      "template_id": "' + User.all.first.template} + '"
+    }')
     sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
     begin
         response = sg.client.mail._("send").post(request_body: data)
