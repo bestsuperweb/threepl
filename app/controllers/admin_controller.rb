@@ -40,22 +40,22 @@ class AdminController < ShopifyApp::AuthenticatedController
         {
           'to': [
             {
-              'email': #{partner.email}
+              'email': '#{partner.email}'
             }
           ],
           'dynamic_template_data': {
-            'shop': #{shop}
+            'shop': '#{shop}'
             'products': #{products.collect{|p| p[1].to_json }.to_s.tr('"', "'")}
           },
           'subject': 'subject'
         }
       ],
       'from': {
-        'email': #{ENV['FROM_EMAIL']}
+        'email': '#{ENV['FROM_EMAIL']}'
       },
       'categories': 'category1',
       'reply_to': {
-        'email': #{ENV['FROM_EMAIL']}
+        'email': '#{ENV['FROM_EMAIL']}'
       },
       'subject': 'Products from #{shop}',
       'headers': {},
@@ -65,7 +65,7 @@ class AdminController < ShopifyApp::AuthenticatedController
           'value': 'body'
         }
       ],
-      'template_id': #{User.all.first.template}
+      'template_id': '#{User.all.first.template}'
     }")
     sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
     begin
