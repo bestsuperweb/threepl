@@ -62,8 +62,8 @@ class AdminController < ShopifyApp::AuthenticatedController
       "template_id": "' + User.all.first.template + '"
     }')
 
-    data['personalizations']['dynamic_template_data']['products'] = products_list
-    
+    data['personalizations'].first['dynamic_template_data']['products'] = products_list
+
     sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
     begin
         response = sg.client.mail._("send").post(request_body: data)
