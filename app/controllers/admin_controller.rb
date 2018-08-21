@@ -47,7 +47,7 @@ class AdminController < ShopifyApp::AuthenticatedController
             "shop": "' + shop + '",
             "products": ['
 
-    products.each{|p| str = str + p[1].to_json.to_s }
+    products.collect{|p| str = str + p[1].to_json }.to_s
 
     str = str + ']
           },
@@ -65,7 +65,7 @@ class AdminController < ShopifyApp::AuthenticatedController
       ],
       "template_id": "' + User.all.first.template + '"
     }'
-    
+
     data  = JSON.parse(str)
     
     sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
