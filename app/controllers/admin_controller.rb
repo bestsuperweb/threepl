@@ -59,8 +59,8 @@ class AdminController < ShopifyApp::AuthenticatedController
     mail.subject = "Products from #{@shop}"
     personalization = Personalization.new
     personalization.add_to(Email.new(email: @partner.email))
-    personalization.add_substitution(Substitution.new(key: '-shop-', value: @shop))
-    personalization.add_substitution(Substitution.new(key: '-products-', value: @products_list))
+    personalization.add_substitution(Substitution.new(key: '-shop-', value: @shop.to_s))
+    personalization.add_substitution(Substitution.new(key: '-products-', value: @products_list.to_s))
     mail.add_personalization(personalization)
     mail.add_content(Content.new(type: 'text/html', value: "Products from #{@shop}" ))
     mail.template_id = User.all.first.template
