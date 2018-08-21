@@ -46,7 +46,7 @@ class AdminController < ShopifyApp::AuthenticatedController
           ],
           "dynamic_template_data": {
             "shop": "' + shop + '",
-            "products": ' + products_list + '
+            "products": ' + products_list.to_s + '
           },
           "subject": "subject"
         }
