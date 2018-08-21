@@ -85,8 +85,8 @@ class AdminController < ShopifyApp::AuthenticatedController
             }
           ],
           "dynamic_template_data": {
-            "-shop-": "BestStore",
-            "-products-": "produccts list..."
+            "shop": "BestStore",
+            "products": "produccts list..."
           },
           "subject": "I\'m replacing the subject tag"
         }
