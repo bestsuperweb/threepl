@@ -53,7 +53,7 @@ class AdminController < ShopifyApp::AuthenticatedController
       "template_id": "' + User.all.first.template + '"
     }')
 
-    data['personalizations'].first['to'] = Partner.collect{|p| { 'email': p.email, 'name': p.name } }
+    data['personalizations'].first['to'] = Partner.all.collect{|p| { 'email': p.email, 'name': p.name } }
     data['personalizations'].first['dynamic_template_data']['products'] = products_list
 
     sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
