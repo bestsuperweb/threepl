@@ -41,7 +41,7 @@
   <%= form_tag(save_template_path, {:method => :post}) do %>
   <select class="form-control" name="template">
     <% Etemplate.all.each do |template| %>
-    <option><%= template.template_name %></option>
+    <option value="template.template_id"><%= template.template_name %></option>
     <% end %>
   </select>
 
