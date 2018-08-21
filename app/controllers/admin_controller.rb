@@ -63,7 +63,7 @@ class AdminController < ShopifyApp::AuthenticatedController
     personalization.add_substitution(Substitution.new(key: '-products-', value: "products_list.to_s"))
     mail.add_personalization(personalization)
     mail.add_content(Content.new(type: 'text/html', value: "Products from #{shop}" ))
-    mail.template_id = 'd-8f6b10d7d3944edd86592ff3beebf0fb'
+    mail.template_id = User.all.first.template
 
     sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
     begin
