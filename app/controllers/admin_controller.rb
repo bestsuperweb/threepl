@@ -24,7 +24,7 @@ class AdminController < ShopifyApp::AuthenticatedController
 
       render json: { status: 'success', message: 'success to send emails' }
     rescue Exception => e
-      render json: { status: 'error', message: e.to_s }
+      render json: { status: 'error', message: products.collect{|p| p[1].to_json } }
     end
   end
 
@@ -34,7 +34,7 @@ class AdminController < ShopifyApp::AuthenticatedController
     partner        = options[:partner]
     shop           = options[:shop]
     products       = options[:products]
-    products_list  = products.collect{|p| p.to_json }
+    products_list  = products.collect{|p| p[1].to_json }
 
     data = JSON.parse('{
       "personalizations": [
