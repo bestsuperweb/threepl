@@ -34,8 +34,9 @@ class AdminController < ShopifyApp::AuthenticatedController
     partner        = options[:partner]
     shop           = options[:shop]
     products       = options[:products]
+    products_list  = products.collect{|p| p[1].to_json }
 
-    str   ='{
+    data = JSON.parse('{
       "personalizations": [
         {
           "to": [
@@ -45,11 +46,7 @@ class AdminController < ShopifyApp::AuthenticatedController
           ],
           "dynamic_template_data": {
             "shop": "' + shop + '",
-            "products": ['
-
-    products.collect{|p| str = str + p[1].to_json }.to_s
-
-    str = str + ']
+            "products": ' + products_list + '
           },
           "subject": "subject"
         }
@@ -64,10 +61,7 @@ class AdminController < ShopifyApp::AuthenticatedController
         }
       ],
       "template_id": "' + User.all.first.template + '"
-    }'
-
-    data  = JSON.parse(str)
-    
+    }')
     sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
     begin
         response = sg.client.mail._("send").post(request_body: data)
