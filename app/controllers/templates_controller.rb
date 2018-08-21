@@ -1,58 +1,58 @@
-class TemplatesController < ApplicationController
-  before_action :set_template, only: [:show, :edit, :update, :destroy]
+class EtemplatesController < ApplicationController
+  before_action :set_Etemplate, only: [:show, :edit, :update, :destroy]
 
-  # GET /templates
+  # GET /Etemplates
   def index
-    @templates = Template.all
+    @templates = Etemplate.all
   end
 
-  # GET /templates/1
+  # GET /Etemplates/1
   def show
   end
 
-  # GET /templates/new
+  # GET /Etemplates/new
   def new
-    @template = Template.new
+    @template = Etemplate.new
   end
 
-  # GET /templates/1/edit
+  # GET /Etemplates/1/edit
   def edit
   end
 
-  # POST /templates
+  # POST /Etemplates
   def create
-    @template = Template.new(template_params)
+    @template = Etemplate.new(Etemplate_params)
 
     if @template.save
-      redirect_to @template, notice: 'Template was successfully created.'
+      redirect_to @template, notice: 'Etemplate was successfully created.'
     else
       render :new
     end
   end
 
-  # PATCH/PUT /templates/1
+  # PATCH/PUT /Etemplates/1
   def update
-    if @template.update(template_params)
-      redirect_to @template, notice: 'Template was successfully updated.'
+    if @template.update(Etemplate_params)
+      redirect_to @template, notice: 'Etemplate was successfully updated.'
     else
       render :edit
     end
   end
 
-  # DELETE /templates/1
+  # DELETE /Etemplates/1
   def destroy
     @template.destroy
-    redirect_to templates_url, notice: 'Template was successfully destroyed.'
+    redirect_to Etemplates_url, notice: 'Etemplate was successfully destroyed.'
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_template
-      @template = Template.find(params[:id])
+    def set_Etemplate
+      @template = Etemplate.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
-    def template_params
-      params.require(:template).permit(:template_id, :template_name)
+    def Etemplate_params
+      params.require(:Etemplate).permit(:template_id, :template_name)
     end
 end
