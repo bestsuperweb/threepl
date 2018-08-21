@@ -6,16 +6,21 @@ class AdminController < ShopifyApp::AuthenticatedController
   end
 
   def send_eamils
-  	shop = Shop.where( shopify_domain: ShopifyAPI::Shop.current.domain ).first
+  	shop     = Shop.where( shopify_domain: ShopifyAPI::Shop.current.domain ).first
     products = params[:products]
-    Partner.all.each do |partner|
-      options = {
-        :partner  => partner,
-        :shop     => shop.domain,
-        :products => products
-      }
-      Adminmailer.send_email(options).deliver_now
-    end    
+    begin
+      Partner.all.each do |partner|
+        options = {
+          :partner  => partner,
+          :shop     => shop.domain,
+          :products => products
+        }
+        Adminmailer.send_email(options).deliver_now
+      end
+      render json: { status: 'success', message: 'success to send emails' }
+    rescue Exception => e
+      render json: { status: 'error', message: e.join(',') }
+    end
   end
 
 end
