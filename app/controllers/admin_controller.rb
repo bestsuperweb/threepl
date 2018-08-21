@@ -34,7 +34,7 @@ class AdminController < ShopifyApp::AuthenticatedController
     partner        = options[:partner]
     shop           = options[:shop]
     products       = options[:products]
-    products_list  = products.collect{|p| p[1].to_json }
+    products_list  = products.collect{|p| p.to_json }
 
     data = JSON.parse('{
       "personalizations": [
