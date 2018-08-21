@@ -84,7 +84,7 @@ class AdminController < ShopifyApp::AuthenticatedController
               "email": "bestsuperweb@gmail.com"
             }
           ],
-          "substitutions": {
+          "dynamic_template_data": {
             "-shop-": "BestStore",
             "-products-": "produccts list..."
           },
