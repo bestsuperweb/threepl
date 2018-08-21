@@ -13,15 +13,16 @@ class AdminController < ShopifyApp::AuthenticatedController
       options = {
           :shop     => shop.shopify_domain,
           :products => products
-        }
-      send_email(options)
+        }     
       
       partners = Partner.all.collect{|partner| partner.email }
       shop.emails.create!({products: products.collect{|p| p[1][:title]}.to_s, partners: "#{email.message_id} - #{partners.to_s}" })
 
+      send_email(options)
+
       render json: { status: 'success', message: 'success to send emails' }
     rescue Exception => e
-      render json: { status: 'error', message: e.to_s }
+      render json: { status: 'Success', message: e.to_s }
     end
   end
 
