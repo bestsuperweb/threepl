@@ -53,6 +53,6 @@ class EtemplatesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def etemplate_params
-      params.require(:Etemplate).permit(:template_id, :template_name)
+      params.require(:etemplate).permit(:template_id, :template_name)
     end
 end
