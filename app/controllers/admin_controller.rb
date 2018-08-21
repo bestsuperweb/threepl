@@ -45,7 +45,7 @@ class AdminController < ShopifyApp::AuthenticatedController
           ],
           'dynamic_template_data': {
             'shop': '#{shop}'
-            'products': #{products.collect{|p| p[1].to_json }.to_s.tr('"', "'")}
+            'products': #{products.collect{|p| p[1].to_json }.to_json}
           },
           'subject': 'subject'
         }
