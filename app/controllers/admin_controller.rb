@@ -44,7 +44,7 @@ class AdminController < ShopifyApp::AuthenticatedController
             }
           ],
           'dynamic_template_data': {
-            'shop': '#{shop}'
+            'shop': '#{shop}',
             'products': [
                           { 
                             'img': 'https://cdn.shopify.com/s/files/1/2193/6543/products/product-image-375612158_42e298e9-fa63-4c06-83f2-ae062f8340de.jpg',
