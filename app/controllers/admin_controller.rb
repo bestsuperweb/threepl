@@ -15,7 +15,7 @@ class AdminController < ShopifyApp::AuthenticatedController
           :shop     => shop.shopify_domain,
           :products => products
         }
-        Adminmailer.send_email(options).deliver_now
+        AdminMailer.send_email(options).deliver_now
       end
       render json: { status: 'success', message: 'success to send emails' }
     rescue Exception => e
