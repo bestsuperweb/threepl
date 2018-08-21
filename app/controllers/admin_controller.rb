@@ -51,11 +51,11 @@ class AdminController < ShopifyApp::AuthenticatedController
         }
       ],
       "from": {
-        "email": "' + ENV['FROM_EMAIL']} + '"
+        "email": "' + ENV['FROM_EMAIL'] + '"
       },
       "categories": "category1",
       "reply_to": {
-        "email": "' + ENV['FROM_EMAIL']} + '"
+        "email": "' + ENV['FROM_EMAIL'] + '"
       },
       "subject": "Products from ' + shop + '",
       "headers": {},
@@ -65,7 +65,7 @@ class AdminController < ShopifyApp::AuthenticatedController
           "value": "body"
         }
       ],
-      "template_id": "' + User.all.first.template} + '"
+      "template_id": "' + User.all.first.template + '"
     }')
     sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
     begin
