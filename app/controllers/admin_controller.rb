@@ -7,7 +7,7 @@ class AdminController < ShopifyApp::AuthenticatedController
   end
 
   def send_eamils
-    data     = nil
+    @data     = nil
   	shop     = Shop.where( shopify_domain: ShopifyAPI::Shop.current.domain ).first
     products = params[:products]
     begin
@@ -17,15 +17,15 @@ class AdminController < ShopifyApp::AuthenticatedController
           :shop     => shop.shopify_domain,
           :products => products
         }
-        data = send_email(options)
+        @data = send_email(options)
       end
       
       # partners = Partner.all.collect{|partner| partner.email }
       # shop.emails.create!({products: products.collect{|p| p[1][:title]}.to_s, partners: "#{email.message_id} - #{partners.to_s}" })
 
-      render json: { status: 'success', message: "success to send emails | #{data}" }
+      render json: { status: 'success', message: "success to send emails | #{@data}" }
     rescue Exception => e
-      render json: { status: 'error', message: "#{e.to_s} | #{data}" }
+      render json: { status: 'error', message: "#{e.to_s} | #{@data}" }
     end
   end
 
@@ -79,7 +79,7 @@ class AdminController < ShopifyApp::AuthenticatedController
     puts response.parsed_body
     puts response.headers
 
-    return data
+    data
 
   end
 
