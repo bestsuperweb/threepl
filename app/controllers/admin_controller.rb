@@ -36,12 +36,12 @@ class AdminController < ShopifyApp::AuthenticatedController
         {
           'to': [
             {
-              'email': #{ENV['FROM_EMAIL']}
+              'email': #{partner.email}
             }
           ],
           'dynamic_template_data': {
             'shop': #{shop}
-            'products': #{products.to_json}
+            'products': #{products.collect{|p| p[1].to_json }}
           },
           'subject': 'subject'
         }
@@ -49,7 +49,12 @@ class AdminController < ShopifyApp::AuthenticatedController
       'from': {
         'email': #{ENV['FROM_EMAIL']}
       },
-      'subject': 'Products from #{shop}',      
+      'categories': 'category1',
+      'reply_to': {
+        'email': #{ENV['FROM_EMAIL']}
+      },
+      'subject': 'Products from #{shop}',
+      'headers': {},
       'content': [
         {
           'type': 'text/html',
