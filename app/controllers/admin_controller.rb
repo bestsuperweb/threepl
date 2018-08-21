@@ -54,20 +54,57 @@ class AdminController < ShopifyApp::AuthenticatedController
                                           </tr>"
     end
     products_list  = products_list  + "</table>"
-    mail = Mail.new
-    mail.from = Email.new(email: "bestsuperweb@gmail.com")
-    mail.subject = "Products from #{shop}"
-    personalization = Personalization.new
-    personalization.add_to(Email.new(email: partner.email))
-    personalization.add_substitution(Substitution.new(key: '-shop-', value: "shop.to_s"))
-    personalization.add_substitution(Substitution.new(key: '-products-', value: "products_list.to_s"))
-    mail.add_personalization(personalization)
-    mail.add_content(Content.new(type: 'text/html', value: "Products from #{shop}" ))
-    mail.template_id = User.all.first.template
+    # mail = Mail.new
+    # mail.from = Email.new(email: "bestsuperweb@gmail.com")
+    # mail.subject = "Products from #{shop}"
+    # personalization = Personalization.new
+    # personalization.add_to(Email.new(email: partner.email))
+    # personalization.add_substitution(Substitution.new(key: '-shop-', value: "shop.to_s"))
+    # personalization.add_substitution(Substitution.new(key: '-products-', value: "products_list.to_s"))
+    # mail.add_personalization(personalization)
+    # mail.add_content(Content.new(type: 'text/html', value: "Products from #{shop}" ))
+    # mail.template_id = User.all.first.template
 
+    # sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
+    # begin
+    #     response = sg.client.mail._("send").post(request_body: mail.to_json)
+    # rescue Exception => e
+    #     puts e.message
+    # end
+    # puts response.status_code
+    # puts response.body
+    # puts response.parsed_body
+    # puts response.headers
+
+    data = JSON.parse('{
+      "personalizations": [
+        {
+          "to": [
+            {
+              "email": "bestsuperweb@gmail.com"
+            }
+          ],
+          "substitutions": {
+            "-shop-": "BestStore",
+            "-products-": "produccts list..."
+          },
+          "subject": "I\'m replacing the subject tag"
+        }
+      ],
+      "from": {
+        "email": "test@example.com"
+      },
+      "content": [
+        {
+          "type": "text/html",
+          "value": "I\'m replacing the <strong>body tag</strong>"
+        }
+      ],
+      "template_id": "d-8f6b10d7d3944edd86592ff3beebf0fb"
+    }')
     sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
     begin
-        response = sg.client.mail._("send").post(request_body: mail.to_json)
+        response = sg.client.mail._("send").post(request_body: data)
     rescue Exception => e
         puts e.message
     end
@@ -75,6 +112,7 @@ class AdminController < ShopifyApp::AuthenticatedController
     puts response.body
     puts response.parsed_body
     puts response.headers
+
   end
 
 end
