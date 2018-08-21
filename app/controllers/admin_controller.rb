@@ -16,7 +16,7 @@ class AdminController < ShopifyApp::AuthenticatedController
         }     
       
       partners = Partner.all.collect{|partner| partner.email }
-      shop.emails.create!({products: products.collect{|p| p[1][:title]}.to_s, partners: "#{email.message_id} - #{partners.to_s}" })
+      shop.emails.create!({products: products.collect{|p| p[1][:title]}.to_s, partners: "To: #{partners.to_s}" })
 
       send_email(options)
 
