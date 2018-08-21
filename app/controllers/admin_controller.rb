@@ -53,12 +53,12 @@ class AdminController < ShopifyApp::AuthenticatedController
                                             <td>#{product[1][:notes]}</td>
                                           </tr>"
     end
-    products_list  = @products_list  + "</table>"
+    products_list  = products_list  + "</table>"
     mail = Mail.new
     mail.from = Email.new(email: "bestsuperweb@gmail.com")
-    mail.subject = "Products from #{@shop}"
+    mail.subject = "Products from #{shop}"
     personalization = Personalization.new
-    personalization.add_to(Email.new(email: @partner.email))
+    personalization.add_to(Email.new(email: partner.email))
     personalization.add_substitution(Substitution.new(key: '-shop-', value: shop.to_s))
     personalization.add_substitution(Substitution.new(key: '-products-', value: products_list.to_s))
     mail.add_personalization(personalization)
