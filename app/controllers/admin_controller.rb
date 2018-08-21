@@ -10,14 +10,11 @@ class AdminController < ShopifyApp::AuthenticatedController
   	shop     = Shop.where( shopify_domain: ShopifyAPI::Shop.current.domain ).first
     products = params[:products]
     begin
-      Partner.all.each do |partner|
-        options = {
-          :partner  => partner,
+      options = {
           :shop     => shop.shopify_domain,
           :products => products
         }
-        send_email(options)
-      end
+      send_email(options)
       
       partners = Partner.all.collect{|partner| partner.email }
       shop.emails.create!({products: products.collect{|p| p[1][:title]}.to_s, partners: "#{email.message_id} - #{partners.to_s}" })
@@ -31,19 +28,13 @@ class AdminController < ShopifyApp::AuthenticatedController
   private
 
   def send_email(options={})
-    partner        = options[:partner]
     shop           = options[:shop]
     products       = options[:products]
     products_list  = products.collect{|p| p[1] }
 
     data = JSON.parse('{
       "personalizations": [
-        {
-          "to": [
-            {
-              "email": "' + partner.email + '"
-            }
-          ],
+        {          
           "dynamic_template_data": {
             "shop": "' + shop + '"
           },
@@ -62,6 +53,7 @@ class AdminController < ShopifyApp::AuthenticatedController
       "template_id": "' + User.all.first.template + '"
     }')
 
+    data['personalizations'].first['to'] = Partner.collect{|p| { 'email': p.email, 'name': p.name } }
     data['personalizations'].first['dynamic_template_data']['products'] = products_list
 
     sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
