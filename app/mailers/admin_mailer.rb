@@ -36,7 +36,7 @@ class AdminMailer < ApplicationMailer
         templates: {
           settings: {
             enable: 1,
-            template_id: current_user.template
+            template_id: User.all.first.template
           }
         }
       }
