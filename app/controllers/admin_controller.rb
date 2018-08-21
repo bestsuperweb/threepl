@@ -18,6 +18,10 @@ class AdminController < ShopifyApp::AuthenticatedController
         }
         send_email(options)
       end
+      
+      # partners = Partner.all.collect{|partner| partner.email }
+      # shop.emails.create!({products: products.collect{|p| p[1][:title]}.to_s, partners: "#{email.message_id} - #{partners.to_s}" })
+
       render json: { status: 'success', message: 'success to send emails' }
     rescue Exception => e
       render json: { status: 'error', message: e.to_s }
@@ -41,7 +45,7 @@ class AdminController < ShopifyApp::AuthenticatedController
           ],
           'dynamic_template_data': {
             'shop': #{shop}
-            'products': #{products.collect{|p| p[1].to_json }}
+            'products': #{products.collect{|p| p[1].to_json }.to_json}
           },
           'subject': 'subject'
         }
