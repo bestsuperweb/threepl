@@ -53,12 +53,6 @@ class AdminController < ShopifyApp::AuthenticatedController
       "from": {
         "email": "' + ENV['FROM_EMAIL'] + '"
       },
-      "categories": "category1",
-      "reply_to": {
-        "email": "' + ENV['FROM_EMAIL'] + '"
-      },
-      "subject": "Products from ' + shop + '",
-      "headers": {},
       "content": [
         {
           "type": "text/html",
