@@ -12,7 +12,7 @@ class AdminController < ShopifyApp::AuthenticatedController
       Partner.all.each do |partner|
         options = {
           :partner  => partner,
-          :shop     => shop.domain,
+          :shop     => shop.shopify_domain,
           :products => products
         }
         Adminmailer.send_email(options).deliver_now
