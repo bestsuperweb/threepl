@@ -7,7 +7,6 @@ class AdminController < ShopifyApp::AuthenticatedController
   end
 
   def send_eamils
-    @data     = nil
   	shop     = Shop.where( shopify_domain: ShopifyAPI::Shop.current.domain ).first
     products = params[:products]
     begin
@@ -17,15 +16,15 @@ class AdminController < ShopifyApp::AuthenticatedController
           :shop     => shop.shopify_domain,
           :products => products
         }
-        @data = send_email(options)
+        send_email(options)
       end
       
       # partners = Partner.all.collect{|partner| partner.email }
       # shop.emails.create!({products: products.collect{|p| p[1][:title]}.to_s, partners: "#{email.message_id} - #{partners.to_s}" })
 
-      render json: { status: 'success', message: "success to send emails | #{@data}" }
+      render json: { status: 'success', message: 'success to send emails' }
     rescue Exception => e
-      render json: { status: 'error', message: "#{e.to_s} | #{@data}" }
+      render json: { status: 'error', message: e.to_s }
     end
   end
 
@@ -36,7 +35,7 @@ class AdminController < ShopifyApp::AuthenticatedController
     shop           = options[:shop]
     products       = options[:products]
 
-    data = JSON.parse('{
+    str   ='{
       "personalizations": [
         {
           "to": [
@@ -46,7 +45,11 @@ class AdminController < ShopifyApp::AuthenticatedController
           ],
           "dynamic_template_data": {
             "shop": "' + shop + '",
-            "products": ' + products.collect{|p| p[1].to_json }.to_s + '
+            "products": ['
+
+    products.each{|p| str = str + p[1].to_json.to_s }
+
+    str = str + ']
           },
           "subject": "subject"
         }
@@ -54,12 +57,6 @@ class AdminController < ShopifyApp::AuthenticatedController
       "from": {
         "email": "' + ENV['FROM_EMAIL'] + '"
       },
-      "categories": [ "category1" ],
-      "reply_to": {
-        "email": "' + ENV['FROM_EMAIL'] + '"
-      },
-      "subject": "Products from ' + shop + '",
-      "headers": {},
       "content": [
         {
           "type": "text/html",
@@ -67,7 +64,10 @@ class AdminController < ShopifyApp::AuthenticatedController
         }
       ],
       "template_id": "' + User.all.first.template + '"
-    }')
+    }'
+    
+    data  = JSON.parse(str)
+    
     sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
     begin
         response = sg.client.mail._("send").post(request_body: data)
@@ -78,8 +78,6 @@ class AdminController < ShopifyApp::AuthenticatedController
     puts response.body
     puts response.parsed_body
     puts response.headers
-
-    data
 
   end
 
