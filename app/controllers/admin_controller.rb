@@ -19,7 +19,7 @@ class AdminController < ShopifyApp::AuthenticatedController
       end
       render json: { status: 'success', message: 'success to send emails' }
     rescue Exception => e
-      render json: { status: 'error', message: e.join(',') }
+      render json: { status: 'error', message: e.to_s }
     end
   end
 
