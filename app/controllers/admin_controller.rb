@@ -7,6 +7,7 @@ class AdminController < ShopifyApp::AuthenticatedController
   end
 
   def send_eamils
+    data     = nil
   	shop     = Shop.where( shopify_domain: ShopifyAPI::Shop.current.domain ).first
     products = params[:products]
     begin
