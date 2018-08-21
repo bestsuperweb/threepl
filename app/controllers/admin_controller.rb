@@ -9,7 +9,7 @@ class AdminController < ShopifyApp::AuthenticatedController
   def send_eamils
   	shop     = Shop.where( shopify_domain: ShopifyAPI::Shop.current.domain ).first
     products = params[:products]
-    # begin
+    begin
       Partner.all.each do |partner|
         options = {
           :partner  => partner,
@@ -23,9 +23,9 @@ class AdminController < ShopifyApp::AuthenticatedController
       shop.emails.create!({products: products.collect{|p| p[1][:title]}.to_s, partners: "#{email.message_id} - #{partners.to_s}" })
 
       render json: { status: 'success', message: 'success to send emails' }
-    # rescue Exception => e
-    #   render json: { status: 'error', message: e.to_s }
-    # end
+    rescue Exception => e
+      render json: { status: 'error', message: e.to_s }
+    end
   end
 
   private
