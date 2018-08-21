@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :templates
+  resources :etemplates
   devise_for :users
   resources :partners
   mount ShopifyApp::Engine, at: '/'
