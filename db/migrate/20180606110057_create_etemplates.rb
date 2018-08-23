@@ -1,6 +1,6 @@
-class CreateTemplates < ActiveRecord::Migration
+class CreateEtemplates < ActiveRecord::Migration
   def change
-    create_table :templates do |t|
+    create_table :etemplates do |t|
       t.string :template_id
       t.string :template_name
 

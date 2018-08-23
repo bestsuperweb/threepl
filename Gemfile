@@ -29,14 +29,15 @@ gem 'jquery-turbolinks'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'chartkick'
 gem 'groupdate'
-gem 'mandrill-api'
+# gem 'mandrill-api'
 gem 'devise'
 gem 'better_errors'
 gem 'rails_layout'
 gem 'bootstrap-sass'
+gem 'sendgrid-ruby'
 
-gem 'mysql2', '>= 0.3.18', '< 0.5'
-gem 'aws-sdk', '~> 2'
+# gem 'mysql2', '>= 0.3.18', '< 0.5'
+# gem 'aws-sdk', '~> 2'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
@@ -45,7 +46,7 @@ gem 'aws-sdk', '~> 2'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  # gem 'sqlite3'
+  gem 'sqlite3'
   gem 'byebug'
 end
 
@@ -58,9 +59,9 @@ group :development do
   # gem 'ruby-debug-ide', '0.6.0'
 end
 
-# group :production do
-#   gem 'pg'
-# end
+group :production do
+  gem 'pg', '0.15.1'
+end
 
 gem 'shopify_app'
 gem 'rack-cors'
