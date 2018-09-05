@@ -4,6 +4,7 @@ class AdminController < ShopifyApp::AuthenticatedController
 
   def index
     @products = ShopifyAPI::Product.all
+    @application_charges = ShopifyAPI::ApplicationCharge.all || []
   end
 
   def send_eamils
@@ -19,6 +20,8 @@ class AdminController < ShopifyApp::AuthenticatedController
       shop.emails.create!({products: products.collect{|p| p[1][:title]}.to_s, partners: "To: #{partners.to_s}" })
 
       send_email(options)
+
+      charge_request
 
       render json: { status: 'success', message: 'success to send emails' }
     rescue Exception => e
@@ -68,6 +71,16 @@ class AdminController < ShopifyApp::AuthenticatedController
     puts response.parsed_body
     puts response.headers
 
+  end
+
+  def charge_request
+  	application_charge = ShopifyAPI::ApplicationCharge.new({
+	  		name: 'Charge for request to send email to 3PL partners',
+	  		price: 30
+  		})
+    application_charge.test = true
+    application_charge.save
+    application_charge.activate
   end
 
 end
