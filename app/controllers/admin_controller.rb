@@ -3,9 +3,37 @@ class AdminController < ShopifyApp::AuthenticatedController
   skip_before_filter :verify_authenticity_token
 
   def index
-    @products = ShopifyAPI::Product.all
-    @application_charges = ShopifyAPI::ApplicationCharge.all || []
+    @products 				= ShopifyAPI::Product.all
+    @application_charges 	= ShopifyAPI::ApplicationCharge.all || []
+    @recurring_charge 		= ShopifyAPI::RecurringApplicationCharge.current
+    @usage_charges 			= ShopifyAPI::RecurringApplicationCharge.current || []
   end
+
+  def create_recurring_application_charge
+	  unless ShopifyAPI::RecurringApplicationCharge.current
+	    recurring_application_charge = ShopifyAPI::RecurringApplicationCharge.new(
+	            name: "Sourcify 3PL Bidding System Plan",
+	            price: 0.00,
+	            return_url: "#{root_url}/activatecharge",
+	            test: true,
+	            trial_days: 7,
+	            capped_amount: 100,
+	            terms: "$30 for every request to send emails to 3PL partners")
+
+	    if recurring_application_charge.save
+	      fullpage_redirect_to recurring_application_charge.confirmation_url
+	    end
+	  end
+  end
+
+  def activatecharge
+  	recurring_application_charge = ShopifyAPI::RecurringApplicationCharge.find(request.params['charge_id'])
+  	if recurring_application_charge.status == "accepted"
+  		recurring_application_charge.activate
+  	end
+  	redirect_to root_url
+  end
+
 
   def send_eamils
   	shop     = Shop.where( shopify_domain: ShopifyAPI::Shop.current.domain ).first
@@ -17,8 +45,6 @@ class AdminController < ShopifyApp::AuthenticatedController
         }     
       
       partners = Partner.all.collect{|partner| partner.email }
-
-      charge_request
 
       shop.emails.create!({products: products.collect{|p| p[1][:title]}.to_s, partners: "To: #{partners.to_s}" })     
       
@@ -74,15 +100,11 @@ class AdminController < ShopifyApp::AuthenticatedController
 
   end
 
-  def charge_request
-  	application_charge = ShopifyAPI::ApplicationCharge.new({
-	  		name: 'Charge for request to send email to 3PL partners',
-	  		price: 30
-  		})
-    application_charge.test = true
-    application_charge.return_url = application_charges_url    
-    application_charge.activate
-    application_charge.save
+  def create_usage_charge
+	  usage_charge = ShopifyAPI::UsageCharge.new(description: "$30 for every request to send emails to 3PL partners", price: 30)
+	  recurring_application_charge = ShopifyAPI::RecurringApplicationCharge.current
+	  usage_charge.prefix_options = {recurring_application_charge_id: recurring_application_charge.id}
+	  usage_charge.save
   end
 
 end
