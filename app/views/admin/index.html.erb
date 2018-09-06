@@ -1,13 +1,27 @@
 <div id="preloader"> <i class="fa fa-spinner fa-spin"></i></div>
 
-<div class="container-fluid" id="admin-panel" >
+<% if ShopifyAPI::RecurringApplicationCharge.current %>
 
-	<h2 class="text-info"><b>Charge Lists</b></h2>
+<div class="container-fluid" id="admin-panel">
+	<div class="panel panel-default">
+	  <div class="panel-body">
+	  	<div class="row">
+	  		<div class="col-xs-2 col-sm-1">
+	  			<%= image_tag 'sourcify.jpg', class: 'img-responsive' %>
+	  		</div>
+	  		<div class="col-xs-10 col-sm-11">
+	  			<p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+	  		</div>
+	  	</div>	  	
+	  </div>
+	</div>
 
-	<% if @application_charges.any? %>
-      <div class="panel panel-default">
-        <div class="panel-body">
-          <table class="table table-hover">
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<h4 class="text-info"><b>Charge Lists</b></h4>
+			<hr>
+			<% if @usage_charges.any? %>
+				<table class="table table-hover">
             <thead>
               <tr>
                 <th>Name</th>
@@ -17,7 +31,7 @@
               </tr>
             </thead>
             <tbody>
-              <% @application_charges.each do |charge| %>
+              <% @usage_charges.each do |charge| %>
                 <tr>
                   <td>
                     <%= charge.name %>
@@ -37,123 +51,66 @@
               <% end %>
             </tbody>
           </table>
-        </div>
-      </div>
-    <% end %>
+			<% end %>
+		</div>
+	</div>
 
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<h4 class="text-info"><b>Product Lists</b></h4>
+			<div id="product-lists">
+				<div class="row">
+					<% @products.each do |product| %>
+						<div class="col-xs-6 col-sm-2">
+							<div class="panel panel-default product-box" data-value="<%= product.to_json %>" >
+								<img src="<%= product.images.first.src %>" class="img-responsive product-img" >
+								<hr>
+								<b class="text-info"><%= product.title %></b>
+							</div>							
+						</div>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
 
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<h4 class="text-info"><b>Products to send to 3PL partners</b></h4>
+			<hr>
+			<table class="table" id="products">
+				<thead>
+					<tr>
+						<th width="10%">Product Image</th>
+						<th>Product ID</th>
+						<th>Name</th>
+						<th>Weight</th>
+						<th>W x L x H <span class="text-muted">( mm x mm x mm )</span></th>
+						<th>Has Battery?</th>
+						<th>Special Notes</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+			<hr>
+			<div class="text-right">
+				<% if Partner.all.count < 1 %>
+					<button class="btn btn-success btn-sm"  data-toggle="modal" data-target="#alertModal1" >
+						<i class="glyphicon glyphicon-send"></i> Send Emails
+					</button>
+				<% else %>
+					<button class="btn btn-success btn-sm" id="send-email" data-url="<%= send_eamils_path %>">
+						<i class="glyphicon glyphicon-send"></i> Send Emails
+					</button>
+				<% end %>
+			</div>			
+		</div>
+	</div>
 	
-	<h2 class="text-info"><b>Product Lists</b></h2>
-	<hr>
-	<table id="product-table">
-		<thead>
-			<tr>
-				<th><input type="checkbox" class="checkbox select-all" ></th>
-				<th>Name</th>
-				<th width="25%">Image</th>
-				<th>Weight</th>
-				<th>Count of Sales</th>
-			</tr>
-		</thead>
-		<tfoot>
-			<tr>
-				<th><input type="checkbox" class="checkbox select-all" ></th>
-				<th>Name</th>
-				<th>Image</th>
-				<th>Weight</th>
-				<th>Count of Sales</th>
-			</tr>
-			<tr>
-				<th colspan="7" class="ts-pager form-inline">
-					<div class="btn-group btn-group-sm" role="group">
-						<button type="button" class="btn btn-default first"><span class="glyphicon glyphicon-step-backward"></span></button>
-						<button type="button" class="btn btn-default prev"><span class="glyphicon glyphicon-backward"></span></button>
-					</div>
-					<span class="pagedisplay"></span>
-					<div class="btn-group btn-group-sm" role="group">
-						<button type="button" class="btn btn-default next"><span class="glyphicon glyphicon-forward"></span></button>
-						<button type="button" class="btn btn-default last"><span class="glyphicon glyphicon-step-forward"></span></button>
-					</div>
-					<select class="form-control input-sm pagesize" title="Select page size">
-						<option selected="selected" value="10">10</option>
-						<option value="20">20</option>
-						<option value="30">30</option>
-						<option value="all">All Rows</option>
-					</select>
-					<select class="form-control input-sm pagenum" title="Select page number"></select>
-				</th>
-			</tr>
-		</tfoot>
-		<tbody>
-			<% @products.each do |product| %>
-			<tr>
-				<td><input type="checkbox" class="checkbox product-checkbox" data-value="<%= product.to_json %>" ></td>
-				<td><h4 class="text-info"><%= product.title  %> <b><small>( #<%= product.id %> )</small></b></h4></td>
-				<td>
-					<a href="javascript:;" data-toggle="collapse" data-target="#<%= product.id %>" >Show Image</a>
-					<br>
-					<div id="<%= product.id %>" class="collapse">
-						<div id="carousel-<%= product.id %>" class="carousel slide" data-ride="carousel">
-							<!-- Wrapper for slides -->
-							<div class="carousel-inner">
-								<% product.images.each do |image| %>						  		
-								<div class="item <%= "active" if image == product.images.first %>">
-									<img src="<%= image.src %>" class="img-responsive product-img" >
-								</div>				    
-								<% end %>
-							</div>
-							<!-- Left and right controls -->
-							<a class="left carousel-control" href="#carousel-<%= product.id %>" data-slide="prev">
-							</a>
-							<a class="right carousel-control" href="#carousel-<%= product.id %>" data-slide="next">
-							</a>
-						</div>						
-					</div>					
-				</td>				
-				<td><%= product.variants.first.weight %> <%= product.variants.first.weight_unit %></td>
-				<td>12</td>
-			</tr>
-			<% end %>						
-		</tbody>
-	</table>
-
-	<hr>
-	<div>
-		<button class="btn btn-primary" id="add-products"><i class="glyphicon glyphicon-download-alt"></i> Add products</button>	
-	</div>	
-	<br><br><br>
-
-	<h2 class="text-info"><b>Products to send to 3PL partners</b></h2>
-	<hr>
-
-	<table class="table" id="products">
-		<thead>
-			<tr>
-				<th width="15%">Product Image</th>
-				<th>Product ID</th>
-				<th>Name</th>
-				<th>Weight</th>
-				<th>W x L x H <span class="text-muted">( mm x mm x mm )</span></th>
-				<th>Has Batter?</th>
-				<th>Special Notes</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody></tbody>
-	</table>
-
-	<hr>
-	<% if Partner.all.count < 1 %>
-		<button class="btn btn-success"  data-toggle="modal" data-target="#alertModal1" >
-			<i class="glyphicon glyphicon-send"></i> Send Emails
-		</button>
-	<% else %>
-		<button class="btn btn-success" id="send-email" data-url="<%= send_eamils_path %>">
-			<i class="glyphicon glyphicon-send"></i> Send Emails
-		</button>
-	<% end %>
-	<hr>
 </div>
+
+<!-- Modal lists -->
 
 <div class="modal fade" id="alertModal" role="dialog">
 	<div class="modal-dialog modal-sm">
@@ -225,15 +182,28 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary" id="save-specs">Save</button>
+				<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary btn-sm" id="save-specs">Save</button>
 			</div>
 		</div>
 	</div>
 </div> 
 
+<% else %>
 
-<div style="display: none;">
-	<%= @response %>
+<div class="container-fluid" id="admin-panel">
+	<div class="text-center" id="welcome-div">
+		<%= image_tag 'sourcify.jpg', width: '120', class: 'img-rounded' %>
+		<h2 class="text-info"><b>Welcome to Sourcify 3PL Bidding System</b></h2>		
+		<p class="text-muted">
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.<br>
+			In oder to continue app, please review and charge term and approve it.
+		</p>
+		<br><br>
+		<%= link_to 'Review Charge Term', create_recurring_charge_path, class: 'btn btn-primary' %>
+	</div>
 </div>
+
+<% end %>
+
 
