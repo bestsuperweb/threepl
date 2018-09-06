@@ -29,9 +29,10 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css");
 
-body{
+body, html{
 	font-family: Roboto !important;
 	letter-spacing: -0.4px;
+	background-color: #f4f6f8;
 }
 h1, h2, h3, p{
 	font-family: Montserrat !important;
@@ -89,9 +90,35 @@ div.dashboard{
 }
 
 #admin-panel{
-	padding: 50px 20px 100px;
+	padding: 20px 20px 100px;
+	background-color: #f4f6f8;
 }
 
+#product-lists{
+	max-height: 500px;
+	overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 15px;
+    background-color: #f4f6f8;
+    border: 1px solid rgba(0,0,0,.1);
+}
+
+.product-box{
+	padding: 15px;
+    border-radius: 2px !important;
+    cursor: pointer;
+    overflow: hidden;
+}
+.product-box img{
+	transition: .5s all ease;
+}
+.product-box img:hover{
+	transform: scale(1.3);
+}
+
+.delete-specs, .edit-specs{
+	cursor: pointer;
+}
 
 #preloader {
   position: fixed;
@@ -118,6 +145,17 @@ div.dashboard{
 }
 table#products i.edit-specs{
 	cursor: pointer;
+}
+
+#welcome-div{
+	padding: 150px 0;
+}
+
+#welcome-div h2{
+	font-family: Oswald !important;
+}
+#welcome-div a:visited{
+	color: #fff;
 }
 
 /*flash*/
