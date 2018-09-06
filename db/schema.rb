@@ -23,6 +23,13 @@ ActiveRecord::Schema.define(version: 20180606110057) do
 
   add_index "emails", ["shop_id"], name: "index_emails_on_shop_id"
 
+  create_table "etemplates", force: :cascade do |t|
+    t.string   "template_id"
+    t.string   "template_name"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
   create_table "partners", force: :cascade do |t|
     t.string   "email"
     t.string   "name"
@@ -38,13 +45,6 @@ ActiveRecord::Schema.define(version: 20180606110057) do
   end
 
   add_index "shops", ["shopify_domain"], name: "index_shops_on_shopify_domain", unique: true
-
-  create_table "templates", force: :cascade do |t|
-    t.string   "template_id"
-    t.string   "template_name"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

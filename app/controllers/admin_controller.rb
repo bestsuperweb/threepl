@@ -17,10 +17,12 @@ class AdminController < ShopifyApp::AuthenticatedController
         }     
       
       partners = Partner.all.collect{|partner| partner.email }
-      shop.emails.create!({products: products.collect{|p| p[1][:title]}.to_s, partners: "To: #{partners.to_s}" })
-      
+
       charge_request
-      send_email(options)
+
+      shop.emails.create!({products: products.collect{|p| p[1][:title]}.to_s, partners: "To: #{partners.to_s}" })     
+      
+      # send_email(options)
 
       render json: { status: 'success', message: 'success to send emails' }
     rescue Exception => e
@@ -78,8 +80,9 @@ class AdminController < ShopifyApp::AuthenticatedController
 	  		price: 30
   		})
     application_charge.test = true
-    application_charge.save
+    application_charge.return_url = application_charges_url    
     application_charge.activate
+    application_charge.save
   end
 
 end

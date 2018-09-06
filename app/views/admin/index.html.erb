@@ -1,6 +1,47 @@
 <div id="preloader"> <i class="fa fa-spinner fa-spin"></i></div>
 
 <div class="container-fluid" id="admin-panel" >
+
+	<h2 class="text-info"><b>Charge Lists</b></h2>
+
+	<% if @application_charges.any? %>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Date</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @application_charges.each do |charge| %>
+                <tr>
+                  <td>
+                    <%= charge.name %>
+                  </td>
+                  <td>
+                    $<%= charge.price %>
+                  </td>
+                  <td>
+                  	<%= charge.created_at %>
+                  </td>
+                  <td>
+                    <span class="badge">
+                       <%= charge.status.capitalize %>
+                    </span>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <% end %>
+
+
 	
 	<h2 class="text-info"><b>Product Lists</b></h2>
 	<hr>
