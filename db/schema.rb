@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180606110057) do
+ActiveRecord::Schema.define(version: 20180907031110) do
 
   create_table "emails", force: :cascade do |t|
     t.text     "products"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20180606110057) do
     t.integer  "shop_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "charge_id"
   end
 
   add_index "emails", ["shop_id"], name: "index_emails_on_shop_id"
