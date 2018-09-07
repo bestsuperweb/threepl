@@ -4,9 +4,11 @@ class AdminController < ShopifyApp::AuthenticatedController
 
   def index
     @products 				= ShopifyAPI::Product.all
-    @application_charges 	= ShopifyAPI::ApplicationCharge.all || []
     @recurring_charge 		= ShopifyAPI::RecurringApplicationCharge.current
-    @usage_charges 			= ShopifyAPI::RecurringApplicationCharge.current || []
+    @usage_charges 			= ShopifyAPI::UsageCharge.where({recurring_application_charge_id: @recurring_charge.id}) || []
+    emails  				= Shop.where( shopify_domain: ShopifyAPI::Shop.current.domain ).first.emails
+    @emails 				= {}
+    emails.each{ |email| @emails["#{email.charge_id}"] = email }
   end
 
   def create_recurring_application_charge
@@ -46,9 +48,14 @@ class AdminController < ShopifyApp::AuthenticatedController
       
       partners = Partner.all.collect{|partner| partner.email }
 
-      shop.emails.create!({products: products.collect{|p| p[1][:title]}.to_s, partners: "To: #{partners.to_s}" })     
-      
-      # send_email(options)
+      charge_id = create_usage_charge
+
+      shop.emails.create!({ 
+      	products: products.collect{|p| p[1][:title]}.to_s, 
+      	partners: partners.to_s, 
+      	charge_id: charge_id })          
+
+      send_email(options)
 
       render json: { status: 'success', message: 'success to send emails' }
     rescue Exception => e
@@ -105,6 +112,7 @@ class AdminController < ShopifyApp::AuthenticatedController
 	  recurring_application_charge = ShopifyAPI::RecurringApplicationCharge.current
 	  usage_charge.prefix_options = {recurring_application_charge_id: recurring_application_charge.id}
 	  usage_charge.save
+	  usage_charge.id
   end
 
 end
