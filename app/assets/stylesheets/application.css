@@ -158,6 +158,20 @@ table#products i.edit-specs{
 	color: #fff;
 }
 
+.email-box{
+	display: inline-block;
+    border: 1px solid rgba(0,0,0,.1);
+    padding: 5px 10px;
+    background-color: #f2f2f7;
+}
+.email-box small{
+	margin-bottom: 10px;
+	display: block;
+}
+.charge-price{
+	color: #00c5ad;
+}
+
 /*flash*/
 .alert-error {
     background-color: #f2dede;
