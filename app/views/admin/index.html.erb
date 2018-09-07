@@ -7,7 +7,7 @@
 	  <div class="panel-body">
 	  	<div class="row">
 	  		<div class="col-xs-2 col-sm-1">
-	  			<%= image_tag 'sourcify.jpg', class: 'img-responsive' %>
+	  			<%= image_tag 'sourcify.jpg', class: 'img-responsive img-rounded' %>
 	  		</div>
 	  		<div class="col-xs-10 col-sm-11">
 	  			<p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
@@ -18,34 +18,39 @@
 
 	<div class="panel panel-default">
 		<div class="panel-body">
-			<h4 class="text-info"><b>Charge Lists</b></h4>
+			<h4 class="text-info"><b>Charge Lists ( $30 for every request to send emails to 3PL partners ) </b></h4>
 			<hr>
 			<% if @usage_charges.any? %>
 				<table class="table table-hover">
             <thead>
               <tr>
-                <th>Name</th>
+              	<th width="30%">Email</th>                
+                <th>Charge ID</th>
                 <th>Price</th>
                 <th>Date</th>
-                <th>Status</th>
               </tr>
             </thead>
             <tbody>
               <% @usage_charges.each do |charge| %>
                 <tr>
-                  <td>
-                    <%= charge.name %>
+                	<td>
+                  	<span class="email-box">
+	                  	<small class="text-muted">
+	                  		<i class="glyphicon glyphicon-send"></i>&nbsp;&nbsp;&nbsp;
+	                  		<%= @emails["#{charge.id}"].partners.gsub!('[', '').gsub!(']', '') %>
+	                  	</small>
+	                  	<i class="glyphicon glyphicon-option-vertical"></i>&nbsp;&nbsp;
+	                  	<b><%= @emails["#{charge.id}"].products.gsub!('[', '').gsub!(']', '') %></b>
+	                  </span>
                   </td>
                   <td>
+                    <%= charge.id %>
+                  </td>                  
+                  <td class="charge-price">
                     $<%= charge.price %>
                   </td>
                   <td>
                   	<%= charge.created_at %>
-                  </td>
-                  <td>
-                    <span class="badge">
-                       <%= charge.status.capitalize %>
-                    </span>
                   </td>
                 </tr>
               <% end %>
