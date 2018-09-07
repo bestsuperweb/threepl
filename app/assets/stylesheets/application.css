@@ -165,7 +165,7 @@ table#products i.edit-specs{
     background-color: #f2f2f7;
 }
 .email-box small{
-	margin-bottom: 10px;
+	/*margin-bottom: 10px;*/
 	display: block;
 }
 .charge-price{
