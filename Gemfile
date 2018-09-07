@@ -64,5 +64,5 @@ group :production do
 end
 
 gem 'shopify_app', '~> 7.2.0'
-gem 'shopify_api', git: 'git@github.com:Shopify/shopify_api.git', ref: 'd097cbf8ba796c1c4de0d56446eb6dcc81acb70d'
+gem 'shopify_api'
 gem 'rack-cors'
