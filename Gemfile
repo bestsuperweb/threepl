@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '2.3.7'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.5.1'
+gem 'rails', '4.2.7'
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'
 # Use SCSS for stylesheets
@@ -63,5 +63,6 @@ group :production do
   gem 'pg', '0.15.1'
 end
 
-gem 'shopify_app'
+gem 'shopify_app', '~> 7.2.0'
+gem 'shopify_api', git: 'git@github.com:Shopify/shopify_api.git', ref: 'd097cbf8ba796c1c4de0d56446eb6dcc81acb70d'
 gem 'rack-cors'
