@@ -5,7 +5,13 @@ class AdminController < ShopifyApp::AuthenticatedController
   def index
     @products 				= ShopifyAPI::Product.all
     @recurring_charge 		= ShopifyAPI::RecurringApplicationCharge.current
-    @usage_charges 			= ShopifyAPI::UsageCharge.where({recurring_application_charge_id: @recurring_charge.id}) || []
+
+    if @recurring_charge.nil?
+    	@usage_charges 		= []
+    else
+    	@usage_charges 		= ShopifyAPI::UsageCharge.where({recurring_application_charge_id: @recurring_charge.id})
+    end
+    	
     emails  				= Shop.where( shopify_domain: ShopifyAPI::Shop.current.domain ).first.emails
     @emails 				= {}
     emails.each{ |email| @emails["#{email.charge_id}"] = email }
