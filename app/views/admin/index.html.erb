@@ -37,10 +37,8 @@
                   	<span class="email-box">
 	                  	<small class="text-muted">
 	                  		<i class="glyphicon glyphicon-send"></i>&nbsp;&nbsp;&nbsp;
-	                  		<%= @emails["#{charge.id}"].partners.gsub!('[', '').gsub!(']', '') %>
-	                  	</small>
-	                  	<i class="glyphicon glyphicon-option-vertical"></i>&nbsp;&nbsp;
-	                  	<b><%= @emails["#{charge.id}"].products.gsub!('[', '').gsub!(']', '') %></b>
+	                  		<b><%= @emails["#{charge.id}"].products.gsub!('[', '').gsub!(']', '') %></b>
+	                  	</small>	                  	
 	                  </span>
                   </td>
                   <td>
