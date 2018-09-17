@@ -1,0 +1,104 @@
+<%= render 'layouts/header' %>
+<div class="container">
+
+	<div class="row">
+		<div class="col-xs-4">
+			<div class="well">
+				<h3 class="text-success"><%= @emails.count %> <small>Requests</small></h3>
+			</div>
+		</div>
+		<div class="col-xs-4">
+			<div class="well">
+				<h3 class="text-warning"><%= @pending_emails.count %> <small>Pending Requests</small></h3>
+			</div>
+		</div>
+		<div class="col-xs-4">
+			<div class="well">
+				<h3 class="text-info"><%= @quotes.count %> <small>Quotes</small></h3>
+			</div>
+		</div>
+	</div>	
+
+	<h3 class="text-danger"><b>Pending Requests</b></h3>
+	<hr>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Number of Product</th>
+				<th>Company</th>
+				<th>Due Date</th>
+				<th></th>
+				<th></th>
+			</tr>			
+		</thead>
+		<tbody>
+			<% @pending_emails.each_with_index do |email, index| %>
+				<tr>
+					<td><%= index + 1 %></td>
+					<td><%= email.products.count %></td>
+					<td><%= email.shop.shopify_domain %></td>
+					<td><%= email.delivery_date %></td>
+					<td><%= link_to 'Show Request', show_request_path(id: email.id), class: 'btn btn-default btn-sm' %></td>
+					<td><%= link_to 'New Quote', new_quote_path(email.id), class: 'btn btn-sm btn-info' %></td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+	<br><br>
+
+	<h3 class="text-success"><b>Submitted Requests</b></h3>
+	<hr>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Number of Products</th>
+				<th>Company</th>
+				<th>Sent Date</th>
+				<th></th>
+			</tr>			
+		</thead>
+		<tbody>
+			<% @sent_emails.each_with_index do |email, index| %>
+				<tr>
+					<td><%= index + 1 %></td>
+					<td><%= email.products.count %></td>
+					<td><%= email.shop.shopify_domain %></td>
+					<td><%= email.updated_at %></td>
+					<td><%= link_to 'Show Request', show_request_path(id: email.id), class: 'btn btn-default btn-sm' %></td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+	<br><br>
+
+	<h3 class="text-success"><b>Your Quotes</b></h3>
+	<hr>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Request ID</th>
+				<th>Company</th>
+				<th>Request Received Date</th>
+				<th>Quote Send Date</th>
+				<th></th>
+			</tr>			
+		</thead>
+		<tbody>
+			<% @quotes.each_with_index do |quote, index| %>				
+				<tr>					
+					<td><%= index + 1 %></td>
+					<td>#<%= quote.email.id %></td>
+					<td><%= quote.shop.shopify_domain %></td>
+					<td><%= quote.email.created_at %></td>
+					<td><%= quote.created_at %></td>
+					<td><%= link_to 'View Details', show_quote_path(id: quote.id), class: 'btn btn-default btn-sm' %></td>
+				</tr>				
+			<% end %>
+		</tbody>
+	</table>
+	<br><br><br>
+</div>
+<%= render 'layouts/footer' %>
