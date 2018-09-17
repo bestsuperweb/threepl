@@ -1,0 +1,38 @@
+<%= render 'layouts/header' %>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-6">
+			<h3 class="text-info">
+				<b>You have sent a Quote for request #<%= @quote.email.id %></b><br>
+				<small class="text-muted">Send at <%= @quote.created_at %></small>
+			</h3>
+			<hr>
+				<div class="form-group">
+					<label class="control-label">Pick and Pack Fee </label>
+					<h4><small>$ </small><b><%= @quote.pp_fee %></b></h4>
+				</div>
+				<div class="form-group">
+					<label class="control-label">Storage Cost $x/ per month/ per cubic foot:</label>
+					<h4><small>$ </small><b><%= @quote.storage_cost %></b></h4>
+				</div>
+				<div class="form-group">
+					<label class="control-label">International Processing Fee</label>
+					<h4><small>$ </small><b><%= @quote.international_fee %></b></h4>
+				</div>
+				<div class="form-group">
+					<label class="control-label">Shipping Options: Time and Cost</label>
+					<h4><b><%= @quote.shipping_option %></b></h4>
+				</div>
+				<div class="form-group">
+					<label class="control-label">Warehousing Options: Time and Cost</label>
+					<h4><b><%= @quote.warehousing_option %></b></h4>
+				</div>
+			<br><br>
+			<hr>
+			<%= link_to 'Back to Dashboard', dashboard_path, class: 'btn btn-default' %>
+			<hr>
+			<br><br>
+		</div>
+	</div>
+</div>
+<%= render 'layouts/footer' %>

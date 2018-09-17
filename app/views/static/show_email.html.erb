@@ -1,0 +1,52 @@
+<%= render 'layouts/header' %>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+			<h3 class="text-info">
+				<b>You have received a Request from <%= @email.shop.shopify_domain %></b><br>
+				<small class="text-muted">Send at <%= @email.created_at %></small>
+			</h3>
+			<hr>
+			<h4>Due Date: <small><%= @email.delivery_date %></small></h4>
+			<br>
+			<h4>Products:</h4>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Title</th>
+						<th>Image</th>
+						<th>Size</th>
+						<th>Weight</th>
+						<th>Has Battery?</th>
+						<th>Shipping Volume</th>
+						<th>Order Quantity</th>
+						<th>Special Notes</th>				
+					</tr>
+				</thead>
+				<tbody>
+					<% @email.products.each_with_index do |product, index| %>
+					<tr>
+						<td><%= index + 1 %></td>
+						<td><%= product.title %></td>
+						<td><img src='<%= product.image %>' width='100' ></td>
+						<td><%= "#{product.width} x #{product.length} x #{product.height}" %></td>
+						<td><%= product.weight %></td>
+						<td><%= product.has_battery %></td>
+						<td><%= product.shipping_volume %></td>
+						<td><%= product.order_quantity %></td>				
+						<td><%= product.notes %></td>		
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+
+			<br><br>
+			<hr>
+			<%= link_to 'Back to Dashboard', dashboard_path, class: 'btn btn-default' %>
+			<hr>
+			<br><br>
+		</div>
+	</div>
+</div>
+<%= render 'layouts/footer' %>
