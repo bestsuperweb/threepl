@@ -8,3 +8,9 @@
 # (1..10).each do |index|
 # 	email = Email.create([{shop_id: 3, products: "product#{index}"}])
 # end
+
+if User.all.count < 1
+	User.create!(email: 'admin@example.com', name: 'admin', password: 'password', password_confirmation: 'password', admin: true)
+else 
+	puts "Exists"
+end
