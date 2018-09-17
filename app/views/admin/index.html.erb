@@ -197,13 +197,22 @@
 <div class="container-fluid" id="admin-panel">
 	<div class="text-center" id="welcome-div">
 		<%= image_tag 'sourcify.jpg', width: '120', class: 'img-rounded' %>
-		<h2 class="text-info"><b>Welcome to Sourcify 3PL Bidding System</b></h2>		
+		<h2 class="text-info"><b>Welcome to 3PL Stream by Sourcify!</b></h2>		
 		<p class="text-muted">
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.<br>
-			In oder to continue app, please review and charge term and approve it.
+			Easily compare Third Party Logistic Partners
 		</p>
-		<br><br>
-		<%= link_to 'Review Charge Term', create_recurring_charge_path, class: 'btn btn-primary' %>
+		<ul>
+			<li>
+				Start by setting up your account with your product details to get accurate 3PL quotations<br>
+				<%= link_to 'Get Started', create_recurring_charge_path, class: 'btn btn-primary' %>
+			</li>
+			<li>
+				Send your products to our Third Party Logistics Partners to get quotations
+			</li>
+			<li>
+				View quotations and start working with the right third party logistics partner!
+			</li>
+		</ul>		
 	</div>
 </div>
 
