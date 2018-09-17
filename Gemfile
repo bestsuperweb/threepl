@@ -36,6 +36,10 @@ gem 'rails_layout'
 gem 'bootstrap-sass'
 gem 'sendgrid-ruby'
 
+
+gem 'momentjs-rails', '>= 2.9.0'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
+
 # gem 'mysql2', '>= 0.3.18', '< 0.5'
 # gem 'aws-sdk', '~> 2'
 # Use Unicorn as the app server
