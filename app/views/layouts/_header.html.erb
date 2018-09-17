@@ -1,8 +1,9 @@
 <nav class="navbar navbar-default">
   <div class="container">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">3PL - Admin</a>
+    	<%= link_to '3PL Stream by Sourcify', dashboard_path, class: 'navbar-brand' %>
     </div>
+    <% if current_user.admin? %>
     <ul class="nav navbar-nav">
       <li class="<%= "active" if current_page?(admin_path) %>">
         <%= link_to 'Dashboard', admin_path %>
@@ -14,6 +15,7 @@
         <%= link_to 'Template', etemplates_path %>
       </li>
     </ul>
+    <% end %>
     <ul class="nav navbar-nav navbar-right">
       <li>
         <%= link_to 'Log Out', destroy_user_session_path, method: :delete %>
@@ -21,3 +23,7 @@
     </ul>
   </div>
 </nav>
+<div class="container">
+	<%= render 'layouts/message' %>	
+</div>
+
