@@ -10,6 +10,7 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require bootstrap-datetimepicker
  *= require_tree .
  *= require_self
  */
@@ -157,6 +158,10 @@ table#products i.edit-specs{
 #welcome-div a:visited{
 	color: #fff;
 }
+#welcome-div ul{
+	list-style: decimal;
+    display: inline-grid;
+}
 
 .email-box{
 	display: inline-block;
@@ -170,6 +175,11 @@ table#products i.edit-specs{
 }
 .charge-price{
 	color: #00c5ad;
+}
+
+.form-group.required .control-label:after {
+  content:"*";
+  color:red;
 }
 
 /*flash*/
