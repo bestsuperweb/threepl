@@ -1,5 +1,0 @@
-Hi <%= @partner.name %>,
-Here are products from <%= @shop %>.
-<% @products.each_with_index do |product, index| %>
-	<%= index + 1 %> - <%= product[1][:image] %>, <%= product[1][:title] %>, <%= product[1][:weight].html_safe %>, <%= product[1][:whl] %>, <%= product[1][:battery] %>, <%= product[1][:notes] %>
-<% end %>

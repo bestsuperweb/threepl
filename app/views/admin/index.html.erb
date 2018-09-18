@@ -18,43 +18,57 @@
 
 	<div class="panel panel-default">
 		<div class="panel-body">
-			<h4 class="text-info"><b>Charge Lists ( $30 for every request to send emails to 3PL partners ) </b></h4>
+			<h4 class="text-info"><b>Quotes from partners</b></h4>
 			<hr>
-			<% if @usage_charges.any? %>
-				<table class="table table-hover">
-            <thead>
-              <tr>
-              	<th width="45%">Email</th>                
-                <th>Charge ID</th>
-                <th>Price</th>
-                <th>Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @usage_charges.each do |charge| %>
-                <tr>
-                	<td>
-                  	<span class="email-box">
-	                  	<small class="text-muted">
-	                  		<i class="glyphicon glyphicon-send"></i>&nbsp;&nbsp;&nbsp;
-	                  		<b><%= @emails["#{charge.id}"].products.gsub!('[', '').gsub!(']', '') %></b>
-	                  	</small>
-	                  </span>
-                  </td>
-                  <td>
-                    <%= charge.id %>
-                  </td>                  
-                  <td class="charge-price">
-                    $<%= charge.price %>
-                  </td>
-                  <td>
-                  	<%= charge.created_at %>
-                  </td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-			<% end %>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Partner</th>
+						<th>Request Sent Date</th>
+						<th>Received Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @quotes.each_with_index do |quote, index| %>
+					<tr>
+						<td><%= index + 1 %></td>
+						<td><%= quote.user.name %></td>
+						<td><%= quote.email.created_at %></td>
+						<td><%= quote.created_at %></td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<h4 class="text-info"><b>Requests</b></h4>
+			<hr>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Number of products</th>
+						<th>Partner</th>
+						<th>Status</th>
+						<th>Sent Date</th>						
+					</tr>
+				</thead>
+				<tbody>
+					<% @emails.each_with_index do |email, index| %>
+					<tr>
+						<td><%= index + 1 %></td>
+						<td><%= email.products.count %></td>
+						<td><%= email.user.name %></td>
+						<td><%= email.status %></td>
+						<td><%= email.created_at %></td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
 		</div>
 	</div>
 
@@ -88,8 +102,12 @@
 						<th>Product ID</th>
 						<th>Name</th>
 						<th>Weight</th>
-						<th>W x L x H <span class="text-muted">( mm x mm x mm )</span></th>
+						<th>Width<span class="text-muted">( mm )</span></th>
+						<th>Length<span class="text-muted">( mm )</span></th>
+						<th>Height<span class="text-muted">( mm )</span></th>
 						<th>Has Battery?</th>
+						<th>Shipping Volume</th>
+						<th>Order Quantity</th>
 						<th>Special Notes</th>
 						<th></th>
 					</tr>
@@ -97,8 +115,17 @@
 				<tbody></tbody>
 			</table>
 			<hr>
+			<div class="form-group">
+				<div class='input-group date' id='delivery-date'>
+            <input type='text' class="form-control" />
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
+			</div>
+			<hr>
 			<div class="text-right">
-				<% if Partner.all.count < 1 %>
+				<% if @users.count < 1 %>
 					<button class="btn btn-success btn-sm"  data-toggle="modal" data-target="#alertModal1" >
 						<i class="glyphicon glyphicon-send"></i> Send Emails
 					</button>
@@ -178,6 +205,14 @@
 						<option>Yes</option>						
 						<option>Not Specified</option>
 					</select>
+				</div>
+				<div class="form-group">
+					<label>Shipping Volume</label>
+					<input type="number" step=".01" class="form-control" id="shiping-input" >
+				</div>
+				<div class="form-group">
+					<label>Order Quantity</label>
+					<input type="number" step=".01" class="form-control" id="order-input" >
 				</div>
 				<div class="form-group">
 					<label>Special Notes</label>
