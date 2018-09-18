@@ -5,15 +5,12 @@
     </div>
     <% if current_user.admin? %>
     <ul class="nav navbar-nav">
-      <li class="<%= "active" if current_page?(admin_path) %>">
-        <%= link_to 'Dashboard', admin_path %>
-      </li>
-      <li class="<%= "active" unless current_page?(admin_path) %>">
-        <%= link_to 'Setting', partners_path %>
-      </li>
-      <li class="<%= "active" unless current_page?(admin_path) %>">
+      <li class="<%= "active" if current_page?(setting_path) %>">
+        <%= link_to 'Setting', setting_path %>
+      </li>    
+      <li class="<%= "active" if current_page?(etemplates_path) %>">
         <%= link_to 'Template', etemplates_path %>
-      </li>
+      </li>  
     </ul>
     <% end %>
     <ul class="nav navbar-nav navbar-right">
