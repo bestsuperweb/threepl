@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>You received a quote from <%= @quote.user.name %></title>
+</head>
+<body>
+	<h2>Hello Owner of the <%= @quote.shop.shop_name %></h2>
+	<p>You have received a quote from <%= @quote.shop.shop_name %> at <%= @quote.created_at.strftime("%b %d, %Y %H:%M") %></p>
+	<hr>
+		<label class="control-label">Pick and Pack Fee :</label><br>
+		<h4><small>$ </small><b><%= @quote.pp_fee %></b></h4>
+		<label class="control-label">Storage Cost $x/ per month/ per cubic foot:</label><br>
+		<h4><small>$ </small><b><%= @quote.storage_cost %></b></h4>
+		<label class="control-label">International Processing Fee</label><br>
+		<h4><small>$ </small><b><%= @quote.international_fee %></b></h4>
+		<label class="control-label">Shipping Options: Time and Cost</label><br>
+		<h4><b><%= @quote.shipping_option %></b></h4>
+		<label class="control-label">Warehousing Options: Time and Cost</label><br>
+		<h4><b><%= @quote.warehousing_option %></b></h4>
+</body>
+</html>

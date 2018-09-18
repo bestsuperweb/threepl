@@ -1,0 +1,7 @@
+Hello Owner of the <%= @quote.shop.shop_name %>
+You have received a quote from <%= @quote.shop.shop_name %> at <%= @quote.created_at.strftime("%b %d, %Y %H:%M") %>
+Pick and Pack Fee : $ <%= @quote.pp_fee %>
+Storage Cost $x/ per month/ per cubic foot: $ <%= @quote.storage_cost %>
+International Processing Fee: $ <%= @quote.international_fee %>
+Shipping Options: Time and Cost: <%= @quote.shipping_option %>
+Warehousing Options: Time and Cost: <%= @quote.warehousing_option %>
