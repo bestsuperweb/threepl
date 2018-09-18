@@ -1,5 +1,47 @@
 <%= render 'layouts/header' %>
-<div class="container">
+<div class="container dashboard">
+	
+	<% if current_user.admin? %>
+
+	<div class="row">
+		<h3 class="text-info">Requests by Shop</h3>
+		<hr>
+		<% @shops.each_with_index do |shop, index| %> 
+			<%= "#{shop.id} - <b>#{shop.shopify_domain}</b> , ".html_safe %> 
+		<% end %>
+		<%= pie_chart @emails.group(:shop_id).count %>
+		<h3 class="text-info">Requests by Time</h3>
+		<hr>
+		<%= area_chart @emails.group_by_day(:created_at).count %>
+		<br><br>
+		<h3 class="text-info">Requests</h3>
+		<hr>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>No</th>
+					<th>User domain</th>
+					<th>Products</th>
+					<th>Partner</th>
+					<th>Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @emails.each_with_index do |email, index| %>
+				<tr>
+					<td><%= index+1 %></td>
+					<td><b><%= email.shop.shopify_domain %></b></td>
+					<td><%= email.products.count %></td>
+					<td><%= email.user.name %></td>
+					<td><%= email.created_at.strftime("%b %d, %Y %H:%M") %></td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+		
+	</div>
+
+	<% else %>
 
 	<div class="row">
 		<div class="col-xs-4">
@@ -38,7 +80,7 @@
 					<td><%= index + 1 %></td>
 					<td><%= email.products.count %></td>
 					<td><%= email.shop.shopify_domain %></td>
-					<td><%= email.delivery_date %></td>
+					<td><%= email.delivery_date.strftime("%b %d, %Y %H:%M") %></td>
 					<td><%= link_to 'Show Request', show_request_path(id: email.id), class: 'btn btn-default btn-sm' %></td>
 					<td><%= link_to 'New Quote', new_quote_path(email.id), class: 'btn btn-sm btn-info' %></td>
 				</tr>
@@ -65,7 +107,7 @@
 					<td><%= index + 1 %></td>
 					<td><%= email.products.count %></td>
 					<td><%= email.shop.shopify_domain %></td>
-					<td><%= email.updated_at %></td>
+					<td><%= email.updated_at.strftime("%b %d, %Y %H:%M") %></td>
 					<td><%= link_to 'Show Request', show_request_path(id: email.id), class: 'btn btn-default btn-sm' %></td>
 				</tr>
 			<% end %>
@@ -92,13 +134,14 @@
 					<td><%= index + 1 %></td>
 					<td>#<%= quote.email.id %></td>
 					<td><%= quote.shop.shopify_domain %></td>
-					<td><%= quote.email.created_at %></td>
-					<td><%= quote.created_at %></td>
+					<td><%= quote.email.created_at.strftime("%b %d, %Y %H:%M") %></td>
+					<td><%= quote.created_at.strftime("%b %d, %Y %H:%M") %></td>
 					<td><%= link_to 'View Details', show_quote_path(id: quote.id), class: 'btn btn-default btn-sm' %></td>
 				</tr>				
 			<% end %>
 		</tbody>
 	</table>
+	<% end %>
 	<br><br><br>
 </div>
 <%= render 'layouts/footer' %>

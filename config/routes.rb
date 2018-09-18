@@ -8,13 +8,12 @@ Rails.application.routes.draw do
   get 	'quote', 			to: 'static#show_quote', 	as: 'show_quote'
   get 	'request', 			to: 'static#show_email',	as: 'show_request'
   get 	'setting', 			to: 'static#setting', 		as: 'setting'
+  post  'save/template', 	to: 'static#save_template', as: 'save_template'
 
   resources :etemplates
   devise_for :users
   mount ShopifyApp::Engine, at: '/'
-  get 	'admin', 			to: 'partners#dashboard',		as: 'admin'
   post 	'send/emails', 		to: 'admin#send_eamils',		as: 'send_eamils'
-  post 	'save/template', 	to: 'partners#save_template', 	as: 'save_template'
   get 	'recurring/charge', to: 'admin#create_recurring_application_charge', as: 'create_recurring_charge'
   get 	'activatecharge', 	to: 'admin#activatecharge', 	as: 'activate_charge'
   

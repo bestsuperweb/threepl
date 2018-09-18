@@ -1,2 +1,77 @@
-<h1>Static#setting</h1>
-<p>Find me in app/views/static/setting.html.erb</p>
+<%= render 'layouts/header' %>
+<div class="container dashboard">
+	
+	<% if current_user.admin? %>
+		<h3><b>Partners</b></h3>
+		<hr>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Name</th>
+					<th>Email</th>
+					<th>Company</th>
+					<th>Phone</th>
+					<th>Warehouse Location</th>
+					<th>Number of Quote</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @users.each_with_index do |user, index| %>
+				<tr>
+					<td><%= index + 1 %></td>
+					<td><%= user.name %></td>
+					<td><%= user.email %></td>
+					<td><%= user.company %></td>
+					<td><%= user.phone %></td>
+					<td><%= user.warehouse_location %></td>
+					<td><%= user.quotes.count %></td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+		<br><br>
+
+		<h3><b>Shops</b></h3>
+		<hr>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Shop Name</th>
+					<th>Owner Email</th>
+					<th>Shopify Domain</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @shops.each_with_index do |shop, index| %>
+				<tr>
+					<td><%= index + 1 %></td>
+					<td><%= shop.shop_name %></td>
+					<td><%= shop.owner_email %></td>
+					<td><%= shop.shopify_domain %></td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+
+		<br><br>
+	  <h3 class="text-info">
+	    Select Email Template <small>( Current Template: <b><%= current_user.template %></b> )</small>
+	  </h3>
+	  <hr>
+	  <%= form_tag(save_template_path, {:method => :post}) do %>
+	  <select class="form-control" name="template">
+	    <% Etemplate.all.each do |template| %>
+	    <option value="<%= template.template_id %>"><%= template.template_name %></option>
+	    <% end %>
+	  </select>
+
+	  <hr>
+	  <button class="btn btn-primary">Save</button>
+	  <% end %>
+
+	<% end %>
+</div>
+<%= render 'layouts/footer' %>
