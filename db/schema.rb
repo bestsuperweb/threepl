@@ -39,9 +39,10 @@ ActiveRecord::Schema.define(version: 20180915152414) do
     t.float    "length"
     t.float    "height"
     t.string   "image"
+    t.boolean  "has_battery"
     t.float    "shipping_volume"
     t.integer  "order_quantity"
-    t.text 	   "notes"
+    t.text     "notes"
     t.integer  "email_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
@@ -69,6 +70,8 @@ ActiveRecord::Schema.define(version: 20180915152414) do
   create_table "shops", force: :cascade do |t|
     t.string   "shopify_domain", null: false
     t.string   "shopify_token",  null: false
+    t.string   "shop_name"
+    t.string   "owner_email"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -99,7 +102,7 @@ ActiveRecord::Schema.define(version: 20180915152414) do
     t.string   "name"
     t.string   "company"
     t.string   "phone"
-    t.string   "warehouse_locatoin"
+    t.string   "warehouse_location"
     t.boolean  "admin"
   end
 
