@@ -10,6 +10,12 @@ class StaticController < ApplicationController
   	@sent_emails	 	= current_user.emails.where(:status => 'sent')
   	
   	@quotes 			= current_user.quotes
+
+  	if current_user.admin?
+  		@emails = Email.all
+  		@shops 	= Shop.all
+
+  	end
   end
 
   def create_quote
@@ -19,6 +25,7 @@ class StaticController < ApplicationController
   		flash[:notice] = "Successfully sent quote - ##{@quote.id}..."
   		@email.status  = 'sent'
   		@email.save
+  		AdminMailer.notify_quote(@quote).deliver_now
   		redirect_to dashboard_path
   	else
   		flash[:notice] = "There are some error to send quote..."
@@ -39,6 +46,19 @@ class StaticController < ApplicationController
   end
 
   def setting
+  	redirect_to dashboard_url, notice: "You can't access this page..." unless current_user.admin?
+  	@users 	= User.all.where(:admin => nil)
+  	@shops 	= Shop.all
+  end
+
+  def save_template
+  	template = params[:template]
+    current_user.template = template
+    if current_user.save
+      redirect_to setting_url, notice: 'Template was successfully updated.'
+    else
+      redirect_to setting_url, error: 'There is error to save template.'
+    end
   end
 
   private
