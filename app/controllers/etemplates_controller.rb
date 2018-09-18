@@ -1,5 +1,6 @@
 class EtemplatesController < ApplicationController
   before_action :set_etemplate, only: [:show, :edit, :update, :destroy]
+  before_action :check_admin
 
   # GET /Etemplates
   def index
@@ -54,5 +55,9 @@ class EtemplatesController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def etemplate_params
       params.require(:etemplate).permit(:template_id, :template_name)
+    end
+
+    def check_admin
+    	redirect_to dashboard_url, notice: "You can't access this page..." unless current_user.admin?
     end
 end
