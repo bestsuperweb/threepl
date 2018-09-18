@@ -4,6 +4,16 @@ class AdminController < ShopifyApp::AuthenticatedController
 
   def index
 
+  	shop     = Shop.where( shopify_domain: ShopifyAPI::Shop.current.domain ).first
+  	
+  	if shop.owner_email.nil? or shop.shop_name.nil?
+  		owner_email = ShopifyAPI::Shop.current.email
+  		shop_name 	= ShopifyAPI::Shop.current.name
+  		shop.owner_email = owner_email unless shop.owner_email == owner_email
+  		shop.shop_name = shop_name unless shop.shop_name == shop_name
+  		shop.save
+  	end
+
     @products 				= ShopifyAPI::Product.all
     @recurring_charge 		= ShopifyAPI::RecurringApplicationCharge.current
 
@@ -13,21 +23,22 @@ class AdminController < ShopifyApp::AuthenticatedController
     	@usage_charges 		= ShopifyAPI::UsageCharge.where({recurring_application_charge_id: @recurring_charge.id})
     end
     	
-    emails  				= Shop.where( shopify_domain: ShopifyAPI::Shop.current.domain ).first.emails
-    @emails 				= {}
-    emails.each{ |email| @emails["#{email.charge_id}"] = email }
+    @emails  				= shop.emails
+    @quotes 				= shop.quotes
+    @users 					= User.all.where(:admin => nil)
+    
   end
 
   def create_recurring_application_charge
 	  unless ShopifyAPI::RecurringApplicationCharge.current
 	    recurring_application_charge = ShopifyAPI::RecurringApplicationCharge.new(
 	            name: "Sourcify 3PL Bidding System Plan",
-	            price: 0.00,
+	            price: 30.00,
 	            return_url: "#{root_url}/activatecharge",
 	            test: true,
 	            trial_days: 7,
 	            capped_amount: 100,
-	            terms: "$30 for every request to send emails to 3PL partners")
+	            terms: "$0.00 for every request to send emails to 3PL partners")
 
 	    if recurring_application_charge.save
 	      fullpage_redirect_to recurring_application_charge.confirmation_url
@@ -45,22 +56,27 @@ class AdminController < ShopifyApp::AuthenticatedController
 
 
   def send_eamils
-  	shop     = Shop.where( shopify_domain: ShopifyAPI::Shop.current.domain ).first
-    products = params[:products]
+  	shop     		= Shop.where( shopify_domain: ShopifyAPI::Shop.current.domain ).first
+    products 		= params[:products]
+    products_list  	= products.collect{|p| p[1] }
+    delivery_date 	= params[:delivery_date]
     begin
       options = {
-          :shop     => shop.shopify_domain,
+          :shop     => shop.shop_name,
           :products => products
         }     
       
-      partners = Partner.all.collect{|partner| partner.email }
+      partners = User.all.where(:admin => nil)
 
-      charge_id = create_usage_charge
+      # charge_id = create_usage_charge
 
-      shop.emails.create!({ 
-      	products: products.collect{|p| p[1][:title]}.to_s, 
-      	partners: partners.to_s, 
-      	charge_id: charge_id })          
+      partners.each do |partner|
+      	email = shop.emails.create!({ status: 'pending', delivery_date: delivery_date, user_id: partner.id })
+      	products_list.each do |product|
+      		puts "product = #{product}"
+      		email.products.create!(product.to_hash)
+      	end
+      end
 
       send_email(options)
 
@@ -95,10 +111,10 @@ class AdminController < ShopifyApp::AuthenticatedController
           "value": "body"
         }
       ],
-      "template_id": "' + User.all.first.template + '"
+      "template_id": "' + User.all.where(:admin => true).first.template + '"
     }')
 
-    data['personalizations'].first['to'] = Partner.all.collect{|p| { 'email': p.email, 'name': p.name } }
+    data['personalizations'].first['to'] = User.all.where(:admin => nil).collect{|p| { 'email': p.email, 'name': p.name } }
     data['personalizations'].first['dynamic_template_data']['products'] = products_list
 
     sg = SendGrid::API.new(api_key: ENV['SENDGRID_API_KEY'])
