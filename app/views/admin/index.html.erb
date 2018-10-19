@@ -4,9 +4,9 @@
   <div class="container-fluid">
     <ul class="nav navbar-nav">
       <li>
-      	<a href="#">
+      	<a data-toggle="tab" href="#dashboard" >
       		<svg viewBox="0 0 20 20" >
-      			<g fill="#919eab">
+      			<g>
       				<path d="M19 18a1 1 0 0 1 0 2H1a1 1 0 0 1 0-2h18zm0-18a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h5V5a1 1 0 0 1 1-1h5V1a1 1 0 0 1 1-1h6zm-5 14h4V2h-4v12zm-6 0h4V6H8v8zm-6 0h4v-4H2v4z"></path>
       			</g>
       		</svg>
@@ -14,16 +14,16 @@
       	</a>
       </li>
       <li>
-      	<a href="#">
+      	<a data-toggle="tab" href="#products" >
 	      	<svg viewBox="0 0 20 20" >
-	      		<g fill="#919eab"><path d="M19 0h-9c-.265 0-.52.106-.707.293l-9 9a.999.999 0 0 0 0 1.414l9 9a.997.997 0 0 0 1.414 0l9-9A.997.997 0 0 0 20 10V1a1 1 0 0 0-1-1zm-9 17.586L2.414 10 4 8.414 11.586 16 10 17.586zm8-8l-5 5L5.414 7l5-5H18v7.586zM15 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2"></path></g></svg>
+	      		<g><path d="M19 0h-9c-.265 0-.52.106-.707.293l-9 9a.999.999 0 0 0 0 1.414l9 9a.997.997 0 0 0 1.414 0l9-9A.997.997 0 0 0 20 10V1a1 1 0 0 0-1-1zm-9 17.586L2.414 10 4 8.414 11.586 16 10 17.586zm8-8l-5 5L5.414 7l5-5H18v7.586zM15 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2"></path></g></svg>
 	      		<span> Products</span>
 	      </a>
 	    </li>
       <li>
-      	<a href="#">
+      	<a data-toggle="tab" href="#quotes" >
       		<svg viewBox="0 0  20 20">
-      			<g fill="#919eab">
+      			<g>
 	      			<path d="M17 0H6C3.79 0 2 1.79 2 4v10H1c-.552 0-1 .448-1 1v1c0 2.21 1.79 4 4 4h9c1.657 0 3-1.343 3-3V6h1c1.657 0 3-1.343 3-3s-1.343-3-3-3zM4 18c-1.105 0-2-.895-2-2h8v1c0 .34.057.68.17 1H4zm10-1c0 .552-.448 1-1 1s-1-.448-1-1v-2c0-.552-.448-1-1-1H4V4c0-1.105.895-2 2-2h8.18c-.118.32-.18.66-.18 1v14zm3-13h-1V3c0-.552.448-1 1-1s1 .448 1 1-.448 1-1 1zm-5 1c0 .552-.448 1-1 1H7c-.552 0-1-.448-1-1s.448-1 1-1h4c.552 0 1 .448 1 1zm0 4c0 .552-.448 1-1 1H7c-.552 0-1-.448-1-1s.448-1 1-1h4c.552 0 1 .448 1 1z"></path>
 	      		</g>
       		</svg>
@@ -264,28 +264,74 @@
 <% else %>
 
 <div class="container-fluid" id="admin-panel">
-	<div class="text-center" id="welcome-div">
-		<%= image_tag 'sourcify.jpg', width: '120', class: 'img-rounded' %>
-		<h2 class="text-info"><b>Welcome to 3PL Stream by Sourcify!</b></h2>		
-		<p class="text-muted">
-			Easily compare Third Party Logistic Partners
-		</p>
-		<br>
-		<ul class="text-left">
-			<li>
-				Start by setting up your account with your product details to get accurate 3PL quotations<br><br>
-				<div class="text-center"><%= link_to 'Get Started', create_recurring_charge_path, class: 'btn btn-primary' %></div>
-			</li>
-			<br>
-			<li>
-				Send your products to our Third Party Logistics Partners to get quotations
-			</li>
-			<br>
-			<li>
-				View quotations and start working with the right third party logistics partner!
-			</li>
-		</ul>		
-	</div>
+
+	<div class="tab-content">
+	  <div id="dashboard" class="tab-pane fade in active">
+	    <div>
+				<h3>Welcome to 3PL Stream by Sourcify!</h3>
+				<h5>Easily compare Third Party Logistic Partners</h5>
+				<br>
+			</div>
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="card">
+						<div class="row">
+							<div class="col-xs-3">
+								<br>
+								<%= image_tag 'account-active.png', width: '60px' %>
+							</div>
+							<div class="col-xs-9">
+								<h4>Setup Account</h4>
+								<p>Start by setting up your account with your product details to ge accurate 3PL quotations.</p>
+								<br>
+								<button class="btn btn-primary">Get Started</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="card text-muted">
+						<div class="row">
+							<div class="col-xs-3">
+								<br>
+								<%= image_tag 'product.png', width: '60px' %>
+							</div>
+							<div class="col-xs-9">
+								<h4>Send Products</h4>
+								<p>Send your products to our Third Party Logistics Partners to get quotations.</p>
+								<br>
+								<button class="btn btn-default" disabled>Send Products</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="card text-muted">
+						<div class="row">
+							<div class="col-xs-3">
+								<br>
+								<%= image_tag 'partnership.png', width: '60px' %>
+							</div>
+							<div class="col-xs-9">
+								<h4>Start Partnership</h4>
+								<p>View quotations and start working with the right third party logistics partner!</p>
+								<br>
+								<button class="btn btn-default" disabled>Start Partnership</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	  </div>
+	  <div id="products" class="tab-pane fade">
+	    <h3>Menu 1</h3>
+	    <p>Some content in menu 1.</p>
+	  </div>
+	  <div id="quotes" class="tab-pane fade">
+	    <h3>Menu 2</h3>
+	    <p>Some content in menu 2.</p>
+	  </div>
+	</div>	
 </div>
 
 <% end %>
