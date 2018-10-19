@@ -3,7 +3,7 @@
 <nav class="navbar navbar-fixed-top">
   <div class="container-fluid">
     <ul class="nav navbar-nav">
-      <li>
+      <li class="active">
       	<a data-toggle="tab" href="#dashboard" >
       		<svg viewBox="0 0 20 20" >
       			<g>
@@ -174,93 +174,6 @@
 	
 </div>
 
-<!-- Modal lists -->
-
-<div class="modal fade" id="alertModal" role="dialog">
-	<div class="modal-dialog modal-sm">
-
-		<!-- Modal content-->
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="text-info"><i class="glyphicon glyphicon-info-sign"></i> Information</h4>
-			</div>
-			<div class="modal-body">
-				<div class="alert">There is no selected products. Please select at least one product.</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-
-<div class="modal fade" id="alertModal1" role="dialog">
-	<div class="modal-dialog modal-sm">
-
-		<!-- Modal content-->
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="text-info"><i class="glyphicon glyphicon-info-sign"></i> Information</h4>
-			</div>
-			<div class="modal-body">
-				<div class="alert">There are no registered partners. Please wait and send after Admin register them.</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" id="specModal" role="dialog">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="text-info">Product Specifications</h4>
-			</div>
-			<div class="modal-body">
-				<div class="form-group">
-					<label>Weight</label>
-					<input type="text" step=".01" class="form-control" id="weight-input"  >
-				</div>
-				<div class="form-group">
-					<label>Width <span>( mm )</span></label>
-					<input type="number" step=".01" class="form-control" id="width-input" >
-				</div>
-				<div class="form-group">
-					<label>Height <span>( mm )</span></label>
-					<input type="number" step=".01" class="form-control" id="height-input" >
-				</div>
-				<div class="form-group">
-					<label>Length <span>( mm )</span></label>
-					<input type="number" step=".01" class="form-control" id="length-input" >
-				</div>
-				<div class="form-group">
-					<label>Has Battery?</label>
-					<select class="form-control" id="battery-input">
-						<option>No</option>
-						<option>Yes</option>						
-						<option>Not Specified</option>
-					</select>
-				</div>
-				<div class="form-group">
-					<label>Shipping Volume</label>
-					<input type="number" step=".01" class="form-control" id="shiping-input" >
-				</div>
-				<div class="form-group">
-					<label>Order Quantity</label>
-					<input type="number" step=".01" class="form-control" id="order-input" >
-				</div>
-				<div class="form-group">
-					<label>Special Notes</label>
-					<textarea class="form-control" id="notes-input"></textarea>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary btn-sm" id="save-specs">Save</button>
-			</div>
-		</div>
-	</div>
-</div> 
-
 <% else %>
 
 <div class="container-fluid" id="admin-panel">
@@ -324,16 +237,130 @@
 			</div>
 	  </div>
 	  <div id="products" class="tab-pane fade">
-	    <h3>Menu 1</h3>
-	    <p>Some content in menu 1.</p>
+	  	<div class="row">
+	  		<div class="col-sm-8">
+	  			<h3>Select Products</h3>
+	    		<p>Select products to be sent to our Third Party Logistics Partners to get quotations.</p>
+	    		<br>
+	  		</div>	  		
+	  		<div class="col-sm-4">
+	  			<br>
+	  			<button class="btn btn-primary pull-right" >Send to 3PL Partners</button>
+	  		</div>
+	  	</div>
+
+	  	<div class="row">
+				<% @products.each do |product| %>
+					<div class="col-xs-6 col-sm-2">
+						<div class="panel panel-default product-box" data-value="<%= product.to_json %>" >
+							<div class="round">
+						    <input type="checkbox" />
+						    <label></label>
+						  </div>
+							<hr>
+							<img src="<%= product.images.first.src %>" class="img-responsive product-img" >
+							<hr>
+							<b><%= product.title %></b>
+						</div>							
+					</div>
+				<% end %>
+			</div>
+
 	  </div>
 	  <div id="quotes" class="tab-pane fade">
-	    <h3>Menu 2</h3>
-	    <p>Some content in menu 2.</p>
+	    <h3>Quotes</h3>
+	    <p>Some content in Quotes.</p>
 	  </div>
 	</div>	
 </div>
 
 <% end %>
+
+<!-- Modal lists -->
+
+<div class="modal fade" id="alertModal" role="dialog">
+	<div class="modal-dialog modal-sm">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="text-info"><i class="glyphicon glyphicon-info-sign"></i> Information</h4>
+			</div>
+			<div class="modal-body">
+				<div class="alert">There is no selected products. Please select at least one product.</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade" id="alertModal1" role="dialog">
+	<div class="modal-dialog modal-sm">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="text-info"><i class="glyphicon glyphicon-info-sign"></i> Information</h4>
+			</div>
+			<div class="modal-body">
+				<div class="alert">There are no registered partners. Please wait and send after Admin register them.</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="specModal" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3>Product Specifications</h3>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label>Weight</label>
+					<input type="text" step=".01" class="form-control" id="weight-input"  >
+				</div>
+				<div class="form-group">
+					<label>Width <span>( mm )</span></label>
+					<input type="number" step=".01" class="form-control" id="width-input" >
+				</div>
+				<div class="form-group">
+					<label>Height <span>( mm )</span></label>
+					<input type="number" step=".01" class="form-control" id="height-input" >
+				</div>
+				<div class="form-group">
+					<label>Length <span>( mm )</span></label>
+					<input type="number" step=".01" class="form-control" id="length-input" >
+				</div>
+				<div class="form-group">
+					<label>Has Battery?</label>
+					<select class="form-control" id="battery-input">
+						<option>No</option>
+						<option>Yes</option>						
+						<option>Not Specified</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label>Shipping Volume</label>
+					<input type="number" step=".01" class="form-control" id="shiping-input" >
+				</div>
+				<div class="form-group">
+					<label>Order Quantity</label>
+					<input type="number" step=".01" class="form-control" id="order-input" >
+				</div>
+				<div class="form-group">
+					<label>Special Notes</label>
+					<textarea class="form-control" id="notes-input"></textarea>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary btn-sm" id="save-specs">Save</button>
+			</div>
+		</div>
+	</div>
+</div> 
 
 
