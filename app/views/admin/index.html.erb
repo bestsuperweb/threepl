@@ -34,147 +34,7 @@
   </div>
 </nav>
 
-<% if ShopifyAPI::RecurringApplicationCharge.current %>
 
-<div class="container-fluid" id="admin-panel">
-	<div class="panel panel-default">
-	  <div class="panel-body">
-	  	<div class="row">
-	  		<div class="col-xs-2 col-sm-1">
-	  			<%= image_tag 'sourcify.jpg', class: 'img-responsive img-rounded' %>
-	  		</div>
-	  		<div class="col-xs-10 col-sm-11">
-	  			<p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-	  		</div>
-	  	</div>	  	
-	  </div>
-	</div>
-
-	<div class="panel panel-default">
-		<div class="panel-body">
-			<h4 class="text-info"><b>Quotes from partners</b></h4>
-			<hr>
-			<table class="table">
-				<thead>
-					<tr>
-						<th>#</th>
-						<th>Partner</th>
-						<th>Request Sent Date</th>
-						<th>Received Date</th>
-					</tr>
-				</thead>
-				<tbody>
-					<% @quotes.each_with_index do |quote, index| %>
-					<tr>
-						<td><%= index + 1 %></td>
-						<td><%= quote.user.name %></td>
-						<td><%= quote.email.created_at %></td>
-						<td><%= quote.created_at %></td>
-					</tr>
-					<% end %>
-				</tbody>
-			</table>
-		</div>
-	</div>
-
-	<div class="panel panel-default">
-		<div class="panel-body">
-			<h4 class="text-info"><b>Requests</b></h4>
-			<hr>
-			<table class="table">
-				<thead>
-					<tr>
-						<th>#</th>
-						<th>Number of products</th>
-						<th>Partner</th>
-						<th>Status</th>
-						<th>Sent Date</th>						
-					</tr>
-				</thead>
-				<tbody>
-					<% @emails.each_with_index do |email, index| %>
-					<tr>
-						<td><%= index + 1 %></td>
-						<td><%= email.products.count %></td>
-						<td><%= email.user.name %></td>
-						<td><%= email.status %></td>
-						<td><%= email.created_at %></td>
-					</tr>
-					<% end %>
-				</tbody>
-			</table>
-		</div>
-	</div>
-
-	<div class="panel panel-default">
-		<div class="panel-body">
-			<h4 class="text-info"><b>Product Lists</b></h4>
-			<div id="product-lists">
-				<div class="row">
-					<% @products.each do |product| %>
-						<div class="col-xs-6 col-sm-2">
-							<div class="panel panel-default product-box" data-value="<%= product.to_json %>" >
-								<img src="<%= product.images.first.src %>" class="img-responsive product-img" >
-								<hr>
-								<b class="text-info"><%= product.title %></b>
-							</div>							
-						</div>
-					<% end %>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="panel panel-default">
-		<div class="panel-body">
-			<h4 class="text-info"><b>Products to send to 3PL partners</b></h4>
-			<hr>
-			<table class="table" id="products">
-				<thead>
-					<tr>
-						<th width="10%">Product Image</th>
-						<th>Product ID</th>
-						<th>Name</th>
-						<th>Weight</th>
-						<th>Width<span class="text-muted">( mm )</span></th>
-						<th>Length<span class="text-muted">( mm )</span></th>
-						<th>Height<span class="text-muted">( mm )</span></th>
-						<th>Has Battery?</th>
-						<th>Shipping Volume</th>
-						<th>Order Quantity</th>
-						<th>Special Notes</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody></tbody>
-			</table>
-			<hr>
-			<div class="form-group">
-				<div class='input-group date' id='delivery-date'>
-            <input type='text' class="form-control" />
-            <span class="input-group-addon">
-                <span class="glyphicon glyphicon-calendar"></span>
-            </span>
-        </div>
-			</div>
-			<hr>
-			<div class="text-right">
-				<% if @users.count < 1 %>
-					<button class="btn btn-success btn-sm"  data-toggle="modal" data-target="#alertModal1" >
-						<i class="glyphicon glyphicon-send"></i> Send Emails
-					</button>
-				<% else %>
-					<button class="btn btn-success btn-sm" id="send-email" data-url="<%= send_eamils_path %>">
-						<i class="glyphicon glyphicon-send"></i> Send Emails
-					</button>
-				<% end %>
-			</div>			
-		</div>
-	</div>
-	
-</div>
-
-<% else %>
 
 <div class="container-fluid" id="admin-panel">
 
@@ -245,7 +105,7 @@
 	  		</div>	  		
 	  		<div class="col-sm-4">
 	  			<br>
-	  			<button class="btn btn-primary pull-right" >Send to 3PL Partners</button>
+	  			<a data-toggle="tab" href="#success" class="btn btn-primary pull-right" >Send to 3PL Partners</a>
 	  		</div>
 	  	</div>
 
@@ -271,10 +131,22 @@
 	    <h3>Quotes</h3>
 	    <p>Some content in Quotes.</p>
 	  </div>
+
+	  <div id="success" class="tab-pane fade">
+	    <div class="text-center col-sm-6 col-sm-offset-3">
+	    	<br><br><br><br>
+	    	<%= image_tag 'success.png', width: '150' %><br>
+	    	<h2>Success!</h2>
+	    	<h4 class="text-muted">Our Third Party Logistic partners have been sent your request. You will be contacted within 48hours to view their price quotations.</h4>
+	    	<br><br>
+	    	<div>
+	    		<a data-toggle="tab" href="#dashboard" class="btn btn-default">Back to Dashboard</a>&nbsp;&nbsp;&nbsp;
+	    		<a data-toggle="tab" href="#products" class="btn btn-primary">Send Another Request</a>
+	    	</div>
+	    </div>
+	  </div>
 	</div>	
 </div>
-
-<% end %>
 
 <!-- Modal lists -->
 
