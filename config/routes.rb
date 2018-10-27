@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 	# partner routes
   get 	'home', 			to: 'static#home', 			as: 'home'
   get 	'dashboard', 		to: 'static#dashboard', 	as: 'dashboard'
+  get 	'requests', 		to: 'static#requests', 		as: 'requests'
   get 	'quote/:id/new',	to: 'static#new_quote', 	as: 'new_quote'
   post 	'quote', 			to: 'static#create_quote', 	as: 'create_quote'
   get 	'quote', 			to: 'static#show_quote', 	as: 'show_quote'
