@@ -33,6 +33,7 @@
 body, html{
 	font-family: Roboto !important;
 	background-color: #f4f6f8;
+	overflow-x: hidden;
 }
 h1, h2, h3, p{
 	font-family: Montserrat !important;
@@ -51,6 +52,9 @@ span, input{
 }
 .btn-primary{
 	background-color: #5C99F1 !important;
+	&:visited{
+		color: #fff;
+	}
 }
 .text-info{
 	color: #3f487f !important;
@@ -286,9 +290,152 @@ table#products i.edit-specs{
 	color: #00c5ad;
 }
 
-.form-group.required .control-label:after {
-  content:"*";
-  color:red;
+.form-control{
+	border-radius: 0;
+    border: none;
+    padding: 22px;
+    box-shadow: 0 9px 12px 5px rgba(0,0,0,.03);
+    &:focus{
+    	box-shadow: 0 5px 5px 0px rgba(102, 175, 233, 0.3);
+    }
+}
+
+.form-group{
+	margin-bottom: 25px;
+	&.required .control-label
+	{
+		font-size: 15px;
+		&:after {
+		  content:"*";
+		  color:red;
+		}
+	}
+}
+
+div.signup{
+	div.col-md-6{
+		padding: 80px;
+		&.right{
+			background: url(asset_path('signup.png'));			
+			padding: 45vh 10vw;
+			*{
+				color: #fff;
+			}
+		}
+	}
+}
+
+div.sidebar{
+	padding: 50px 30px;
+	background: #fff;
+	min-height: calc( 100vh );
+	box-shadow: 1px 0 3px rgba(0, 0, 0, .06);
+	a{
+		svg{
+			width: 20px;
+			fill: #919eab;
+		}
+		span{
+			vertical-align: top;
+			font-weight: bold;
+			margin-left: 10px;
+		}
+		&:focus, &:hover, &.active{
+			background-color: transparent;
+			svg{
+				fill: #5C99F1;
+			}
+			span{
+				color: #5C99F1;
+			}
+		}
+	}	
+}
+div.main{
+	padding: 20vh 0;	
+}
+div.main-nav{
+	padding: 25px;
+    box-shadow: 0 2px 2px 0px rgba(0,0,0,0.08);
+    margin: 0 -15px;
+    div.dropdown{
+    	margin-top: -10px;
+    	a.dropdown-toggle{
+	    	cursor: pointer;
+	    	&:hover{
+	    		background-color: transparent;
+	    		color: initial;
+	    		text-decoration: none;
+	    	}
+	    	span.user-avatar{
+	    		width: 40px;
+			    height: 40px;
+			    background: #5C99F1;
+			    display: table-cell;
+			    border-radius: 50%;
+			    color: #fff;
+			    line-height: 40px;
+			    text-align: center;
+	    	}
+	    	span.user-name{
+	    		margin: 0 8px;
+	    	}
+	    }
+	    ul.dropdown-menu{
+	    	background: #f4f6f8;
+	    }
+    }    
+}
+.nav-tabs{
+	li>a, li>a:hover{
+		background: none;
+		border: none;
+		color: #999;
+		font-size: 18px;
+		.badge{
+			background-color: #999 !important;
+		}
+	}
+	li.active>a,
+	li.active>a:focus, 
+	li.active>a:hover{
+		color: initial;
+		background: none;
+		border: none;
+		border-bottom: 3px solid #5C99F1;
+		.badge{
+			background-color: #5C99F1 !important;
+		}
+	}
+}
+.badge{
+	font-weight: initial;
+}
+.badge.pending{
+	background: #FDEC8A;
+	color: initial;
+	padding: 5px 10px;
+}
+.badge.submitted{
+	background: #FBC68C;
+	color: initial;
+	padding: 5px 10px;
+}
+
+.table{
+	th, td{
+		border: none !important;
+		padding: 20px !important;
+	}
+	tbody>tr{
+		background: #fff;
+		border-bottom: 10px solid #f4f6f8;
+		td>a:hover{
+			background: initial;
+			color: initial;
+			text-decoration: none;			
+		}
+	}
 }
 
 /*flash*/
