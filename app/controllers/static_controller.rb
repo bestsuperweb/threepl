@@ -18,6 +18,9 @@ class StaticController < ApplicationController
   	end
   end
 
+  def requests
+  end
+
   def create_quote
   	@quote = Quote.new quote_params
   	@email = Email.find quote_params[:email_id]
