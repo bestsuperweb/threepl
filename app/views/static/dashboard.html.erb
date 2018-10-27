@@ -1,5 +1,4 @@
-<%= render 'layouts/header' %>
-<div class="container dashboard">
+<div class="container-fluid">
 	
 	<% if current_user.admin? %>
 
@@ -44,104 +43,93 @@
 	<% else %>
 
 	<div class="row">
-		<div class="col-xs-4">
-			<div class="well">
-				<h3 class="text-success"><%= @emails.count %> <small>Requests</small></h3>
-			</div>
+		<div class="col-xs-2 hidden-sm sidebar">
+			<%= image_tag 'logo.png', width: 130 %>
+			<hr>
+			<%= link_to dashboard_path, class: 'active' do %>
+				<h4>
+					<svg viewBox="0 0 20 20" >
+		  			<g>
+		  				<path d="M19 18a1 1 0 0 1 0 2H1a1 1 0 0 1 0-2h18zm0-18a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h5V5a1 1 0 0 1 1-1h5V1a1 1 0 0 1 1-1h6zm-5 14h4V2h-4v12zm-6 0h4V6H8v8zm-6 0h4v-4H2v4z"></path>
+		  			</g>
+		  		</svg>
+		  		<span> Dashboard</span>
+		  	</h4>
+	  	<% end %>
+	  	<br>
+	  	<%= link_to requests_path do %>
+		  	<h4>
+					<svg viewBox="0 0 20 20" >
+		  			<g>
+	      			<path d="M17 0H6C3.79 0 2 1.79 2 4v10H1c-.552 0-1 .448-1 1v1c0 2.21 1.79 4 4 4h9c1.657 0 3-1.343 3-3V6h1c1.657 0 3-1.343 3-3s-1.343-3-3-3zM4 18c-1.105 0-2-.895-2-2h8v1c0 .34.057.68.17 1H4zm10-1c0 .552-.448 1-1 1s-1-.448-1-1v-2c0-.552-.448-1-1-1H4V4c0-1.105.895-2 2-2h8.18c-.118.32-.18.66-.18 1v14zm3-13h-1V3c0-.552.448-1 1-1s1 .448 1 1-.448 1-1 1zm-5 1c0 .552-.448 1-1 1H7c-.552 0-1-.448-1-1s.448-1 1-1h4c.552 0 1 .448 1 1zm0 4c0 .552-.448 1-1 1H7c-.552 0-1-.448-1-1s.448-1 1-1h4c.552 0 1 .448 1 1z"></path>
+	      		</g>
+		  		</svg>
+		  		<span> Requests</span>
+		  	</h4>
+	  	<% end %>
 		</div>
-		<div class="col-xs-4">
-			<div class="well">
-				<h3 class="text-warning"><%= @pending_emails.count %> <small>Pending Requests</small></h3>
+		<div class="col-xs-12 col-md-10">
+			<div class="main-nav">
+				<big>Dashboard</big>
+				<div class="dropdown pull-right">
+				  <a class="dropdown-toggle" data-toggle="dropdown">
+				  	<span class="user-avatar"><%= current_user.name.first %></span>
+				  	<span class="user-name"><%= current_user.name %></span>
+					  <i class="glyphicon glyphicon-menu-down"></i>
+					</a>
+				  <ul class="dropdown-menu">
+				    <li><%= link_to 'Log Out', destroy_user_session_path, method: :delete %></li>
+				  </ul>
+				</div>
 			</div>
-		</div>
-		<div class="col-xs-4">
-			<div class="well">
-				<h3 class="text-info"><%= @quotes.count %> <small>Quotes</small></h3>
+
+			<br><br><br>
+
+			<div class="row">
+				<div class="col-sm-8 col-sm-offset-2">
+					<h3>Welcome to 3PL Stream by Sourcify!</h3>
+					<h5>Easily get third party logistic reqeusts from companies</h5>
+				</div>
 			</div>
+			<br><br><br>
+			<div class="row">
+				<div class="col-sm-2"></div>
+				<div class="col-sm-4">
+					<div class="card">
+						<div class="row">
+							<div class="col-xs-3">
+								<br>
+								<%= image_tag 'account-active.png', width: '60px' %>
+							</div>
+							<div class="col-xs-9">
+								<h4>Setup Account</h4>
+								<p>Start by setting up your account with your details.</p>
+								<br>
+								<%= link_to 'Get Started', new_user_registration_path, class: 'btn btn-primary' %>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="card text-muted">
+						<div class="row">
+							<div class="col-xs-3">
+								<br>
+								<%= image_tag 'partnership.png', width: '60px' %>
+							</div>
+							<div class="col-xs-9">
+								<h4>Start Partnership</h4>
+								<p>See companies seeking third party logistic help!</p>
+								<br>
+								<button class="btn btn-default" disabled>Start Partnership</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-2"></div>
+			</div>
+
 		</div>
-	</div>	
-
-	<h3 class="text-danger"><b>Pending Requests</b></h3>
-	<hr>
-	<table class="table">
-		<thead>
-			<tr>
-				<th>#</th>
-				<th>Number of Product</th>
-				<th>Company</th>
-				<th>Due Date</th>
-				<th></th>
-				<th></th>
-			</tr>			
-		</thead>
-		<tbody>
-			<% @pending_emails.each_with_index do |email, index| %>
-				<tr>
-					<td><%= index + 1 %></td>
-					<td><%= email.products.count %></td>
-					<td><%= email.shop.shopify_domain %></td>
-					<td><%= email.delivery_date %></td>
-					<td><%= link_to 'Show Request', show_request_path(id: email.id), class: 'btn btn-default btn-sm' %></td>
-					<td><%= link_to 'New Quote', new_quote_path(email.id), class: 'btn btn-sm btn-info' %></td>
-				</tr>
-			<% end %>
-		</tbody>
-	</table>
-	<br><br>
-
-	<h3 class="text-success"><b>Submitted Requests</b></h3>
-	<hr>
-	<table class="table">
-		<thead>
-			<tr>
-				<th>#</th>
-				<th>Number of Products</th>
-				<th>Company</th>
-				<th>Sent Date</th>
-				<th></th>
-			</tr>			
-		</thead>
-		<tbody>
-			<% @sent_emails.each_with_index do |email, index| %>
-				<tr>
-					<td><%= index + 1 %></td>
-					<td><%= email.products.count %></td>
-					<td><%= email.shop.shopify_domain %></td>
-					<td><%= email.updated_at %></td>
-					<td><%= link_to 'Show Request', show_request_path(id: email.id), class: 'btn btn-default btn-sm' %></td>
-				</tr>
-			<% end %>
-		</tbody>
-	</table>
-	<br><br>
-
-	<h3 class="text-success"><b>Your Quotes</b></h3>
-	<hr>
-	<table class="table">
-		<thead>
-			<tr>
-				<th>#</th>
-				<th>Request ID</th>
-				<th>Company</th>
-				<th>Request Received Date</th>
-				<th>Quote Send Date</th>
-				<th></th>
-			</tr>			
-		</thead>
-		<tbody>
-			<% @quotes.each_with_index do |quote, index| %>				
-				<tr>					
-					<td><%= index + 1 %></td>
-					<td>#<%= quote.email.id %></td>
-					<td><%= quote.shop.shopify_domain %></td>
-					<td><%= quote.email.created_at %></td>
-					<td><%= quote.created_at %></td>
-					<td><%= link_to 'View Details', show_quote_path(id: quote.id), class: 'btn btn-default btn-sm' %></td>
-				</tr>				
-			<% end %>
-		</tbody>
-	</table>
+	</div>
 	<% end %>
-	<br><br><br>
 </div>
-<%= render 'layouts/footer' %>
