@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  shipping_option1: 1.5
+  shipping_option2: 1.5
+  quote_id: 
+  product_id: 
+
+two:
+  shipping_option1: 1.5
+  shipping_option2: 1.5
+  quote_id: 
+  product_id: 
