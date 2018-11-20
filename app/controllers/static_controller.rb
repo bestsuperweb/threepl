@@ -18,7 +18,7 @@ class StaticController < ApplicationController
   	end
   end
 
-  def requests
+  def emails
   end
 
   def create_quote
@@ -45,7 +45,7 @@ class StaticController < ApplicationController
   end
 
   def show_email
-  	@email = Email.find params[:id]
+  	# @email = Email.find params[:id]
   end
 
   def setting

@@ -1,52 +1,60 @@
-<%= render 'layouts/header' %>
-<div class="container">
+<div class="container-fluid">
+
 	<div class="row">
-		<div class="col-sm-12">
-			<h3 class="text-info">
-				<b>You have received a Request from <%= @email.shop.shopify_domain %></b><br>
-				<small class="text-muted">Send at <%= @email.created_at %></small>
-			</h3>
+		<div class="col-xs-2 hidden-sm sidebar">
+			<%= image_tag 'logo.png', width: 130 %>
 			<hr>
-			<h4>Due Date: <small><%= @email.delivery_date %></small></h4>
-			<br>
-			<h4>Products:</h4>
-			<table class="table">
-				<thead>
-					<tr>
-						<th>#</th>
-						<th>Title</th>
-						<th>Image</th>
-						<th>Size</th>
-						<th>Weight</th>
-						<th>Has Battery?</th>
-						<th>Shipping Volume</th>
-						<th>Order Quantity</th>
-						<th>Special Notes</th>				
-					</tr>
-				</thead>
-				<tbody>
-					<% @email.products.each_with_index do |product, index| %>
-					<tr>
-						<td><%= index + 1 %></td>
-						<td><%= product.title %></td>
-						<td><img src='<%= product.image %>' width='100' ></td>
-						<td><%= "#{product.width} x #{product.length} x #{product.height}" %></td>
-						<td><%= product.weight %></td>
-						<td><%= product.has_battery %></td>
-						<td><%= product.shipping_volume %></td>
-						<td><%= product.order_quantity %></td>				
-						<td><%= product.notes %></td>		
-					</tr>
-					<% end %>
-				</tbody>
-			</table>
+			<%= link_to dashboard_path do %>
+				<h4>
+					<svg viewBox="0 0 20 20" >
+		  			<g>
+		  				<path d="M19 18a1 1 0 0 1 0 2H1a1 1 0 0 1 0-2h18zm0-18a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h5V5a1 1 0 0 1 1-1h5V1a1 1 0 0 1 1-1h6zm-5 14h4V2h-4v12zm-6 0h4V6H8v8zm-6 0h4v-4H2v4z"></path>
+		  			</g>
+		  		</svg>
+		  		<span> Dashboard</span>
+		  	</h4>
+	  	<% end %>
+	  	<br>
+	  	<%= link_to emails_path, class: 'active' do %>
+		  	<h4>
+					<svg viewBox="0 0 20 20" >
+		  			<g>
+	      			<path d="M17 0H6C3.79 0 2 1.79 2 4v10H1c-.552 0-1 .448-1 1v1c0 2.21 1.79 4 4 4h9c1.657 0 3-1.343 3-3V6h1c1.657 0 3-1.343 3-3s-1.343-3-3-3zM4 18c-1.105 0-2-.895-2-2h8v1c0 .34.057.68.17 1H4zm10-1c0 .552-.448 1-1 1s-1-.448-1-1v-2c0-.552-.448-1-1-1H4V4c0-1.105.895-2 2-2h8.18c-.118.32-.18.66-.18 1v14zm3-13h-1V3c0-.552.448-1 1-1s1 .448 1 1-.448 1-1 1zm-5 1c0 .552-.448 1-1 1H7c-.552 0-1-.448-1-1s.448-1 1-1h4c.552 0 1 .448 1 1zm0 4c0 .552-.448 1-1 1H7c-.552 0-1-.448-1-1s.448-1 1-1h4c.552 0 1 .448 1 1z"></path>
+	      		</g>
+		  		</svg>
+		  		<span> Requests</span>
+		  	</h4>
+	  	<% end %>
+		</div>
+		<div class="col-xs-12 col-md-10">
+			<div class="main-nav">
+				<big>Requests</big>
+				<div class="dropdown pull-right">
+				  <a class="dropdown-toggle" data-toggle="dropdown">
+				  	<span class="user-avatar"><%= current_user.name.first %></span>
+				  	<span class="user-name"><%= current_user.name %></span>
+					  <i class="glyphicon glyphicon-menu-down"></i>
+					</a>
+				  <ul class="dropdown-menu">
+				    <li><%= link_to 'Log Out', destroy_user_session_path, method: :delete %></li>
+				  </ul>
+				</div>
+			</div>
 
 			<br><br>
-			<hr>
-			<%= link_to 'Back to Dashboard', dashboard_path, class: 'btn btn-default' %>
-			<hr>
-			<br><br>
+			<div class="row">
+				<div class="col-md-10 col-md-offset-1">
+					<div class="card">
+						<div class="row">
+							<div class="col-sm-4">
+								
+							</div>
+						</div>						
+					</div>
+				</div>
+			</div>			
+
 		</div>
 	</div>
+
 </div>
-<%= render 'layouts/footer' %>

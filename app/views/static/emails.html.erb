@@ -15,7 +15,7 @@
 		  	</h4>
 	  	<% end %>
 	  	<br>
-	  	<%= link_to requests_path, class: 'active' do %>
+	  	<%= link_to emails_path, class: 'active' do %>
 		  	<h4>
 					<svg viewBox="0 0 20 20" >
 		  			<g>
@@ -71,7 +71,9 @@
 				        <td>3</td>
 				        <td>2018/10/19 02:13:21 UTC</td>
 				        <td>Cool Supplier</td>
-				        <td><a href="#">&#8594;</a></td>
+				        <td>
+				        	<%= link_to '&#8594;'.html_safe, show_email_path(1) %>
+				        </td>
 				      </tr>
 				      <tr>
 				        <td>bestdevstore.myshopify.com</td>
@@ -79,7 +81,7 @@
 				        <td>3</td>
 				        <td>2018/10/19 02:13:21 UTC</td>
 				        <td>Cool Supplier</td>
-				        <td><a href="#">&#8594;</a></td>
+				        <td><%= link_to '&#8594;'.html_safe, show_email_path(1) %></td>
 				      </tr>
 				      <tr>
 				        <td>bestdevstore.myshopify.com</td>
@@ -87,7 +89,7 @@
 				        <td>3</td>
 				        <td>2018/10/19 02:13:21 UTC</td>
 				        <td>Cool Supplier</td>
-				        <td><a href="#">&#8594;</a></td>
+				        <td><%= link_to '&#8594;'.html_safe, show_email_path(1) %></td>
 				      </tr>
 				    </tbody>
 				  </table>
@@ -112,7 +114,7 @@
 				        <td>3</td>
 				        <td>2018/10/19 02:13:21 UTC</td>
 				        <td>Cool Supplier</td>
-				        <td><a href="#">&#8594;</a></td>
+				        <td><%= link_to '&#8594;'.html_safe, show_email_path(1) %></td>
 				      </tr>
 				      <tr>
 				        <td>bestdevstore.myshopify.com</td>
@@ -120,7 +122,7 @@
 				        <td>3</td>
 				        <td>2018/10/19 02:13:21 UTC</td>
 				        <td>Cool Supplier</td>
-				        <td><a href="#">&#8594;</a></td>
+				        <td><%= link_to '&#8594;'.html_safe, show_email_path(1) %></td>
 				      </tr>
 				      <tr>
 				        <td>bestdevstore.myshopify.com</td>
@@ -128,7 +130,7 @@
 				        <td>3</td>
 				        <td>2018/10/19 02:13:21 UTC</td>
 				        <td>Cool Supplier</td>
-				        <td><a href="#">&#8594;</a></td>
+				        <td><%= link_to '&#8594;'.html_safe, show_email_path(1) %></td>
 				      </tr>
 				    </tbody>
 				  </table>
