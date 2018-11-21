@@ -44,13 +44,236 @@
 			<br><br>
 			<div class="row">
 				<div class="col-md-10 col-md-offset-1">
-					<div class="card">
+					<div class="card auto-height">
 						<div class="row">
+
 							<div class="col-sm-4">
-								
+								<div class="row">
+									<div class="col-xs-3">
+										<%= image_tag 'request.png', width: '50' %>
+									</div>
+									<div class="col-xs-8">
+										<b class="text-muted">REQUEST:</b><br>
+										<h4>Cuts Fall T-shirt</h4>
+									</div>
+								</div>
 							</div>
+
+							<div class="col-sm-4">
+								<div class="row">
+									<div class="col-xs-3">
+										<%= image_tag 'company.png', width: '50' %>
+									</div>
+									<div class="col-xs-8">
+										<b class="text-muted">COMPANY:</b><br>
+										<h4>Cuts Clothing</h4>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-sm-4">
+								<div class="row">
+									<b class="text-muted">STATUS:</b><br>
+									<H4><span class="badge pending">Pending</span></H4>
+								</div>
+							</div>
+
 						</div>						
 					</div>
+					<br>
+
+					<div class="card">
+						<h4>Pick and Pack Fees</h4><br>
+						<table class="table quote-table">
+							<tr>
+								<td width="30%"><%= image_tag 'units.png' %> <b>Units</b></td>
+								<td>1-50</td>
+								<td>51-250</td>
+								<td>251-2500</td>
+								<td>2501-5000</td>
+								<td>5001+</td>
+							</tr>
+							<tr>
+								<td>First Unit</td>
+								<td>
+									<input type="number" class="form-control">
+								</td>
+								<td>
+									<input type="number" class="form-control">
+								</td>
+								<td>
+									<input type="number" class="form-control">
+								</td>
+								<td>
+									<input type="number" class="form-control">
+								</td>
+								<td>
+									<input type="number" class="form-control">
+								</td>
+							</tr>
+							<tr>
+								<td>Additional</td>
+								<td>
+									<input type="number" class="form-control">
+								</td>
+								<td>
+									<input type="number" class="form-control">
+								</td>
+								<td>
+									<input type="number" class="form-control">
+								</td>
+								<td>
+									<input type="number" class="form-control">
+								</td>
+								<td>
+									<input type="number" class="form-control">
+								</td>
+							</tr>
+							<tr>
+								<td>Packaging cost<br><small class="text-muted">if added</small></td>
+								<td>
+									<input type="number" class="form-control">
+								</td>
+								<td>
+									<input type="number" class="form-control">
+								</td>
+								<td>
+									<input type="number" class="form-control">
+								</td>
+								<td>
+									<input type="number" class="form-control">
+								</td>
+								<td>
+									<input type="number" class="form-control">
+								</td>
+							</tr>
+							<tr class="border">
+								<td><b>Total</b></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr class="border">
+								<td width="30%">
+									<%= image_tag 'storage_costs.png' %> 
+									<b>Storage Cost</b> <br><small class="text-muted">$x/ per month/ cubic foot</small>
+								</td>
+								<td>
+									<input type="number" class="form-control">
+								</td>
+								<td>
+									<input type="number" class="form-control">
+								</td>
+								<td>
+									<input type="number" class="form-control">
+								</td>
+								<td>
+									<input type="number" class="form-control">
+								</td>
+								<td>
+									<input type="number" class="form-control">
+								</td>
+							</tr>
+							<tr class="border">
+								<td width="30%">
+									<%= image_tag 'international_fees.png' %> 
+									<b>International Processing Fee</b>
+								</td>
+								<td>
+									<input type="number" class="form-control">
+								</td>
+								<td>
+									<input type="number" class="form-control">
+								</td>
+								<td>
+									<input type="number" class="form-control">
+								</td>
+								<td>
+									<input type="number" class="form-control">
+								</td>
+								<td>
+									<input type="number" class="form-control">
+								</td>
+							</tr>
+							<tr class="border">
+								<td width="30%">
+									<%= image_tag 'storage_costs.png' %> 
+									<b>Shipping Options</b>
+								</td>
+								<td colspan="5">
+									<input class="form-control" value="<2days Fedex Air" disabled >
+								</td>
+							</tr>
+							<tr>
+								<td>Product 1</td>
+								<td>
+									<input type="number" class="form-control">
+								</td>
+								<td>
+									<input type="number" class="form-control">
+								</td>
+								<td>
+									<input type="number" class="form-control">
+								</td>
+								<td>
+									<input type="number" class="form-control">
+								</td>
+								<td>
+									<input type="number" class="form-control">
+								</td>
+							</tr>
+							<tr>
+								<td>Product 2</td>
+								<td>
+									<input type="number" class="form-control">
+								</td>
+								<td>
+									<input type="number" class="form-control">
+								</td>
+								<td>
+									<input type="number" class="form-control">
+								</td>
+								<td>
+									<input type="number" class="form-control">
+								</td>
+								<td>
+									<input type="number" class="form-control">
+								</td>
+							</tr>
+
+							<tr class="border">
+								<td width="30%">
+									<%= image_tag 'warehouses.png' %> 
+									<b>Warehousing</b>
+								</td>
+								<td>
+									<input type="text" class="form-control">
+								</td>
+								<td>
+									<input type="text" class="form-control">
+								</td>
+								<td>
+									<input type="text" class="form-control">
+								</td>
+								<td>
+									<input type="text" class="form-control">
+								</td>
+								<td>
+									<input type="text" class="form-control">
+								</td>
+							</tr>
+
+						</table>
+					</div>
+					<br>
+
+					<div class="text-right">
+						<a href="#" class="btn btn-primary">Send Quote</a>
+					</div>
+					<br>
+
 				</div>
 			</div>			
 
