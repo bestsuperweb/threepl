@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   resources :etemplates
   devise_for :users
   mount ShopifyApp::Engine, at: '/'
-  post 	'send/emails', 		to: 'admin#send_eamils',		as: 'send_eamils'
+  post 	'send/emails', 		to: 'admin#send_emails',		as: 'send_emails'
   get 	'recurring/charge', to: 'admin#create_recurring_application_charge', as: 'create_recurring_charge'
   get 	'activatecharge', 	to: 'admin#activatecharge', 	as: 'activate_charge'
   
