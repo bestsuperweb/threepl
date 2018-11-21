@@ -43,6 +43,7 @@
 
 	<div class="tab-content">
 	  <div id="dashboard" class="tab-pane fade in active">
+	  	<% if @emails.empty? %>
 	    <div>
 				<h3>Welcome to 3PL Stream by Sourcify!</h3>
 				<h5>Easily compare Third Party Logistic Partners</h5>
@@ -98,6 +99,78 @@
 					</div>
 				</div>
 			</div>
+	  	<% else %>
+
+	  	<br>
+			<h3>Requests</h3>
+			<br><br>
+
+			<ul class="nav nav-tabs">
+			  <li class="active"><a data-toggle="tab" href="#pending">Pending <span class="badge badge-primary">3</span></a></li>
+			  <li><a data-toggle="tab" href="#submitted">Submitted <span class="badge">2</span></a></li>
+			</ul>
+
+			<div class="tab-content">
+			  <div id="pending" class="tab-pane fade in active">
+			  	<br>
+			    <table class="table">
+				    <thead>
+				      <tr>
+				        <th>USER DOMAIN <span class="caret"></span></th>
+				        <th>STATUS</th>
+				        <th>PRODUCTS</th>
+				        <th>DATE</th>
+				        <th>PARTNER</th>
+				        <th></th>
+				      </tr>
+				    </thead>
+				    <tbody>
+				    	<% @emails.each do |email| %>
+				      <tr>
+				        <td><%= email.shop.shopify_domain %></td>
+				        <td><span class="badge pending">Pending</span></td>
+				        <td><%= email.products.count %></td>
+				        <td><%= email.created_at %></td>
+				        <td><%= email.user.name %></td>
+				        <td>
+				        	<%= link_to '&#8594;'.html_safe, show_email_path(email) %>
+				        </td>
+				      </tr>
+				      <% end %>
+				    </tbody>
+				  </table>
+			  </div>
+			  <div id="submitted" class="tab-pane fade">
+			    <br>
+			    <table class="table">
+				    <thead>
+				      <tr>
+				        <th>USER DOMAIN <span class="caret"></span></th>
+				        <th>STATUS</th>
+				        <th>PRODUCTS</th>
+				        <th>DATE</th>
+				        <th>PARTNER</th>
+				        <th></th>
+				      </tr>
+				    </thead>
+				    <tbody>
+				      <% @emails.each do |email| %>
+				      <tr>
+				        <td><%= email.shop.shopify_domain %></td>
+				        <td><span class="badge submitted">Submitted</span></td>
+				        <td><%= email.products.count %></td>
+				        <td><%= email.created_at %></td>
+				        <td><%= email.user.name %></td>
+				        <td>
+				        	<%= link_to '&#8594;'.html_safe, show_email_path(email) %>
+				        </td>
+				      </tr>
+				      <% end %>
+				    </tbody>
+				  </table>
+			  </div>
+			</div>
+	  	<% end %>
 	  </div>
 	  <div id="products" class="tab-pane fade">
 	  	<div class="row">
@@ -108,16 +181,17 @@
 	  		</div>	  		
 	  		<div class="col-sm-4">
 	  			<br>
-	  			<a data-toggle="tab" href="#success" class="btn btn-primary pull-right" >Send to 3PL Partners</a>
+	  			<a href="#" id="send-email" class="btn btn-primary pull-right" data-url="<%= send_emails_path %>" >Send to 3PL Partners</a>
+	  			<a data-toggle="tab" href="#success" id="go-success"></a>
 	  		</div>
 	  	</div>
 
 	  	<div class="row">
 				<% @products.each do |product| %>
 					<div class="col-xs-6 col-sm-2">
-						<div class="panel panel-default product-box" data-value="<%= product.to_json %>" >
-							<div class="round">
-						    <input type="checkbox" />
+						<div class="panel panel-default product-box" >
+							<div class="round" data-id="<%= product.id %>" data-img="<%= product.images.first.src %>" data-title="<%= product.title %>" >
+						    <input type="checkbox" id="<%= product.id %>" data-value="" />
 						    <label></label>
 						  </div>
 							<hr>
@@ -193,6 +267,8 @@
 				<h3>Product Specifications</h3>
 			</div>
 			<div class="modal-body">
+				<input type="hidden" id="img-input">
+				<input type="hidden" id="title-input">
 				<div class="form-group">
 					<label>Weight</label>
 					<input type="text" step=".01" class="form-control" id="weight-input"  >
