@@ -55,11 +55,10 @@ class AdminController < ShopifyApp::AuthenticatedController
   end
 
 
-  def send_eamils
+  def send_emails
   	shop     		= Shop.where( shopify_domain: ShopifyAPI::Shop.current.domain ).first
     products 		= params[:products]
     products_list  	= products.collect{|p| p[1] }
-    delivery_date 	= params[:delivery_date]
     begin
       options = {
           :shop     => shop.shop_name,
@@ -71,7 +70,7 @@ class AdminController < ShopifyApp::AuthenticatedController
       # charge_id = create_usage_charge
 
       partners.each do |partner|
-      	email = shop.emails.create!({ status: 'pending', delivery_date: delivery_date, user_id: partner.id })
+      	email = shop.emails.create!({ status: 'pending', user_id: partner.id })
       	products_list.each do |product|
       		puts "product = #{product}"
       		email.products.create!(product.to_hash)
