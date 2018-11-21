@@ -132,7 +132,10 @@ nav.navbar.navbar-fixed-top{
 	background-color: #fff;
 	box-shadow: 0 0 2px rgba(0,0,0,0.07);
 	border-radius: 3px;
-	min-height: 225px;
+	min-height: 225px;	
+}
+.auto-height{
+	min-height: initial !important;
 }
 
 footer{
@@ -255,7 +258,7 @@ div.dashboard{
   margin-top: -30px;
   margin-left: -30px;
   display: inline-block;
-  color: #3f487f;
+  color: #5C99F1;
 }
 table#products i.edit-specs{
 	cursor: pointer;
@@ -434,6 +437,33 @@ div.main-nav{
 			background: initial;
 			color: initial;
 			text-decoration: none;			
+		}
+	}
+	&.quote-table{
+		img{
+			width: 30px;
+			margin-left: -30px;
+		}
+		tbody>tr{
+			border: none;
+			&.border{
+				border-top: 1.5px solid rgba(0,0,0,.1);
+				td{
+					padding: 25px 5px !important;
+				}
+			}
+			td{
+				padding: 10px 5px !important;
+				vertical-align: middle;
+				&:first-child{
+					padding-left: 30px !important;
+				}
+				input{
+					box-shadow: none;
+					background-color: #f4f6f8;
+				}
+
+			}
 		}
 	}
 }
