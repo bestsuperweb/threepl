@@ -15,7 +15,6 @@ ActiveRecord::Schema.define(version: 20181120020138) do
 
   create_table "emails", force: :cascade do |t|
     t.string   "status"
-    t.datetime "delivery_date"
     t.integer  "user_id"
     t.integer  "shop_id"
     t.datetime "created_at",    null: false
