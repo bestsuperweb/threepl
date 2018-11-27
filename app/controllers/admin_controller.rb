@@ -24,9 +24,22 @@ class AdminController < ShopifyApp::AuthenticatedController
     end
     	
     @emails  				= shop.emails
+    @submitted_emails 		= shop.emails.where( :status => 'submitted' )
+  	@pending_emails 		= shop.emails.where( :status => 'pending' )
     @quotes 				= shop.quotes
     @users 					= User.all.where(:admin => nil)
     
+  end
+
+  def quotes
+  	shop     	= Shop.where( shopify_domain: ShopifyAPI::Shop.current.domain ).first
+  	@quotes 	= shop.quotes
+  end
+
+  def email_details
+  	shop     	= Shop.where( shopify_domain: ShopifyAPI::Shop.current.domain ).first
+  	@email 		= shop.emails.find params[:id]
+  	@quote 		= @email.quote
   end
 
   def create_recurring_application_charge
