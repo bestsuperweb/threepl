@@ -1,7 +1,9 @@
-<div class="container-fluid">
+
 	
 	<% if current_user.admin? %>
 
+	<%= render 'layouts/header' %>
+	<div class="container">
 	<div class="row">
 		<h3 class="text-info">Requests by Shop</h3>
 		<hr>
@@ -40,7 +42,11 @@
 		
 	</div>
 
+	</div>
+
 	<% else %>
+
+	<div class="container-fluid">
 
 	<div class="row">
 		<div class="col-xs-2 hidden-sm sidebar">
@@ -131,5 +137,6 @@
 
 		</div>
 	</div>
+
+	</div>
 	<% end %>
-</div>
