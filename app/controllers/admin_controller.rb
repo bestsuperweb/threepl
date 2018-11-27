@@ -85,7 +85,7 @@ class AdminController < ShopifyApp::AuthenticatedController
       partners.each do |partner|
       	email = shop.emails.create!({ status: 'pending', user_id: partner.id })
       	products_list.each do |product|
-      		puts "product = #{product}"
+      		# puts "product = ..."
       		email.products.create!(product.to_hash)
       	end
       end
@@ -135,10 +135,11 @@ class AdminController < ShopifyApp::AuthenticatedController
     rescue Exception => e
         puts e.message
     end
-    puts response.status_code
-    puts response.body
-    puts response.parsed_body
-    puts response.headers
+
+    puts "status code = #{response.status_code}"
+    puts "response body = #{response.body}"
+    puts "parsede body = #{response.parsed_body}"
+    puts "headers = #{response.headers}"
 
   end
 
