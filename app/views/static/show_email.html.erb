@@ -54,7 +54,7 @@
 									</div>
 									<div class="col-xs-8">
 										<b class="text-muted">REQUEST:</b><br>
-										<h4>Cuts Fall T-shirt</h4>
+										<h4><%= @email.products.first.title %></h4>
 									</div>
 								</div>
 							</div>
@@ -66,7 +66,7 @@
 									</div>
 									<div class="col-xs-8">
 										<b class="text-muted">COMPANY:</b><br>
-										<h4>Cuts Clothing</h4>
+										<h4><%= @email.shop.shop_name %></h4>
 									</div>
 								</div>
 							</div>
@@ -74,7 +74,7 @@
 							<div class="col-sm-4">
 								<div class="row">
 									<b class="text-muted">STATUS:</b><br>
-									<H4><span class="badge pending">Pending</span></H4>
+									<H4><span class="badge <%= @email.status %>"><%= @email.status %></span></H4>
 								</div>
 							</div>
 
@@ -84,195 +84,213 @@
 
 					<div class="card">
 						<h4>Pick and Pack Fees</h4><br>
-						<table class="table quote-table">
-							<tr>
-								<td width="30%"><%= image_tag 'units.png' %> <b>Units</b></td>
-								<td>1-50</td>
-								<td>51-250</td>
-								<td>251-2500</td>
-								<td>2501-5000</td>
-								<td>5001+</td>
-							</tr>
-							<tr>
-								<td>First Unit</td>
-								<td>
-									<input type="number" class="form-control">
-								</td>
-								<td>
-									<input type="number" class="form-control">
-								</td>
-								<td>
-									<input type="number" class="form-control">
-								</td>
-								<td>
-									<input type="number" class="form-control">
-								</td>
-								<td>
-									<input type="number" class="form-control">
-								</td>
-							</tr>
-							<tr>
-								<td>Additional</td>
-								<td>
-									<input type="number" class="form-control">
-								</td>
-								<td>
-									<input type="number" class="form-control">
-								</td>
-								<td>
-									<input type="number" class="form-control">
-								</td>
-								<td>
-									<input type="number" class="form-control">
-								</td>
-								<td>
-									<input type="number" class="form-control">
-								</td>
-							</tr>
-							<tr>
-								<td>Packaging cost<br><small class="text-muted">if added</small></td>
-								<td>
-									<input type="number" class="form-control">
-								</td>
-								<td>
-									<input type="number" class="form-control">
-								</td>
-								<td>
-									<input type="number" class="form-control">
-								</td>
-								<td>
-									<input type="number" class="form-control">
-								</td>
-								<td>
-									<input type="number" class="form-control">
-								</td>
-							</tr>
-							<tr class="border">
-								<td><b>Total</b></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr class="border">
-								<td width="30%">
-									<%= image_tag 'storage_costs.png' %> 
-									<b>Storage Cost</b> <br><small class="text-muted">$x/ per month/ cubic foot</small>
-								</td>
-								<td>
-									<input type="number" class="form-control">
-								</td>
-								<td>
-									<input type="number" class="form-control">
-								</td>
-								<td>
-									<input type="number" class="form-control">
-								</td>
-								<td>
-									<input type="number" class="form-control">
-								</td>
-								<td>
-									<input type="number" class="form-control">
-								</td>
-							</tr>
-							<tr class="border">
-								<td width="30%">
-									<%= image_tag 'international_fees.png' %> 
-									<b>International Processing Fee</b>
-								</td>
-								<td>
-									<input type="number" class="form-control">
-								</td>
-								<td>
-									<input type="number" class="form-control">
-								</td>
-								<td>
-									<input type="number" class="form-control">
-								</td>
-								<td>
-									<input type="number" class="form-control">
-								</td>
-								<td>
-									<input type="number" class="form-control">
-								</td>
-							</tr>
-							<tr class="border">
-								<td width="30%">
-									<%= image_tag 'storage_costs.png' %> 
-									<b>Shipping Options</b>
-								</td>
-								<td colspan="5">
-									<input class="form-control" value="<2days Fedex Air" disabled >
-								</td>
-							</tr>
-							<tr>
-								<td>Product 1</td>
-								<td>
-									<input type="number" class="form-control">
-								</td>
-								<td>
-									<input type="number" class="form-control">
-								</td>
-								<td>
-									<input type="number" class="form-control">
-								</td>
-								<td>
-									<input type="number" class="form-control">
-								</td>
-								<td>
-									<input type="number" class="form-control">
-								</td>
-							</tr>
-							<tr>
-								<td>Product 2</td>
-								<td>
-									<input type="number" class="form-control">
-								</td>
-								<td>
-									<input type="number" class="form-control">
-								</td>
-								<td>
-									<input type="number" class="form-control">
-								</td>
-								<td>
-									<input type="number" class="form-control">
-								</td>
-								<td>
-									<input type="number" class="form-control">
-								</td>
-							</tr>
+						<%= form_for :quote, url: create_quote_path do |f| %>
+							<%= f.hidden_field :user_id, value: current_user.id %>
+							<%= f.hidden_field :email_id, value: @email.id %>
+							<%= f.hidden_field :shop_id, value: @email.shop.id %>
+							<table class="table quote-table">
+								<tr>
+									<td width="30%"><%= image_tag 'units.png' %> <b>Units</b></td>
+									<td>1-50</td>
+									<td>51-250</td>
+									<td>251-2500</td>
+									<td>2501-5000</td>
+									<td>5001+</td>
+								</tr>
+								<tr>
+									<td>First Unit</td>
+									<td>
+										<%= f.number_field :first_unit1, class: 'form-control', 'step': 0.01 %>
+									</td>
+									<td>
+										<%= f.number_field :first_unit2, class: 'form-control', 'step': 0.01 %>
+									</td>
+									<td>
+										<%= f.number_field :first_unit3, class: 'form-control', 'step': 0.01 %>
+									</td>
+									<td>
+										<%= f.number_field :first_unit4, class: 'form-control', 'step': 0.01 %>
+									</td>
+									<td>
+										<%= f.number_field :first_unit5, class: 'form-control', 'step': 0.01 %>
+									</td>
+								</tr>
+								<tr>
+									<td>Additional</td>
+									<td>
+										<%= f.number_field :additional1, class: 'form-control', 'step': 0.01 %>
+									</td>
+									<td>
+										<%= f.number_field :additional2, class: 'form-control', 'step': 0.01 %>
+									</td>
+									<td>
+										<%= f.number_field :additional3, class: 'form-control', 'step': 0.01 %>
+									</td>
+									<td>
+										<%= f.number_field :additional4, class: 'form-control', 'step': 0.01 %>
+									</td>
+									<td>
+										<%= f.number_field :additional5, class: 'form-control', 'step': 0.01 %>
+									</td>
+								</tr>
+								<tr>
+									<td>Packaging cost<br><small class="text-muted">if added</small></td>
+									<td>
+										<%= f.number_field :packaging_cost1, class: 'form-control', 'step': 0.01 %>
+									</td>
+									<td>
+										<%= f.number_field :packaging_cost2, class: 'form-control', 'step': 0.01 %>
+									</td>
+									<td>
+										<%= f.number_field :packaging_cost3, class: 'form-control', 'step': 0.01 %>
+									</td>
+									<td>
+										<%= f.number_field :packaging_cost4, class: 'form-control', 'step': 0.01 %>
+									</td>
+									<td>
+										<%= f.number_field :packaging_cost5, class: 'form-control', 'step': 0.01 %>
+									</td>
+								</tr>
+								<tr class="border">
+									<td><b>Total</b></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr class="border">
+									<td width="30%">
+										<%= image_tag 'storage_costs.png' %> 
+										<b>Storage Cost</b> <br><small class="text-muted">$x/ per month/ cubic foot</small>
+									</td>
+									<td>
+										<%= f.number_field :storage_cost1, class: 'form-control', 'step': 0.01 %>
+									</td>
+									<td>
+										<%= f.number_field :storage_cost2, class: 'form-control', 'step': 0.01 %>
+									</td>
+									<td>
+										<%= f.number_field :storage_cost3, class: 'form-control', 'step': 0.01 %>
+									</td>
+									<td>
+										<%= f.number_field :storage_cost4, class: 'form-control', 'step': 0.01 %>
+									</td>
+									<td>
+										<%= f.number_field :storage_cost5, class: 'form-control', 'step': 0.01 %>
+									</td>
+								</tr>
+								<tr class="border">
+									<td width="30%">
+										<%= image_tag 'international_fees.png' %> 
+										<b>International Processing Fee</b>
+									</td>
+									<td>
+										<%= f.number_field :international_fee1, class: 'form-control', 'step': 0.01 %>
+									</td>
+									<td>
+										<%= f.number_field :international_fee2, class: 'form-control', 'step': 0.01 %>
+									</td>
+									<td>
+										<%= f.number_field :international_fee3, class: 'form-control', 'step': 0.01 %>
+									</td>
+									<td>
+										<%= f.number_field :international_fee4, class: 'form-control', 'step': 0.01 %>
+									</td>
+									<td>
+										<%= f.number_field :international_fee5, class: 'form-control', 'step': 0.01 %>
+									</td>
+								</tr>
+								<tr class="border">
+									<td width="30%">
+										<%= image_tag 'storage_costs.png' %> 
+										<b>Shipping Options</b>
+									</td>
+									<td colspan="5">
+										<input class="form-control" value="<2days Fedex Air" disabled >
+									</td>
+								</tr>
 
-							<tr class="border">
-								<td width="30%">
-									<%= image_tag 'warehouses.png' %> 
-									<b>Warehousing</b>
-								</td>
-								<td>
-									<input type="text" class="form-control">
-								</td>
-								<td>
-									<input type="text" class="form-control">
-								</td>
-								<td>
-									<input type="text" class="form-control">
-								</td>
-								<td>
-									<input type="text" class="form-control">
-								</td>
-								<td>
-									<input type="text" class="form-control">
-								</td>
-							</tr>
+								<% unless @quote.nil? %>
 
-						</table>
-					</div>
-					<br>
+									<% @quote.shipping_options.each do |option| %>
+									<tr>
+										<td><%= option.product.title %></td>
+										<td>
+											<input type="number" value="<%= option.shipping_option1 %>" class="form-control" disabled>
+										</td>
+										<td>
+											<input type="number" value="<%= option.shipping_option2 %>" class="form-control" disabled>
+										</td>
+										<td>
+											<input type="number" value="<%= option.shipping_option3 %>" class="form-control" disabled>
+										</td>
+										<td>
+											<input type="number" value="<%= option.shipping_option4 %>" class="form-control" disabled>
+										</td>
+										<td>
+											<input type="number" value="<%= option.shipping_option5 %>" class="form-control" disabled>
+										</td>
+									</tr>
+									<% end %>
 
-					<div class="text-right">
-						<a href="#" class="btn btn-primary">Send Quote</a>
-					</div>
-					<br>
+								<% else %>
+
+									<% @email.products.each do |product| %>
+									<tr>
+										<td><%= product.title %></td>
+										<td>
+											<input type="number" name="shipping_option[<%= product.id %>][]" class="form-control">
+										</td>
+										<td>
+											<input type="number" name="shipping_option[<%= product.id %>][]" class="form-control">
+										</td>
+										<td>
+											<input type="number" name="shipping_option[<%= product.id %>][]" class="form-control">
+										</td>
+										<td>
+											<input type="number" name="shipping_option[<%= product.id %>][]" class="form-control">
+										</td>
+										<td>
+											<input type="number" name="shipping_option[<%= product.id %>][]" class="form-control">
+										</td>
+									</tr>
+									<% end %>
+
+								<% end %>
+
+								<tr class="border">
+									<td width="30%">
+										<%= image_tag 'warehouses.png' %> 
+										<b>Warehousing</b>
+									</td>
+									<td>
+										<%= f.text_field :warehousing_option1, class: 'form-control' %>
+									</td>
+									<td>
+										<%= f.text_field :warehousing_option2, class: 'form-control' %>
+									</td>
+									<td>
+										<%= f.text_field :warehousing_option3, class: 'form-control' %>
+									</td>
+									<td>
+										<%= f.text_field :warehousing_option4, class: 'form-control' %>
+									</td>
+									<td>
+										<%= f.text_field :warehousing_option5, class: 'form-control' %>
+									</td>
+								</tr>
+
+							</table>
+						</div>
+						<br>
+						<% if @quote.nil? %>
+						<div class="text-right">
+							<%= f.submit 'Send Quote', :class => 'btn btn-primary' %>
+						</div>
+						<% end %>
+						<br>
+					<% end %>
 
 				</div>
 			</div>			
@@ -281,3 +299,8 @@
 	</div>
 
 </div>
+<% unless @quote.nil? %>
+<script>
+	$("input").attr('disabled', true);
+</script>
+<% end %>
