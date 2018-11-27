@@ -34,12 +34,19 @@ class AdminController < ShopifyApp::AuthenticatedController
   def quotes
   	shop     	= Shop.where( shopify_domain: ShopifyAPI::Shop.current.domain ).first
   	@quotes 	= shop.quotes
+  	@partners 	= []
+  	unless @quotes.nil?
+	  	@quotes.each do |quote|
+	  		@partners << quote.user
+	  	end
+	  	@partners.uniq!
+	end
   end
 
   def email_details
   	shop     	= Shop.where( shopify_domain: ShopifyAPI::Shop.current.domain ).first
   	@email 		= shop.emails.find params[:id]
-  	@quote 		= @email.quote
+  	@quote 		= @email.quote  	
   end
 
   def create_recurring_application_charge

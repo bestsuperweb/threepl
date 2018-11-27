@@ -16,6 +16,10 @@ class ApplicationController < ActionController::Base
 	dashboard_path
   end
 
+  def after_update_path_for(resource)
+  	dashboard_path
+  end 
+
   def after_sign_up_path_for(resource)
     new_user_session_path
   end
