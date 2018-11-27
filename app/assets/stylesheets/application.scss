@@ -413,6 +413,9 @@ div.main-nav{
 }
 .badge{
 	font-weight: initial;
+	&:first-letter{
+		text-transform: uppercase;
+	}
 }
 .badge.pending{
 	background: #FDEC8A;
