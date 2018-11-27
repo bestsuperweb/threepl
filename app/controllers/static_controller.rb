@@ -12,8 +12,10 @@ class StaticController < ApplicationController
   	@quotes 			= current_user.quotes
 
   	if current_user.admin?
-  		@emails = Email.all
-  		@shops 	= Shop.all
+  		@emails 	= Email.all
+  		@shops 		= Shop.all
+  		@quotes 	= Quote.all
+  		@partners 	= User.all.where(:admin => nil)
   	end
   end
 
