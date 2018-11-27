@@ -1,0 +1,304 @@
+<nav class="navbar navbar-fixed-top">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li class="active">
+      	<a href="/" >
+      		<svg viewBox="0 0 20 20" >
+      			<g>
+      				<path d="M19 18a1 1 0 0 1 0 2H1a1 1 0 0 1 0-2h18zm0-18a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h5V5a1 1 0 0 1 1-1h5V1a1 1 0 0 1 1-1h6zm-5 14h4V2h-4v12zm-6 0h4V6H8v8zm-6 0h4v-4H2v4z"></path>
+      			</g>
+      		</svg>
+      		<span> Dashboard</span>
+      	</a>
+      </li>
+      <li>
+      	<a href="/" >
+	      	<svg viewBox="0 0 20 20" >
+	      		<g>
+	      			<path d="M19 0h-9c-.265 0-.52.106-.707.293l-9 9a.999.999 0 0 0 0 1.414l9 9a.997.997 0 0 0 1.414 0l9-9A.997.997 0 0 0 20 10V1a1 1 0 0 0-1-1zm-9 17.586L2.414 10 4 8.414 11.586 16 10 17.586zm8-8l-5 5L5.414 7l5-5H18v7.586zM15 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2"></path>
+	      		</g>
+	      	</svg>
+	      		<span> Products</span>
+	      </a>
+	    </li>
+      <li>
+      	<a href="<%= show_quotes_path %>" >
+      		<svg viewBox="0 0  20 20">
+      			<g>
+	      			<path d="M17 0H6C3.79 0 2 1.79 2 4v10H1c-.552 0-1 .448-1 1v1c0 2.21 1.79 4 4 4h9c1.657 0 3-1.343 3-3V6h1c1.657 0 3-1.343 3-3s-1.343-3-3-3zM4 18c-1.105 0-2-.895-2-2h8v1c0 .34.057.68.17 1H4zm10-1c0 .552-.448 1-1 1s-1-.448-1-1v-2c0-.552-.448-1-1-1H4V4c0-1.105.895-2 2-2h8.18c-.118.32-.18.66-.18 1v14zm3-13h-1V3c0-.552.448-1 1-1s1 .448 1 1-.448 1-1 1zm-5 1c0 .552-.448 1-1 1H7c-.552 0-1-.448-1-1s.448-1 1-1h4c.552 0 1 .448 1 1zm0 4c0 .552-.448 1-1 1H7c-.552 0-1-.448-1-1s.448-1 1-1h4c.552 0 1 .448 1 1z"></path>
+	      		</g>
+      		</svg>
+      		<span> Quotes</span>
+      	</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
+
+<div class="container-fluid" id="admin-panel">
+
+	<div class="tab-content">
+	  <div class="tab-pane fade in active">
+	  	<br><br><br>
+	    <div class="row">
+				<div class="col-md-12">
+					<div class="card auto-height">
+						<div class="row">
+
+							<div class="col-sm-4">
+								<div class="row">
+									<div class="col-xs-3">
+										<%= image_tag 'request.png', width: '50' %>
+									</div>
+									<div class="col-xs-8">
+										<b class="text-muted">REQUEST:</b><br>
+										<h4><%= @email.products.first.title %></h4>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-sm-4">
+								<div class="row">
+									<div class="col-xs-3">
+										<%= image_tag 'partner.png', width: '50' %>
+									</div>
+									<div class="col-xs-8">
+										<b class="text-muted">PARTNER:</b><br>
+										<h4><%= @email.user.company %></h4>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-sm-4">
+								<div class="row">
+									<b class="text-muted">DATE:</b><br>
+									<H5><%= @email.created_at %></H5>
+								</div>
+							</div>
+
+						</div>						
+					</div>
+					<br>
+
+					<div class="card">
+						<h4>Products</h4><br>
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Image</th>
+									<th>Title</th>
+									<th>Weight (KG)</th>
+									<th>Width (mm)</th>
+									<th>Height (mm)</th>
+									<th>Length (mm)</th>
+									<th>Has Battery?</th>
+									<th>Shipping Volume</th>
+									<th>Order Quantity</th>
+									<th>Special Notes</th>
+								</tr>
+							</thead>
+							<tbody>
+								<% @email.products.each do |product| %>
+								<tr>
+									<td><img src="<%= product.image %>" width="100"></td>
+									<td><%= product.title %></td>									
+									<td><%= product.weight %></td>									
+									<td><%= product.width %></td>
+									<td><%= product.height %></td>
+									<td><%= product.length %></td>
+									<td><%= product.has_battery %></td>
+									<td><%= product.shipping_volume %></td>
+									<td><%= product.order_quantity %></td>
+									<td><%= product.notes %></td>
+								</tr>
+								<% end %>
+							</tbody>
+						</table>
+					</div>
+					<br>
+
+					<% unless @quote.nil? %>
+
+					<div class="card">
+						<h4>Pick and Pack Fees</h4><br>
+							<table class="table quote-table">
+								<tr>
+									<td width="30%"><%= image_tag 'units.png' %> <b>Units</b></td>
+									<td>1-50</td>
+									<td>51-250</td>
+									<td>251-2500</td>
+									<td>2501-5000</td>
+									<td>5001+</td>
+								</tr>
+								<tr>
+									<td>First Unit</td>
+									<td>
+										<%= @quote.first_unit1 %>
+									</td>
+									<td>
+										<%= @quote.first_unit2 %>
+									</td>
+									<td>
+										<%= @quote.first_unit3 %>
+									</td>
+									<td>
+										<%= @quote.first_unit4 %>
+									</td>
+									<td>
+										<%= @quote.first_unit5 %>
+									</td>
+								</tr>
+								<tr>
+									<td>Additional</td>
+									<td>
+										<%= @quote.additional1 %>
+									</td>
+									<td>
+										<%= @quote.additional2 %>
+									</td>
+									<td>
+										<%= @quote.additional3 %>
+									</td>
+									<td>
+										<%= @quote.additional4 %>
+									</td>
+									<td>
+										<%= @quote.additional5 %>
+									</td>
+								</tr>
+								<tr>
+									<td>Packaging cost<br><small class="text-muted">if added</small></td>
+									<td>
+										<%= @quote.packaging_cost1 %>
+									</td>
+									<td>
+										<%= @quote.packaging_cost2 %>
+									</td>
+									<td>
+										<%= @quote.packaging_cost3 %>
+									</td>
+									<td>
+										<%= @quote.packaging_cost4 %>
+									</td>
+									<td>
+										<%= @quote.packaging_cost5 %>
+									</td>
+								</tr>
+								<tr class="border">
+									<td><b>Total</b></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr class="border">
+									<td width="30%">
+										<%= image_tag 'storage_costs.png' %> 
+										<b>Storage Cost</b> <br><small class="text-muted">$x/ per month/ cubic foot</small>
+									</td>
+									<td>
+										<%= @quote.storage_cost1 %>
+									</td>
+									<td>
+										<%= @quote.storage_cost2 %>
+									</td>
+									<td>
+										<%= @quote.storage_cost3 %>
+									</td>
+									<td>
+										<%= @quote.storage_cost4 %>
+									</td>
+									<td>
+										<%= @quote.storage_cost5 %>
+									</td>
+								</tr>
+								<tr class="border">
+									<td width="30%">
+										<%= image_tag 'international_fees.png' %> 
+										<b>International Processing Fee</b>
+									</td>
+									<td>
+										<%= @quote.international_fee1 %>
+									</td>
+									<td>
+										<%= @quote.international_fee2 %>
+									</td>
+									<td>
+										<%= @quote.international_fee3 %>
+									</td>
+									<td>
+										<%= @quote.international_fee4 %>
+									</td>
+									<td>
+										<%= @quote.international_fee5 %>
+									</td>
+								</tr>
+								<tr class="border">
+									<td width="30%">
+										<%= image_tag 'storage_costs.png' %> 
+										<b>Shipping Options</b>
+									</td>
+									<td colspan="5">
+										<2days Fedex Air
+									</td>
+								</tr>
+
+								<% @quote.shipping_options.each do |option| %>
+									<tr>
+										<td><%= option.product.title %></td>
+										<td>
+											<%= option.shipping_option1 %>
+										</td>
+										<td>
+											<%= option.shipping_option2 %>
+										</td>
+										<td>
+											<%= option.shipping_option3 %>
+										</td>
+										<td>
+											<%= option.shipping_option4 %>
+										</td>
+										<td>
+											<%= option.shipping_option5 %>
+										</td>
+									</tr>
+									<% end %>								
+
+								<tr class="border">
+									<td width="30%">
+										<%= image_tag 'warehouses.png' %> 
+										<b>Warehousing</b>
+									</td>
+									<td>
+										<%= @quote.warehousing_option1 %>
+									</td>
+									<td>
+										<%= @quote.warehousing_option2 %>
+									</td>
+									<td>
+										<%= @quote.warehousing_option3 %>
+									</td>
+									<td>
+										<%= @quote.warehousing_option4 %>
+									</td>
+									<td>
+										<%= @quote.warehousing_option5 %>
+									</td>
+								</tr>
+
+							</table>
+
+						</div>
+
+						<% end %>
+
+				</div>
+			</div>
+
+	  </div>
+	</div>	
+</div>
+

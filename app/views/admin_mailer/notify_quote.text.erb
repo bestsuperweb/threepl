@@ -1,7 +1,147 @@
 Hello Owner of the <%= @quote.shop.shop_name %>
 You have received a quote from <%= @quote.shop.shop_name %> at <%= @quote.created_at.strftime("%b %d, %Y %H:%M") %>
-Pick and Pack Fee : $ <%= @quote.pp_fee %>
-Storage Cost $x/ per month/ per cubic foot: $ <%= @quote.storage_cost %>
-International Processing Fee: $ <%= @quote.international_fee %>
-Shipping Options: Time and Cost: <%= @quote.shipping_option %>
-Warehousing Options: Time and Cost: <%= @quote.warehousing_option %>
+		
+			Units
+			1-50
+			51-250
+			251-2500
+			2501-5000
+			5001+
+		
+		
+			First Unit
+			
+				$ <%= @quote.first_unit1 %>
+			
+			
+				$ <%= @quote.first_unit2 %>
+			
+			
+				$ <%= @quote.first_unit3 %>
+			
+			
+				$ <%= @quote.first_unit4 %>
+			
+			
+				$ <%= @quote.first_unit5 %>
+			
+		
+		
+			Additional
+			
+				$ <%= @quote.additional1 %>
+			
+			
+				$ <%= @quote.additional2 %>
+			
+			
+				$ <%= @quote.additional3 %>
+			
+			
+				$ <%= @quote.additional4 %>
+			
+			
+				$ <%= @quote.additional5 %>
+			
+		
+		
+			Packaging cost<br><small class="text-muted">if added</small>
+			
+				$ <%= @quote.packaging_cost1 %>
+			
+			
+				$ <%= @quote.packaging_cost2 %>
+			
+			
+				$ <%= @quote.packaging_cost3 %>
+			
+			
+				$ <%= @quote.packaging_cost4 %>
+			
+			
+				$ <%= @quote.packaging_cost5 %>
+			
+		
+		Total
+			
+			
+			
+			
+			
+		
+		Storage Cost $x/ per month/ cubic foot
+			
+			
+				$ <%= @quote.storage_cost1 %>
+			
+			
+				$ <%= @quote.storage_cost2 %>
+			
+			
+				$ <%= @quote.storage_cost3 %>
+			
+			
+				$ <%= @quote.storage_cost4 %>
+			
+			
+				$ <%= @quote.storage_cost5 %>
+			
+		
+		International Processing Fee
+			
+			
+				$ <%= @quote.international_fee1 %>
+			
+			
+				$ <%= @quote.international_fee2 %>
+			
+			
+				$ <%= @quote.international_fee3 %>
+			
+			
+				$ <%= @quote.international_fee4 %>
+			
+			
+				$ <%= @quote.international_fee5 %>
+			
+		
+		Shipping Options "<2days Fedex Air"
+			
+		
+		<% @quote.shipping_options.each do |option| %>
+		
+			<%= option.product.title %>
+			
+				$<%= option.shipping_option1 %>
+			
+			
+				$<%= option.shipping_option1 %>
+			
+			
+				$<%= option.shipping_option1 %>
+			
+			
+				$<%= option.shipping_option1 %>
+			
+			
+				$<%= option.shipping_option1 %>
+			
+		
+		<% end %>
+
+		Warehousing
+			
+			
+				<%= f.text_field :warehousing_option1, class: 'form-control' %>
+			
+			
+				<%= f.text_field :warehousing_option2, class: 'form-control' %>
+			
+			
+				<%= f.text_field :warehousing_option3, class: 'form-control' %>
+			
+			
+				<%= f.text_field :warehousing_option4, class: 'form-control' %>
+			
+			
+				<%= f.text_field :warehousing_option5, class: 'form-control' %>
