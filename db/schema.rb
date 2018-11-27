@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20181120020138) do
 
   create_table "products", force: :cascade do |t|
     t.string   "title"
-    t.string   "weight"
+    t.float   "weight"
     t.float    "width"
     t.float    "length"
     t.float    "height"
