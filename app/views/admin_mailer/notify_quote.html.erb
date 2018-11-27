@@ -2,20 +2,187 @@
 <html>
 <head>
 	<title>You received a quote from <%= @quote.user.name %></title>
+	<style type="text/css">
+		.table{
+			width: 100%;
+	    max-width: 100%;
+	    margin-bottom: 20px;
+	    border-spacing: 0;
+    	border-collapse: collapse;
+    	display: table;
+
+		}
+	</style>
 </head>
 <body>
 	<h2>Hello Owner of the <%= @quote.shop.shop_name %></h2>
 	<p>You have received a quote from <%= @quote.shop.shop_name %> at <%= @quote.created_at.strftime("%b %d, %Y %H:%M") %></p>
 	<hr>
-		<label class="control-label">Pick and Pack Fee :</label><br>
-		<h4><small>$ </small><b><%= @quote.pp_fee %></b></h4>
-		<label class="control-label">Storage Cost $x/ per month/ per cubic foot:</label><br>
-		<h4><small>$ </small><b><%= @quote.storage_cost %></b></h4>
-		<label class="control-label">International Processing Fee</label><br>
-		<h4><small>$ </small><b><%= @quote.international_fee %></b></h4>
-		<label class="control-label">Shipping Options: Time and Cost</label><br>
-		<h4><b><%= @quote.shipping_option %></b></h4>
-		<label class="control-label">Warehousing Options: Time and Cost</label><br>
-		<h4><b><%= @quote.warehousing_option %></b></h4>
+	<table class="table">
+		<tr>
+			<td width="30%"> <%= image_tag 'units.png' %> <b>Units</b></td>
+			<td>1-50</td>
+			<td>51-250</td>
+			<td>251-2500</td>
+			<td>2501-5000</td>
+			<td>5001+</td>
+		</tr>
+		<tr>
+			<td>First Unit</td>
+			<td>
+				$ <%= @quote.first_unit1 %>
+			</td>
+			<td>
+				$ <%= @quote.first_unit2 %>
+			</td>
+			<td>
+				$ <%= @quote.first_unit3 %>
+			</td>
+			<td>
+				$ <%= @quote.first_unit4 %>
+			</td>
+			<td>
+				$ <%= @quote.first_unit5 %>
+			</td>
+		</tr>
+		<tr>
+			<td>Additional</td>
+			<td>
+				$ <%= @quote.additional1 %>
+			</td>
+			<td>
+				$ <%= @quote.additional2 %>
+			</td>
+			<td>
+				$ <%= @quote.additional3 %>
+			</td>
+			<td>
+				$ <%= @quote.additional4 %>
+			</td>
+			<td>
+				$ <%= @quote.additional5 %>
+			</td>
+		</tr>
+		<tr>
+			<td>Packaging cost<br><small class="text-muted">if added</small></td>
+			<td>
+				$ <%= @quote.packaging_cost1 %>
+			</td>
+			<td>
+				$ <%= @quote.packaging_cost2 %>
+			</td>
+			<td>
+				$ <%= @quote.packaging_cost3 %>
+			</td>
+			<td>
+				$ <%= @quote.packaging_cost4 %>
+			</td>
+			<td>
+				$ <%= @quote.packaging_cost5 %>
+			</td>
+		</tr>
+		<tr class="border">
+			<td><b>Total</b></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr class="border">
+			<td width="30%">
+				<%= image_tag 'storage_costs.png' %> 
+				<b>Storage Cost</b> <br><small class="text-muted">$x/ per month/ cubic foot</small>
+			</td>
+			<td>
+				$ <%= @quote.storage_cost1 %>
+			</td>
+			<td>
+				$ <%= @quote.storage_cost2 %>
+			</td>
+			<td>
+				$ <%= @quote.storage_cost3 %>
+			</td>
+			<td>
+				$ <%= @quote.storage_cost4 %>
+			</td>
+			<td>
+				$ <%= @quote.storage_cost5 %>
+			</td>
+		</tr>
+		<tr class="border">
+			<td width="30%">
+				<%= image_tag 'international_fees.png' %> 
+				<b>International Processing Fee</b>
+			</td>
+			<td>
+				$ <%= @quote.international_fee1 %>
+			</td>
+			<td>
+				$ <%= @quote.international_fee2 %>
+			</td>
+			<td>
+				$ <%= @quote.international_fee3 %>
+			</td>
+			<td>
+				$ <%= @quote.international_fee4 %>
+			</td>
+			<td>
+				$ <%= @quote.international_fee5 %>
+			</td>
+		</tr>
+		<tr class="border">
+			<td width="30%">
+				<%= image_tag 'storage_costs.png' %> 
+				<b>Shipping Options</b>
+			</td>
+			<td colspan="5">
+				<input class="form-control" value="<2days Fedex Air" disabled >
+			</td>
+		</tr>
+		<% @quote.shipping_options.each do |option| %>
+		<tr>
+			<td><%= option.product.title %></td>
+			<td>
+				$<%= option.shipping_option1 %>
+			</td>
+			<td>
+				$<%= option.shipping_option2 %>
+			</td>
+			<td>
+				$<%= option.shipping_option3 %>
+			</td>
+			<td>
+				$<%= option.shipping_option4 %>
+			</td>
+			<td>
+				$<%= option.shipping_option5 %>
+			</td>
+		</tr>
+		<% end %>
+
+		<tr class="border">
+			<td width="30%">
+				<%= image_tag 'warehouses.png' %> 
+				<b>Warehousing</b>
+			</td>
+			<td>
+				<%= f.text_field :warehousing_option1, class: 'form-control' %>
+			</td>
+			<td>
+				<%= f.text_field :warehousing_option2, class: 'form-control' %>
+			</td>
+			<td>
+				<%= f.text_field :warehousing_option3, class: 'form-control' %>
+			</td>
+			<td>
+				<%= f.text_field :warehousing_option4, class: 'form-control' %>
+			</td>
+			<td>
+				<%= f.text_field :warehousing_option5, class: 'form-control' %>
+			</td>
+		</tr>
+
+	</table>
 </body>
 </html>
