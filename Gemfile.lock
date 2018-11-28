@@ -90,6 +90,8 @@ GEM
     groupdate (4.0.1)
       activesupport (>= 4.2)
     hashie (3.5.7)
+    highcharts-rails (6.0.3)
+      railties (>= 3.1)
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
     jquery-rails (4.3.3)
@@ -238,6 +240,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   devise
   groupdate
+  highcharts-rails
   jquery-rails
   jquery-turbolinks
   momentjs-rails (>= 2.9.0)
