@@ -34,7 +34,19 @@
 			<div class="card">
 				<h3 class="text-info">Quotes by Time</h3>
 				<hr>
-				<%= area_chart @quotes.group_by_day(:created_at).count %>
+				<%= line_chart @quotes.group_by_day(:created_at).count,
+    library: {
+      yAxis: {
+           labels: {
+               format: '${value}'
+           }
+       },
+          tooltip: {
+            pointFormat: 'Total Spent: <b>{point.y}</b>',
+            xDateFormat: '%B',
+            valuePrefix: '$'
+          }
+        } %>
 			</div>
 		</div>
 	</div>
@@ -143,7 +155,7 @@
 								<h4>Setup Account</h4>
 								<p>Start by setting up your account with your details.</p>
 								<br>
-								<%= link_to 'Get Started', new_user_registration_path, class: 'btn btn-primary' %>
+								<%= link_to 'Get Started', link_to emails_path, class: 'btn btn-primary' %>
 							</div>
 						</div>
 					</div>

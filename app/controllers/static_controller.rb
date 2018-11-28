@@ -66,9 +66,9 @@ class StaticController < ApplicationController
   	template = params[:template]
     current_user.template = template
     if current_user.save
-      redirect_to setting_url, notice: 'Template was successfully updated.'
+      redirect_to etemplates_url, notice: "Template ##{template} was successfully actived."
     else
-      redirect_to setting_url, error: 'There is error to save template.'
+      redirect_to etemplates_url, error: 'There is error to save template.'
     end
   end
 
