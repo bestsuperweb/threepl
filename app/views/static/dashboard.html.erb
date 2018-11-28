@@ -34,19 +34,7 @@
 			<div class="card">
 				<h3 class="text-info">Quotes by Time</h3>
 				<hr>
-				<%= line_chart @quotes.group_by_day(:created_at).count,
-    library: {
-      yAxis: {
-           labels: {
-               format: '${value}'
-           }
-       },
-          tooltip: {
-            pointFormat: 'Total Spent: <b>{point.y}</b>',
-            xDateFormat: '%B',
-            valuePrefix: '$'
-          }
-        } %>
+				<%= area_chart @quotes.group_by_day(:created_at).count %>
 			</div>
 		</div>
 	</div>
@@ -185,14 +173,24 @@
 					<div class="card">
 						<h4 class="text-info">Requests by Time</h4>
 						<hr>
-						<%= area_chart @emails.group_by_day(:created_at).count %>
+						<%= area_chart @emails.group_by_day(:created_at).count, adapter: "highcharts", library: { plotOptions: {
+                series: {
+                    fillColor: {
+                        linearGradient: [0, 0, 50, 300],
+		                    stops: [
+		                        [0, 'rgb(124, 181, 236)'],
+		                        [1, 'rgba(255, 255, 255, .5)']
+		                    ]
+                    }
+                }
+            } } %>
 					</div>
 				</div>
 				<div class="col-sm-5">
 					<div class="card">
 						<h4 class="text-info">Requests by Shop</h4>
 						<hr>
-						<%= pie_chart @emails.group(:shop_id).count.map{|shop_id, count| [ Shop.find(shop_id).shop_name, count ] } %>
+						<%= pie_chart @emails.group(:shop_id).count.map{|shop_id, count| [ Shop.find(shop_id).shop_name, count ] }, adapter: "highcharts" %>
 					</div>
 				</div>
 			</div>
