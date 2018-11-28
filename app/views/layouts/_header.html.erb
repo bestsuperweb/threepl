@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default">
   <div class="container">
     <div class="navbar-header">
-    	<%= link_to '3PL Stream by Sourcify', dashboard_path, class: 'navbar-brand' %>
+    	<%= link_to '3PLS Admin <small>by Sourcify</small>'.html_safe, dashboard_path, class: 'navbar-brand' %>
     </div>
     <% if current_user.admin? %>
     <ul class="nav navbar-nav">
