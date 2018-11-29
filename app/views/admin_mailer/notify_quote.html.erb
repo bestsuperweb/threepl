@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>You received a quote from <%= @quote.user.name %></title>
+	<title>You received a quote from <%= @quote.user.company %></title>
 	<style type="text/css">
 		.table{
 			width: 100%;
@@ -12,11 +12,14 @@
     	display: table;
 
 		}
+		.table img{
+			width: 30px;
+		}
 	</style>
 </head>
 <body>
 	<h2>Hello Owner of the <%= @quote.shop.shop_name %></h2>
-	<p>You have received a quote from <%= @quote.shop.shop_name %> at <%= @quote.created_at.strftime("%b %d, %Y %H:%M") %></p>
+	<p>You have received a quote from <%= @quote.user.company %> at <%= @quote.created_at.strftime("%b %d, %Y %H:%M") %></p>
 	<hr>
 	<table class="table">
 		<tr>
