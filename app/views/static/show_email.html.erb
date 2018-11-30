@@ -83,6 +83,43 @@
 					<br>
 
 					<div class="card">
+						<h4>Products</h4><br>
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Image</th>
+									<th>Title</th>
+									<th>Weight (KG)</th>
+									<th>Width (mm)</th>
+									<th>Height (mm)</th>
+									<th>Length (mm)</th>
+									<th>Has Battery?</th>
+									<th>Shipping Volume</th>
+									<th>Order Quantity</th>
+									<th>Special Notes</th>
+								</tr>
+							</thead>
+							<tbody>
+								<% @email.products.each do |product| %>
+								<tr>
+									<td><img src="<%= product.image %>" width="100"></td>
+									<td><%= product.title %></td>									
+									<td><%= product.weight %></td>									
+									<td><%= product.width %></td>
+									<td><%= product.height %></td>
+									<td><%= product.length %></td>
+									<td><%= product.has_battery %></td>
+									<td><%= product.shipping_volume %></td>
+									<td><%= product.order_quantity %></td>
+									<td><%= product.notes %></td>
+								</tr>
+								<% end %>
+							</tbody>
+						</table>
+					</div>
+					<br>
+
+					<div class="card">
 						<h4>Pick and Pack Fees</h4><br>
 						<%= form_for :quote, url: create_quote_path do |f| %>
 							<%= f.hidden_field :user_id, value: current_user.id %>
